@@ -15,6 +15,9 @@ var port = process.env.PORT || 8000;
 var database = require("./app/lib/database.js");
 var twitterStream = require("./app/lib/twitterStream.js");
 
+// Models
+var Tweet = require("./app/models/Tweet.js");
+
 // Initialize a new socket.io object. It is bound to 
 // the express app, which allows them to coexist.
 var io = require('socket.io').listen(app.listen(port));
@@ -29,13 +32,22 @@ console.log('Your application is running on http://localhost:' + port);
 
 // When socket connection
 io.on('connection', function (socket) {
-
 	console.log('New user connected');
-
 });
 
+// Twitter Stream
 twitterStream.on('tweet', function (tweet) {
-	//database.insertTweetToDatabase(tweet.text);
-	console.log(tweet.text);
-	io.sockets.emit('tweet', tweet.text);
+
+	// FILTER: If it's not a hate tweet, we ignore it
+	if (!Tweet.isItAHateTweet(tweet)) return;
+
+	// FILTER: Is it a retweet?
+	if (Tweet.isItARetweet(tweet)) {
+		console.log('retweet');
+	} else {
+		console.log(tweet.text);
+		//database.insertTweetToDatabase(tweet.text);
+		io.sockets.emit('tweet', tweet.text);
+	}
+
 });

@@ -26,13 +26,13 @@
 
 	<div class="container">
 
-		<div id="tweets">
-	{{ tweet }}
+		<div id="tweets" class="tweets" v-html="tweet">
 </div>
 
 	</div>
 
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/app.min.js?v=2"></script>
 
