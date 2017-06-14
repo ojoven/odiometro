@@ -1,0 +1,22 @@
+{
+  "name": "NodeChatSystem",
+  "version": "0.0.1",
+  "description": "Realtime chat system for Tutorialzine.com",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "chat",
+    "system"
+  ],
+  "author": "Nikolay Anastasov",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "^4.8.2",
+    "gravatar": "~1.0.6",
+    "socket.io": "1.0.6"
+  }
+}

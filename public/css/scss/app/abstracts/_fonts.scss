@@ -1,0 +1,35 @@
+// ==============================================
+// FONTS
+// ==============================================
+
+// Mixin for fonts
+@mixin typo($t,$name) {
+	@font-face {
+		font-family: $name;
+		src: url('fonts/#{$t}.eot');
+		src: url('fonts/#{$t}.eot?#iefix') format('embedded-opentype'),
+		url('fonts/#{$t}.woff') format('woff'),
+		url('fonts/#{$t}.ttf') format('truetype'),
+		url('fonts/#{$t}.svg##{$name}') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+}
+
+@include typo('LaramiePro-Regular', 'LaramiePro Regular');
+
+// List of fonts
+.regular {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+}
+
+.bold {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+}
+
+.title {
+	font-family: 'Josefin Slab', serif;
+	font-weight: 700;
+}

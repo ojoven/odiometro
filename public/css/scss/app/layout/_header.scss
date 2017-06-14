@@ -1,0 +1,52 @@
+// ==============================================
+// HEADER
+// ==============================================
+
+// Main header
+#header {
+	background: $redFirebrick;
+	padding: 15px 0;
+
+	h1 {
+		@extend .title;
+		color: $white;
+		font-size: 20px;
+	}
+}
+
+.menu-right {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 10px;
+
+	> li {
+		list-style: none;
+		> a {
+			padding: 5px;
+			color: #fff;
+			font-size: 20px;
+		}
+	}
+}
+
+// ==============================================
+// IPAD LANDSCAPE
+// ==============================================
+@include ipadLandscape {
+
+}
+
+// ==============================================
+// IPAD PORTRAIT
+// ==============================================
+@include ipadPortrait {
+
+}
+
+// ==============================================
+// MOBILE
+// ==============================================
+@include mobile {
+
+}

@@ -1,0 +1,42 @@
+// ==============================================
+// FOOTER
+// ==============================================
+
+// Footer
+footer {
+	position: absolute;
+	bottom: 0;
+	height: 30px;
+	text-align: center;
+	width: 100%;
+	background: $redFirebrick;
+	color: #fff;
+	padding: 9px;
+	@extend .regular;
+	font-size: 12px;
+
+	a {
+		color: #fff;
+	}
+}
+
+// ==============================================
+// IPAD LANDSCAPE
+// ==============================================
+@include ipadLandscape {
+
+}
+
+// ==============================================
+// IPAD PORTRAIT
+// ==============================================
+@include ipadPortrait {
+
+}
+
+// ==============================================
+// MOBILE
+// ==============================================
+@include mobile {
+
+}

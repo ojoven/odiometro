@@ -1,0 +1,1 @@
+Use this folder to place all SASS files related to external plugins, libraries, etc.

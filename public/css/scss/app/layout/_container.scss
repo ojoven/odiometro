@@ -1,0 +1,28 @@
+// ==============================================
+// CONTAINER
+// ==============================================
+// Default Grid Container related styles
+
+// Vars
+$containerMaxWidth: 1180px;
+
+.container {
+  position: relative;
+  max-width: $containerMaxWidth;
+  margin: 0 auto;
+  text-align: center;
+}
+
+// ==============================================
+// CUSTOM MEDIA QUERIES
+// ==============================================
+
+@media screen and (max-width: #{$containerMaxWidth + 20px}) {
+
+  // We give a bit padding for .container's if the screen size is smaller than its standard max width
+  .container {
+    max-width: 100%;
+    padding: 0 1.5%;
+  }
+
+}

@@ -1,0 +1,143 @@
+// ==============================================
+// MIXINS
+// ==============================================
+
+// TRANSITION
+@mixin transition($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
+}
+
+// BACKGROUND GRADIENT COLOR
+@mixin bbg($d1, $d2, $color1, $color2) {
+  background-image: -moz-linear-gradient($d1, $color1 0%, $color2 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, $d1 $d1, $d1 $d2, color-stop(0%, $color1), color-stop(100%, $color2)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient($d1, $color1 0%, $color2 100%); /* Chrome10+,Safari5.1+ */
+  background-image: -o-linear-gradient($d1, $color1 0%, $color2 100%); /* Opera 11.10+ */
+  background-image: -ms-linear-gradient($d1, $color1 0%, $color2 100%); /* IE10+ */
+  background-image: linear-gradient(to $d2, $color1 0%, $color2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$color1}, endColorstr=#{$color2}, GradientType=0); /* IE6-9 */
+}
+
+// OPACITY
+@mixin opacity($opacity) {
+  $ie: ($opacity * 100);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$ie})";
+  filter: alpha(opacity=#{$ie});
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  opacity: $opacity;
+}
+
+// BORDER RADIUS
+@mixin br($val) {
+  -webkit-border-radius: $val;
+  -moz-border-radius: $val;
+  border-radius: $val;
+}
+
+// BOX SHADOW
+@mixin box-shadow($val) {
+  -webkit-box-shadow: $val;
+  -moz-box-shadow: $val;
+  box-shadow: $val;
+}
+
+// PLACEHOLDER
+@mixin placeholder($color) {
+  ::-webkit-input-placeholder { color: $color; }
+  :-moz-placeholder { color: $color; }
+  ::-moz-placeholder { color: $color; }
+  :-ms-input-placeholder { color: $color; }
+}
+
+// ARROW
+@mixin arrow($direction, $size, $color) {
+  width: 0;
+  height: 0;
+  @if $direction == 'left' {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+  } @else if $direction == 'right' {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  } @else if $direction == 'top' {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  } @else if $direction == 'bottom' {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+  }
+}
+
+// TRANSLATES
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+@mixin translateX($x) {
+  @include transform(translate3d($x, 0, 0));
+}
+
+@mixin translateY($y) {
+  @include transform(translate3d(0px, $y, 0));
+}
+
+@mixin translateZ($z) {
+  @include transform(translate3d(0, 0, $z));
+}
+
+@mixin translate3d($x, $y, $z) {
+  @include transform(translate3d($x, $y, $z));
+}
+
+// Common center positioning translates
+@mixin Y-50() {
+  @include translateY(-50%);
+}
+
+@mixin X-50() {
+  @include translateX(-50%);
+}
+
+@mixin X-Y-50() {
+  @include translate(-50%, -50%);
+}
+
+
+// TRANSFORMS
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+// ROTATE
+@mixin rotate($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+// SCALE
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
+@mixin scale2d($scalex, $scaley) {
+  @include transform(scale($scalex, $scaley));
+}
+
+// DROP SHADOW
+@mixin drop-shadow($color) {
+  -webkit-filter: drop-shadow(0px 0px 20px $color);
+  filter: drop-shadow(0px 0px 20px $color);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=7, Color='$color')";
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=7, Color='$color')";
+}

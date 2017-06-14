@@ -1,0 +1,60 @@
+/** RESET **/
+@import "app/base/reset";
+
+/** ABSTRACTS **/
+@import "app/abstracts/variables";
+@import "app/abstracts/media-declarations";
+@import "app/abstracts/mixins";
+@import "app/abstracts/colors";
+@import "app/abstracts/fonts";
+@import "app/abstracts/animations";
+@import "app/abstracts/z-index-layers";
+
+/* BASE STYLES */
+@import "app/base/base";
+@import "app/base/component-mixins";
+
+/** LAYOUT **/
+@import "app/layout/container";
+@import "app/layout/footer";
+@import "app/layout/grid";
+@import "app/layout/header";
+@import "app/layout/sections";
+
+/** PAGES **/
+@import "app/pages/speaker";
+
+/** HELPERS **/
+@import "app/helpers/accessibility";
+@import "app/helpers/desktop-mediaqueries";
+@import "app/helpers/helpers";
+
+/** COMPONENTS **/
+@import "app/components/buttons";
+@import "app/components/dashboard";
+@import "app/components/forms";
+@import "app/components/icons";
+@import "app/components/links";
+@import "app/components/texts";
+@import "app/components/titles";
+@import "app/components/iframe";
+
+/** PRINT **/
+@import "app/helpers/print";
+
+/** I18N **/
+.fr {
+  // No _fr.scss file!
+  // We'll include the fr styles directly in its belonging file
+}
+
+/** SHAME **/
+// _shame.scss should be used for quick styling, if you don't know in which other file to place the styles
+// please avoid using it and try to keep it always empty!
+@import "app/shame";
+@import "app/helpers/ie"; // under the correct category :)
+
+/** MEDIA QUERIES **/
+// No media queries files!
+// All media queries should be included at the end of their belonging .scss component file
+// If you don't know where to place them, use shame.scss (but use it with caution and please

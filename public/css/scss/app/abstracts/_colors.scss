@@ -1,0 +1,36 @@
+// ==============================================
+// COLORS
+// ==============================================
+
+// FIRST WE DEFINE DESCRIPTIVE COLORS
+// Color names provided by http://chir.ag/projects/name-that-color/
+// The method to create the name is: "Closest standard color" name + "Name that color" name (brown + dark ebony)
+
+// Example colors
+$greySilver: #cccccc;
+$blackTundora: #444;
+$creamFoam: #eaf7fd;
+$creamSatinLinen: #E1DECE;
+$greenPea: #78AB46;
+$redFirebrick: #CD2626;
+$twitter: #1da1f2;
+
+// Basic colors
+$white: #ffffff;
+$black: #000;
+
+
+// NOW WE DEFINE FUNCTIONS
+
+// General functions
+$mainColor: $black;
+$blackLight: $blackTundora;
+$underlineColor: $greySilver;
+$greySeparator: $greySilver;
+
+// Gradients
+%exampleCreamGradient {
+  @include bbg(top, bottom, $creamFoam, $creamSatinLinen);
+}
+
+// Note: custom function colors are included in their belonging files

@@ -1,0 +1,78 @@
+// ==============================================
+// ANIMATIONS
+// ==============================================
+
+@mixin anim($s) {
+  -webkit-transition: all $s ease;
+  -moz-transition:    all $s ease;
+  -ms-transition:     all $s ease;
+  -o-transition:      all $s ease;
+}
+
+@mixin effect($object,$time,$effect) {
+  @if $effect == "" { $effect : linear }
+  -webkit-transition: $object $time $effect;
+  -moz-transition: $object $time $effect;
+  -o-transition: $object $time $effect;
+  transition: $object $time $effect;
+}
+
+@mixin keyframe ($animation_name) {
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation ($delay, $duration, $animation, $iteration-count:1, $fillmode: forwards) {
+  -webkit-animation-delay: $delay;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-name: $animation;
+  -webkit-animation-fill-mode: $fillmode;
+  -webkit-animation-iteration-count: $iteration-count;
+
+  -moz-animation-delay: $delay;
+  -moz-animation-duration: $duration;
+  -moz-animation-name: $animation;
+  -moz-animation-fill-mode: $fillmode;
+  -moz-animation-iteration-count: $iteration-count;
+
+  -o-animation-delay: $delay;
+  -o-animation-duration: $duration;
+  -o-animation-name: $animation;
+  -o-animation-fill-mode: $fillmode;
+  -o-animation-iteration-count: $iteration-count;
+
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-name: $animation;
+  animation-fill-mode: $fillmode;
+  animation-iteration-count: $iteration-count;
+}
+
+// Simple Scale from 0 to 1
+@include keyframe(scale) {
+  0% { @include scale2d(0,0); }
+  70% { @include scale2d(1.1,1.1); }
+  100% { @include scale2d(1,1); }
+}
+
+// Bounce
+@include keyframe(bounce) {
+  0% { @include translate3d(0,0,0); }
+  25% { @include translate3d(0,5px,0); }
+  50% { @include translate3d(0,0,0); }
+  75% { @include translate3d(0,5px,0); }
+  100% { @include translate3d(0,0,0); }
+}

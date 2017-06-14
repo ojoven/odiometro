@@ -1,0 +1,41 @@
+// ==============================================
+// DESKTOP MEDIA QUERIES
+// ==============================================
+// Styles for desktop on responsive elements
+// !important's are needed to compensate hierarchies
+
+.just-mobile {
+  display: none !important;
+}
+
+.just-ipad {
+  display:none !important;
+}
+
+// ==============================================
+// IPAD PORTRAIT
+// ==============================================
+@include ipadPortrait {
+
+  .just-ipad {
+    display: block !important;
+  }
+
+  .hide-portrait {
+    display: none !important;
+  }
+}
+
+// ==============================================
+// MOBILE
+// ==============================================
+@include mobile {
+
+  .just-mobile {
+    display: block !important;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+}
