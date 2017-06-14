@@ -4,8 +4,23 @@
 
 // Tweets
 #tweets {
-
 	margin: 40px auto;
 	padding: 30px;
 	border: 2px solid $greySilver;
+}
+
+// Number of Tweets
+#number_tweets {
+
+	.num {
+		font-size: 40px;
+		display: block;
+		margin: 20px;
+	}
+
+	.suffix {
+		display: block;
+		font-size: 16px;
+		color: $greySilver;
+	}
 }

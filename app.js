@@ -51,3 +51,15 @@ twitterStream.on('tweet', function (tweet) {
 	}
 
 });
+
+// Number Tweets
+var frequencyOfUpdateNumberTweets = 500;
+setInterval(function() {
+
+	var data = {
+		number_tweets: Math.floor(Math.random() * (20 - 5) + 5)
+	};
+
+	io.sockets.emit('number_tweets', data);
+
+}, frequencyOfUpdateNumberTweets);

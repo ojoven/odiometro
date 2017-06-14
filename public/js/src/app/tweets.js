@@ -1,4 +1,4 @@
-const app = new Vue({
+const tweets = new Vue({
 	el:	'#tweets',
 	data: {
 		tweet: "",
