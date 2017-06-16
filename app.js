@@ -44,9 +44,10 @@ twitterStream.on('tweet', function (tweet) {
 	// FILTER: Is it a retweet?
 	if (Tweet.isItARetweet(tweet)) {
 		console.log('retweet');
+		database.insertRetweetToDatabase(tweet);
 	} else {
 		console.log(tweet.text);
-		//database.insertTweetToDatabase(tweet.text);
+		database.insertTweetToDatabase(tweet);
 		io.sockets.emit('tweet', tweet.text);
 	}
 
@@ -56,10 +57,11 @@ twitterStream.on('tweet', function (tweet) {
 var frequencyOfUpdateNumberTweets = 500;
 setInterval(function() {
 
-	var data = {
-		number_tweets: Math.floor(Math.random() * (20 - 5) + 5)
-	};
-
-	io.sockets.emit('number_tweets', data);
+	database.getNumberOfTweetsInLastMinute(function(number_tweets) {
+		var data = {
+			number_tweets: number_tweets
+		};
+		io.sockets.emit('number_tweets', data);
+	});
 
 }, frequencyOfUpdateNumberTweets);

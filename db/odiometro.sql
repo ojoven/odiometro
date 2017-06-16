@@ -16,6 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `retweets`
+--
+
+DROP TABLE IF EXISTS `retweets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `retweets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `retweeted_id` varchar(32) COLLATE utf8_bin NOT NULL,
+  `published` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `retweets`
+--
+
+LOCK TABLES `retweets` WRITE;
+/*!40000 ALTER TABLE `retweets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `retweets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tweets`
 --
 
@@ -24,7 +48,8 @@ DROP TABLE IF EXISTS `tweets`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tweets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tweet` varchar(256) COLLATE utf8_bin NOT NULL,
+  `tweet` text COLLATE utf8_bin NOT NULL,
+  `published` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -47,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-13 19:29:11
+-- Dump completed on 2017-06-16 16:29:22
