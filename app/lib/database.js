@@ -11,9 +11,8 @@ var database = {
 	})
 };
 
-database.mysqlDate = function(date) {
-	date = new Date();
-	return date.toISOString().split('T')[0];
+database.currentDateTimeInMySQLFormat = function() {
+	return new Date().toISOString().slice(0, 19).replace('T', ' ');
 };
 
 database.escapeSingleQuotes = function(string) {
@@ -31,7 +30,7 @@ database.initialize = function() {
 database.insertTweetToDatabase = function(tweet) {
 
 	var tweetText = this.escapeSingleQuotes(tweet.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \' ' + database.mysqlDate(tweet.created_at) + ' \')', function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -42,7 +41,7 @@ database.insertTweetToDatabase = function(tweet) {
 
 database.insertRetweetToDatabase = function(tweet) {
 
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \' ' + database.mysqlDate(tweet.created_at) + ' \')', function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -55,10 +54,10 @@ database.getNumberOfTweetsInLastMinute = function(callback) {
 
 	var that = this;
 	var numberOfTweets = 0;
-	that.connection.query('SELECT COUNT(*) AS count FROM tweets', function (error, results, fields) {
+	that.connection.query('SELECT COUNT(*) AS count FROM tweets WHERE published >= NOW() - INTERVAL 1 MINUTE', function (error, results, fields) {
 
 		numberOfTweets = results[0].count;
-		that.connection.query('SELECT COUNT(*) AS count FROM retweets', function (error, results, fields) {
+		that.connection.query('SELECT COUNT(*) AS count FROM retweets WHERE published >= NOW() - INTERVAL 1 MINUTE', function (error, results, fields) {
 
 			numberOfTweets += results[0].count;
 			callback(numberOfTweets);
