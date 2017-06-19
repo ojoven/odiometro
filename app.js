@@ -9,7 +9,7 @@ global.appRoot = path.resolve(__dirname);
 var express = require('express'),
 	app = express();
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8001;
 
 // Libs
 var database = require("./app/lib/database.js");
@@ -38,18 +38,25 @@ io.on('connection', function (socket) {
 // Twitter Stream
 twitterStream.on('tweet', function (tweet) {
 
-	// FILTER: If it's not a hate tweet, we ignore it
-	if (!Tweet.isItAHateTweet(tweet)) return;
+	try {
 
-	// FILTER: Is it a retweet?
-	if (Tweet.isItARetweet(tweet)) {
-		console.log('retweet');
-		database.insertRetweetToDatabase(tweet);
-	} else {
-		console.log(tweet.text);
-		database.insertTweetToDatabase(tweet);
-		io.sockets.emit('tweet', tweet.text);
+		// FILTER: If it's not a hate tweet, we ignore it
+		if (!Tweet.isItAHateTweet(tweet)) return;
+
+		// FILTER: Is it a retweet?
+		if (Tweet.isItARetweet(tweet)) {
+			console.log('retweet');
+			database.insertRetweetToDatabase(tweet);
+		} else {
+			console.log(tweet.text);
+			database.insertTweetToDatabase(tweet);
+			io.sockets.emit('tweet', tweet.text);
+		}
+
+	} catch (err) {
+		console.log(err);
 	}
+
 
 });
 
