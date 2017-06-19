@@ -54,10 +54,13 @@ database.getNumberOfTweetsInLastMinute = function(callback) {
 
 	var that = this;
 	var numberOfTweets = 0;
-	that.connection.query('SELECT COUNT(*) AS count FROM tweets WHERE published >= NOW() - INTERVAL 1 MINUTE', function (error, results, fields) {
+	var date = new Date();
+	date.setMinutes(date.getMinutes() - 1);
+	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	that.connection.query('SELECT COUNT(*) AS count FROM tweets WHERE published >= \'' + dateMysql + '\'', function (error, results, fields) {
 
 		numberOfTweets = results[0].count;
-		that.connection.query('SELECT COUNT(*) AS count FROM retweets WHERE published >= NOW() - INTERVAL 1 MINUTE', function (error, results, fields) {
+		that.connection.query('SELECT COUNT(*) AS count FROM retweets WHERE published >= \'' + dateMysql + '\'', function (error, results, fields) {
 
 			numberOfTweets += results[0].count;
 			callback(numberOfTweets);
