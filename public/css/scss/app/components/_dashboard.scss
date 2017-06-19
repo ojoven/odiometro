@@ -24,3 +24,14 @@
 		color: $greySilver;
 	}
 }
+
+// Real time graph
+#real_time_graph {
+
+	max-width: 100%;
+	overflow: hidden;
+	margin: 30px auto;
+	canvas {
+		margin: 0 auto;
+	}
+}

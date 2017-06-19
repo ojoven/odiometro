@@ -5,6 +5,7 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 src: [
+                    'js/src/vendor/smoothie.js',
                     'js/src/vendor/vue.min.js',
                     'js/src/app/**/*.js',
                 ],

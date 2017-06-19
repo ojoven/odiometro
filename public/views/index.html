@@ -26,11 +26,14 @@
 
 	<div class="container">
 
-		<div id="tweets" class="tweets" v-html="tweet">
-</div>
 		<div id="number_tweets" class="number_tweets">
 	<span class="num">{{ number_tweets }}</span>
 	<span class="suffix">tuits de odio / minuto</span>
+</div>
+		<div id="real_time_graph">
+	<canvas id="canvas" width="400" height="100"></canvas>
+</div>
+		<div id="tweets" class="tweets" v-html="tweet">
 </div>
 
 	</div>
