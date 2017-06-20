@@ -7,6 +7,7 @@ module.exports = function(grunt) {
                 src: [
                     'js/src/vendor/smoothie.js',
                     'js/src/vendor/vue.min.js',
+                    'js/src/vendor/vue-router.js',
                     'js/src/app/**/*.js',
                 ],
                 dest: 'js/app.min.js'
