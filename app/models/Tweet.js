@@ -24,5 +24,27 @@ Tweet.isItARetweet = function(tweet) {
 
 };
 
+Tweet.isItATweetToBeShown = function(tweet, track) {
+
+	var tweetText = tweet.text.toLowerCase();
+
+	for (var i in track) {
+		var keywords = track[i].split(' ');
+		var allKeywordsMatch = true;
+		for (var j in keywords) {
+			if (tweetText.indexOf(keywords[j]) === -1) {
+				allKeywordsMatch = false;
+			}
+		}
+		if (allKeywordsMatch) {
+			return true;
+		}
+	}
+
+	console.log('Nope: ' + tweetText);
+
+	return false;
+};
+
 module.exports = Tweet;
 

@@ -14,6 +14,7 @@ var port = process.env.PORT || 8001;
 // Libs
 var database = require("./app/lib/database.js");
 var twitterStream = require("./app/lib/twitterStream.js");
+var track = require(global.appRoot + '/public/track.json');
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -48,9 +49,16 @@ twitterStream.on('tweet', function (tweet) {
 			console.log('retweet');
 			database.insertRetweetToDatabase(tweet);
 		} else {
+
+			// Or it is a tweet
 			console.log(tweet.text);
 			database.insertTweetToDatabase(tweet);
-			io.sockets.emit('tweet', tweet.text);
+
+			// Is it a tweet to be shown?
+			if (Tweet.isItATweetToBeShown(tweet, track)) {
+				io.sockets.emit('tweet', tweet.text);
+			}
+
 		}
 
 	} catch (err) {
