@@ -57,7 +57,6 @@ twitterStream.on('tweet', function (tweet) {
 		console.log(err);
 	}
 
-
 });
 
 // Number Tweets
@@ -72,3 +71,14 @@ setInterval(function() {
 	});
 
 }, frequencyOfUpdateNumberTweets);
+
+// Clean old tweets
+var frequencyOfCleaningTweets = 60000; // 1 minute in miliseconds
+var timeBeforeTweetsAreCleaned = 10; // 10 minutes
+setInterval(function() {
+
+	database.cleanOldTweetsAndRetweets(timeBeforeTweetsAreCleaned);
+
+}, frequencyOfCleaningTweets);
+
+database.cleanOldTweetsAndRetweets(timeBeforeTweetsAreCleaned);

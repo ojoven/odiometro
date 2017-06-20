@@ -11,22 +11,13 @@ var database = {
 	})
 };
 
-database.currentDateTimeInMySQLFormat = function() {
-	return new Date().toISOString().slice(0, 19).replace('T', ' ');
-};
-
-database.escapeSingleQuotes = function(string) {
-
-	string = string.split("'").join("\\\'");
-	return string;
-}
-
 database.initialize = function() {
 
 	this.connection.connect();
 };
 
-
+// INSERT
+// TWEETS
 database.insertTweetToDatabase = function(tweet) {
 
 	var tweetText = this.escapeSingleQuotes(tweet.text);
@@ -39,6 +30,7 @@ database.insertTweetToDatabase = function(tweet) {
 
 };
 
+// RETWEETS
 database.insertRetweetToDatabase = function(tweet) {
 
 	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
@@ -50,6 +42,7 @@ database.insertRetweetToDatabase = function(tweet) {
 
 };
 
+// GET
 database.getNumberOfTweetsInLastMinute = function(callback) {
 
 	var that = this;
@@ -72,6 +65,29 @@ database.getNumberOfTweetsInLastMinute = function(callback) {
 
 	});
 
+};
+
+// REMOVE
+database.cleanOldTweetsAndRetweets = function(timeInMinutes) {
+
+	var date = new Date();
+	date.setMinutes(date.getMinutes() - timeInMinutes);
+	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	console.log('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
+	this.connection.query('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
+	this.connection.query('DELETE FROM ' + dbConfig.database + '.retweets WHERE published < \'' + dateMysql + '\'');
+
+};
+
+// AUXILIAR
+database.currentDateTimeInMySQLFormat = function() {
+	return new Date().toISOString().slice(0, 19).replace('T', ' ');
+};
+
+database.escapeSingleQuotes = function(string) {
+
+	string = string.split("'").join("\\\'");
+	return string;
 };
 
 module.exports = database;
