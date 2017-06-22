@@ -13,32 +13,36 @@
 
 </head>
 
-<body id="app">
+<body>
 
-	<!-- HEADER -->
-	<header id="header">
+	<div id="app">
 
-		<h1>
-			Odiómetro
-		</h1>
+		<!-- HEADER -->
+		<header id="header">
 
-	</header>
+			<h1>
+				Odiómetro
+			</h1>
 
-	<div class="container">
+		</header>
 
-		<div id="number_tweets" class="number_tweets">
-	<span class="num">{{ number_tweets }}</span>
-	<span class="suffix">tuits de odio / minuto</span>
-</div>
-		<div id="real_time_graph">
+		<div class="container">
+
+			<div id="dashboard">
+
+				<number-tweets></number-tweets>
+				<tweet-show></tweet-show>
+
+				<div id="real_time_graph">
 	<canvas id="canvas" width="400" height="100"></canvas>
 </div>
-		<div id="tweets" class="tweets" v-html="tweet">
-</div>
+
+			</div>
+
+		</div>
 
 	</div>
 
-	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/app.min.js?v=2"></script>

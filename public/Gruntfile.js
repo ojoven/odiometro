@@ -6,8 +6,11 @@ module.exports = function(grunt) {
             dist: {
                 src: [
                     'js/src/vendor/smoothie.js',
-                    'js/src/vendor/vue.min.js',
+                    'node_modules/vue/dist/vue.js',
+                    'js/src/app/socket.js',
                     'js/src/app/**/*.js',
+                    '!js/src/app/vue-instance.js',
+                    'js/src/app/vue-instance.js',
                 ],
                 dest: 'js/app.min.js'
             }

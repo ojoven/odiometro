@@ -1,8 +1,12 @@
-const tweets = new Vue({
-	el:	'#tweets',
-	data: {
-		tweet: "",
-		track: []
+Vue.component('tweet-show', {
+	template: `
+		<div id="tweets" class="tweets" v-html="tweet"></div>
+  `,
+	data() {
+		return {
+			tweet: "",
+			track: []
+		}
 	},
 	created: function() {
 
@@ -17,7 +21,6 @@ const tweets = new Vue({
 			.then(function (response) {
 				that.track = response.data;
 			});
-
 	},
 	methods: {
 		updateTweet: function(tweet) {
@@ -40,4 +43,5 @@ const tweets = new Vue({
 			return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
 		}
 	}
+
 });
