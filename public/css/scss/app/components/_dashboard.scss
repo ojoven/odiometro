@@ -18,15 +18,17 @@
 #number_tweets {
 
 	.num {
-		font-size: 40px;
+		font-size: 70px;
 		display: block;
-		margin: 20px;
+		margin: 20px auto 0;
+		@extend .bold;
 	}
 
 	.suffix {
 		display: block;
-		font-size: 16px;
+		font-size: 24px;
 		color: $greySilver;
+		@extend .bold;
 	}
 }
 
