@@ -15,15 +15,32 @@ Vue.component('real-time-graph', {
 	},
 	created: function() {
 
+		var that = this;
+
 		setTimeout(function() {
+
+			that.initializeGraph();
+			that.initializeLine();
+			that.updateNumberOfTweetsGraph();
+
+		}, this.initial_delay);
+
+	},
+	methods: {
+
+		initializeGraph: function() {
+
+			this.options = { maxValueScale: 1.28, grid: { fillStyle:'#ffffff', strokeStyle: '#f0f0f0', sharpLines: true } ,labels: {fillStyle: '#0d0d0d', precision: 0 } };
+			this.graph = new SmoothieChart(this.options);
+			this.graph.streamTo(document.getElementById("canvas"), 0);
+		},
+
+		initializeLine: function() {
 
 			var that = this;
 
-			// Initialize graph and lines
+			// Initialize line
 			that.line = new TimeSeries();
-			that.options = { maxValueScale: 1.28, grid: { fillStyle:'#ffffff', strokeStyle: '#f0f0f0', sharpLines: true } ,labels: {fillStyle: '#0d0d0d', precision: 0 } };
-			that.graph = new SmoothieChart(that.options);
-			that.graph.streamTo(document.getElementById("canvas"), 0);
 
 			// Add a random value to each line every second
 			setInterval(function() {
@@ -32,17 +49,16 @@ Vue.component('real-time-graph', {
 
 			// Add to line to graph
 			that.graph.addTimeSeries(that.line, { lineWidth:2, strokeStyle:'#CD2626' } );
+		},
 
-			// Update the number of tweets
+		updateNumberOfTweetsGraph: function() {
+
+			var that = this;
+
 			socket.on('number_tweets', function(data) {
 				that.num_tweets_graph = data.number_tweets;
 			}.bind(this));
-
-		}, this.initial_delay);
-
-	},
-	methods: {
-		
+		}
 	}
 
 });
