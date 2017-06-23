@@ -46,5 +46,13 @@ Tweet.isItATweetToBeShown = function(tweet, track) {
 	return false;
 };
 
+// GET USERS
+Tweet.getUsernamesInTweet = function(tweet) {
+
+	var userNamesInTweet = tweet.text.match(/@\w+/g);
+	return userNamesInTweet;
+
+};
+
 module.exports = Tweet;
 

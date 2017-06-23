@@ -79,6 +79,33 @@ database.cleanOldTweetsAndRetweets = function(timeInMinutes) {
 
 };
 
+// USERS
+database.saveUsers = function(users) {
+
+	if (!users) return;
+
+	var that = this;
+	users.forEach(function(user) {
+		that.connection.query('INSERT INTO ' + dbConfig.database + '.users VALUES(null, \'' + user + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')');
+	});
+
+};
+
+database.getMostRepeatedUser = function(callback) {
+
+	var timeInMinutes = 1;
+	var date = new Date();
+	date.setMinutes(date.getMinutes() - timeInMinutes);
+	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	var query = 'SELECT `user`, COUNT(`user`) AS `user_occurrence` FROM `users` WHERE published < \'' + dateMysql + '\' GROUP BY `user` ORDER BY `user_occurrence` DESC LIMIT 1';
+	console.log(query);
+	this.connection.query(query, function (error, results, fields) {
+
+		var user = results[0];
+		callback(user);
+	});
+}
+
 // AUXILIAR
 database.currentDateTimeInMySQLFormat = function() {
 	return new Date().toISOString().slice(0, 19).replace('T', ' ');

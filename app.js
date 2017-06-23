@@ -44,7 +44,11 @@ twitterStream.on('tweet', function (tweet) {
 		// FILTER: If it's not a hate tweet, we ignore it
 		if (!Tweet.isItAHateTweet(tweet)) return;
 
-		// FILTER: Is it a retweet?
+		// Save the users
+		var users = Tweet.getUsernamesInTweet(tweet);
+		database.saveUsers(users);
+
+		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
 			console.log('retweet');
 			database.insertRetweetToDatabase(tweet);
@@ -79,6 +83,21 @@ setInterval(function() {
 	});
 
 }, frequencyOfUpdateNumberTweets);
+
+// Most hated user
+function emitMostHatedUser() {
+
+	database.getMostRepeatedUser(function(user) {
+		io.sockets.emit('most_hated_user', user);
+	});
+}
+
+var frequencyMostHatedUser = 10000;
+setInterval(function() {
+	emitMostHatedUser();
+}, frequencyMostHatedUser);
+
+emitMostHatedUser();
 
 // Clean old tweets
 var frequencyOfCleaningTweets = 60000; // 1 minute in miliseconds
