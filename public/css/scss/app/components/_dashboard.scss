@@ -6,7 +6,9 @@
 #tweets {
 	margin: 40px auto;
 	padding: 30px;
-	border: 2px solid $greySilver;
+	font-size: 17px;
+	@extend .monospace;
+	line-height: 1.4;
 
 	// Highlighted
 	b {

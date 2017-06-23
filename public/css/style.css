@@ -13,6 +13,8 @@ h2, h3, h4 { font-weight: normal; }
 
 .title, #header h1 { font-family: 'Bahiana', cursive; font-weight: 400; }
 
+.monospace, #tweets { font-family: monospace; }
+
 @-moz-keyframes scale { 0% { -moz-transform: scale(0, 0); -o-transform: scale(0, 0); -ms-transform: scale(0, 0); -webkit-transform: scale(0, 0); transform: scale(0, 0); }
   70% { -moz-transform: scale(1.1, 1.1); -o-transform: scale(1.1, 1.1); -ms-transform: scale(1.1, 1.1); -webkit-transform: scale(1.1, 1.1); transform: scale(1.1, 1.1); }
   100% { -moz-transform: scale(1, 1); -o-transform: scale(1, 1); -ms-transform: scale(1, 1); -webkit-transform: scale(1, 1); transform: scale(1, 1); } }
@@ -125,7 +127,7 @@ input { -webkit-appearance: none; border-radius: 0; }
 .btn.btn-twitter { color: #1da1f2; border: 3px solid #1da1f2; background: #ffffff; text-transform: none; padding: 10px; }
 .btn.btn-twitter > i { margin-right: 5px; }
 
-#tweets { margin: 40px auto; padding: 30px; border: 2px solid #cccccc; }
+#tweets { margin: 40px auto; padding: 30px; font-size: 17px; line-height: 1.4; }
 
 #number_tweets .num { font-size: 70px; display: block; margin: 20px auto 0; }
 #number_tweets .suffix { display: block; font-size: 24px; color: #cccccc; }
