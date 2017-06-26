@@ -1,0 +1,51 @@
+// ==============================================
+// MENU
+// ==============================================
+
+#menu {
+
+	$menuSize: 32px;
+
+	li {
+		width: $menuSize;
+		height: $menuSize;
+		background: $greySilver;
+		display: inline-block;
+		margin: 10px;
+		border-radius: 50%;
+
+		&.active {
+			background: $redFirebrick;
+		}
+
+		i {
+			color: $white;
+			position: relative;
+			top: 7px;
+
+			&.fa-dashboard { top: 6px; }
+		}
+	}
+
+}
+
+// ==============================================
+// IPAD LANDSCAPE
+// ==============================================
+@include ipadLandscape {
+
+}
+
+// ==============================================
+// IPAD PORTRAIT
+// ==============================================
+@include ipadPortrait {
+
+}
+
+// ==============================================
+// MOBILE
+// ==============================================
+@include mobile {
+
+}

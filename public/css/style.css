@@ -81,6 +81,11 @@ footer a { color: #fff; }
 #header { background: #8A0707; padding: 5px 0; }
 #header h1 { color: #ffffff; font-size: 40px; }
 
+#menu li { width: 32px; height: 32px; background: #cccccc; display: inline-block; margin: 10px; border-radius: 50%; }
+#menu li.active { background: #8A0707; }
+#menu li i { color: #ffffff; position: relative; top: 7px; }
+#menu li i.fa-dashboard { top: 6px; }
+
 .audience section { display: none; }
 .audience section.active { display: block; }
 

@@ -96,7 +96,7 @@ database.saveUsers = function(users) {
 
 database.getMostRepeatedUser = function(callback) {
 
-	var timeInMinutes = 1;
+	var timeInMinutes = 10;
 	var date = new Date();
 	date.setMinutes(date.getMinutes() - timeInMinutes);
 	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
