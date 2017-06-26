@@ -68,14 +68,17 @@ database.getNumberOfTweetsInLastMinute = function(callback) {
 };
 
 // REMOVE
-database.cleanOldTweetsAndRetweets = function(timeInMinutes) {
+database.cleanOldData = function(timeInMinutes) {
 
+	// Get date for X minutes ago
 	var date = new Date();
 	date.setMinutes(date.getMinutes() - timeInMinutes);
 	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
-	console.log('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
+
+	// Clean old data from the different tables
 	this.connection.query('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
 	this.connection.query('DELETE FROM ' + dbConfig.database + '.retweets WHERE published < \'' + dateMysql + '\'');
+	this.connection.query('DELETE FROM ' + dbConfig.database + '.users WHERE published < \'' + dateMysql + '\'');
 
 };
 
