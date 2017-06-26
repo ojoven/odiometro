@@ -18,6 +18,7 @@
     "jasmine": "^2.6.0"
   },
   "dependencies": {
-    "grunt-jasmine-node": "^0.3.1"
+    "grunt-jasmine-node": "^0.3.1",
+    "vue": "^2.3.4"
   }
 }

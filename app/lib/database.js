@@ -97,7 +97,7 @@ database.getMostRepeatedUser = function(callback) {
 	var date = new Date();
 	date.setMinutes(date.getMinutes() - timeInMinutes);
 	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
-	var query = 'SELECT `user`, COUNT(`user`) AS `user_occurrence` FROM `users` WHERE published < \'' + dateMysql + '\' GROUP BY `user` ORDER BY `user_occurrence` DESC LIMIT 1';
+	var query = 'SELECT `user`, COUNT(`user`) AS `user_occurrence` FROM `users` WHERE published > \'' + dateMysql + '\' GROUP BY `user` ORDER BY `user_occurrence` DESC LIMIT 1';
 	console.log(query);
 	this.connection.query(query, function (error, results, fields) {
 

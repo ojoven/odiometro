@@ -1,8 +1,8 @@
 Vue.component('most-hated-user', {
 	template: `
 		<div id="most_hated_user" class="most_hated_user">
-			<h3>Usuario que más odio recibe</h3>
-			<span class="username">{{ username }}</span>
+			<h3 class="username">{{ username }}</h3>
+			<span>es el usuario recibiendo más odio en los últimos 10 minutos</span>
 		</div>
   `,
 	data() {
