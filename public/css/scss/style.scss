@@ -23,7 +23,9 @@
 @import "app/layout/sections";
 
 /** PAGES **/
-@import "app/pages/speaker";
+@import "app/pages/dashboard";
+@import "app/pages/user";
+@import "app/pages/info";
 
 /** HELPERS **/
 @import "app/helpers/accessibility";
@@ -32,7 +34,6 @@
 
 /** COMPONENTS **/
 @import "app/components/buttons";
-@import "app/components/dashboard";
 @import "app/components/forms";
 @import "app/components/icons";
 @import "app/components/links";

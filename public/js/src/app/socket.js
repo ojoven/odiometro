@@ -1,2 +1,2 @@
-// Connect to the socket
+/** SOCKET **/
 var socket = io();

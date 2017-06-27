@@ -4,9 +4,17 @@
 
 #menu {
 
+	position: fixed;
+	bottom: 60px;
 	$menuSize: 32px;
+	width: 100%;
+	text-align: center;
 
 	li {
+		display: inline-block;
+	}
+
+	li a {
 		width: $menuSize;
 		height: $menuSize;
 		background: $greySilver;
@@ -14,7 +22,7 @@
 		margin: 10px;
 		border-radius: 50%;
 
-		&.active {
+		&.active, &:hover, &:focus {
 			background: $redFirebrick;
 		}
 
