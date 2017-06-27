@@ -34,6 +34,11 @@ console.log('Your application is running on http://localhost:' + port);
 // When socket connection
 io.on('connection', function (socket) {
 	console.log('New user connected');
+
+	socket.on('retrieve_most_hated_user', function() {
+		console.log('SEND USER!');
+		emitMostHatedUser();
+	});
 });
 
 // Twitter Stream
@@ -87,6 +92,7 @@ setInterval(function() {
 // Most hated user
 function emitMostHatedUser() {
 
+	console.log('EMIT USER');
 	database.getMostRepeatedUser(function(user) {
 		io.sockets.emit('most_hated_user', user);
 	});
@@ -97,7 +103,6 @@ setInterval(function() {
 	emitMostHatedUser();
 }, frequencyMostHatedUser);
 
-emitMostHatedUser();
 
 // Clean old data: tweets, retweets and users
 var frequencyOfCleaningTweets = 60000; // 1 minute in miliseconds

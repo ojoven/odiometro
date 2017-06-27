@@ -7,10 +7,18 @@ Vue.component('most-hated-user', {
   `,
 	data() {
 		return {
-			username: ''
+			username: '',
+			firstTimeCreated: true
 		}
 	},
 	created: function() {
+
+		console.log('most hated user!');
+
+		if (this.firstTimeCreated) {
+			socket.emit('retrieve_most_hated_user', true);
+			this.firstTimeCreated = false;
+		}
 
 		// Update tweet socket
 		socket.on('most_hated_user', function(data) {

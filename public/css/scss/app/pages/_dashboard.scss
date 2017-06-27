@@ -3,17 +3,12 @@
 // ==============================================
 
 // Tweets
-#tweets {
+.tweets {
 	margin: 20px auto;
 	padding: 30px;
 	@extend .monospace;
 	line-height: 1.2;
 	height: 80px;
-
-	// Highlighted
-	b {
-		//font-weight: bold; // Already bold
-	}
 }
 
 // Number of Tweets
