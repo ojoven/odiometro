@@ -1,3 +1,17 @@
 // ==============================================
 // INFO
 // ==============================================
+
+#info {
+	margin: 50px auto;
+	width: 600px;
+	max-width: 90%;
+
+	p, li {
+		@extend .regular;
+		font-size: 14px;
+		margin: 10px;
+		color: $blackTundora;
+		line-height: 1.2;
+	}
+}
