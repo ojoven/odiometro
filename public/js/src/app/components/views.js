@@ -2,17 +2,17 @@ Vue.component('views', {
 	template: `
 		<div id="views">
 
-			<div id="dashboard-container" v-if="showDashboard">
+			<div id="dashboard-container" v-show="showDashboard">
 				<number-tweets></number-tweets>
 				<real-time-graph></real-time-graph>
 				<tweet-show></tweet-show>
 			</div>
 
-			<div id="user-container" v-if="showUser">
+			<div id="user-container" v-show="showUser">
 				<most-hated-user></most-hated-user>
 			</div>
 
-			<div id="info-container" v-if="showInfo">
+			<div id="info-container" v-show="showInfo">
 				<info></info>
 			</div>
 

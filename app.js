@@ -33,10 +33,19 @@ console.log('Your application is running on http://localhost:' + port);
 
 // When socket connection
 io.on('connection', function (socket) {
-	console.log('New user connected');
 
+	// Immediately send the number of tweets/retweets last minute
+	socket.on('retrieve_number_tweets', function() {
+		emitNumberTweets();
+	});
+
+	// Immediately send the last tweet
+	socket.on('retrieve_last_tweet', function() {
+		emitLastTweet();
+	});
+
+	// Immediately send the most hated user
 	socket.on('retrieve_most_hated_user', function() {
-		console.log('SEND USER!');
 		emitMostHatedUser();
 	});
 });
@@ -76,18 +85,23 @@ twitterStream.on('tweet', function (tweet) {
 
 });
 
+// EMIT DATA
+// Last tweet
+function emitLastTweet() {
+
+	database.getLastTweetFromDatabase(function(tweet) {
+		io.sockets.emit('tweet', tweet.tweet);
+	});
+}
+
 // Number Tweets
-var frequencyOfUpdateNumberTweets = 500;
-setInterval(function() {
+function emitNumberTweets() {
 
 	database.getNumberOfTweetsInLastMinute(function(number_tweets) {
-		var data = {
-			number_tweets: number_tweets
-		};
+		var data = { number_tweets: number_tweets };
 		io.sockets.emit('number_tweets', data);
 	});
-
-}, frequencyOfUpdateNumberTweets);
+}
 
 // Most hated user
 function emitMostHatedUser() {
@@ -98,6 +112,16 @@ function emitMostHatedUser() {
 	});
 }
 
+// FREQUENT UPDATES
+// Number Tweets
+var frequencyOfUpdateNumberTweets = 500;
+setInterval(function() {
+
+	emitNumberTweets();
+
+}, frequencyOfUpdateNumberTweets);
+
+// Most Hated User
 var frequencyMostHatedUser = 10000;
 setInterval(function() {
 	emitMostHatedUser();

@@ -13,6 +13,9 @@ Vue.component('number-tweets', {
 	},
 	created: function() {
 
+		// Let's ask immediately for the most hated user
+		socket.emit('retrieve_number_tweets', true);
+
 		// Update tweet socket
 		socket.on('number_tweets', function(data) {
 			this.updateNumberTweets(data);

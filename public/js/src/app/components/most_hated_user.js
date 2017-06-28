@@ -7,7 +7,7 @@ Vue.component('most-hated-user', {
   `,
 	data() {
 		return {
-			username: '',
+			username: ''
 		}
 	},
 	created: function() {
@@ -16,7 +16,8 @@ Vue.component('most-hated-user', {
 		socket.emit('retrieve_most_hated_user', true);
 
 		// When we receive it, let's update the user
-		socket.once('most_hated_user', function(data) {
+		socket.on('most_hated_user', function(data) {
+			console.log('RECEIVE');
 			this.updateMostHatedUser(data);
 		}.bind(this));
 

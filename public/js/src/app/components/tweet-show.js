@@ -10,8 +10,12 @@ Vue.component('tweet-show', {
 	},
 	created: function() {
 
+		// Let's ask immediately for the last tweet
+		socket.emit('retrieve_last_tweet', true);
+
 		// Update tweet socket
 		socket.on('tweet', function(tweet) {
+			console.log('WAW');
 			this.updateTweet(tweet);
 		}.bind(this));
 

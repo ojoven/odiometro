@@ -67,6 +67,15 @@ database.getNumberOfTweetsInLastMinute = function(callback) {
 
 };
 
+database.getLastTweetFromDatabase = function(callback) {
+
+	var query = 'SELECT * FROM ' + dbConfig.database + '.tweets ORDER BY published DESC LIMIT 0,1';
+	this.connection.query(query, function (error, results, fields) {
+		var lastTweet = results[0];
+		callback(lastTweet);
+	});
+};
+
 // REMOVE
 database.cleanOldData = function(timeInMinutes) {
 
