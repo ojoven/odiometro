@@ -11,6 +11,27 @@
 		@extend .title;
 		color: $white;
 		font-size: 40px;
+
+		// Knife images
+		i {
+			display: inline-block;
+			background: url(../img/knife.png) no-repeat center center;
+			background-size: contain;
+			width: 40px;
+			height: 40px;
+			position: relative;
+			top: 4px;
+
+			&.left {
+				left: -10px;
+			}
+
+			&.right {
+				left: 10px;
+				@include scaleX(-1);
+			}
+		}
+
 	}
 }
 
