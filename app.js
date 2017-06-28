@@ -92,8 +92,8 @@ setInterval(function() {
 // Most hated user
 function emitMostHatedUser() {
 
-	console.log('EMIT USER');
 	database.getMostRepeatedUser(function(user) {
+
 		io.sockets.emit('most_hated_user', user);
 	});
 }
