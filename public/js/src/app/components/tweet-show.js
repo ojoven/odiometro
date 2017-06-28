@@ -28,8 +28,7 @@ Vue.component('tweet-show', {
 	},
 	methods: {
 		updateTweet: function(tweet) {
-			var parsedTweet = this.parseTweet(tweet);
-			this.tweet = parsedTweet;
+			this.tweet = this.parseTweet(tweet);
 		},
 		parseTweet: function(tweet) {
 
