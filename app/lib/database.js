@@ -112,6 +112,16 @@ database.getMostRepeatedUser = function(callback) {
 	});
 };
 
+database.getMostHatedUsersLastTweet = function(user, callback) {
+
+	var query = 'SELECT * FROM `tweets` WHERE tweet LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
+	this.connection.query(query, function (error, results, fields) {
+
+		var tweet = results[0];
+		callback(tweet);
+	});
+};
+
 // AUXILIAR
 database.currentDateTimeInMySQLFormat = function() {
 	return new Date().toISOString().slice(0, 19).replace('T', ' ');

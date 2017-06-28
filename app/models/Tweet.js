@@ -41,8 +41,6 @@ Tweet.isItATweetToBeShown = function(tweet, track) {
 		}
 	}
 
-	console.log('Nope: ' + tweetText);
-
 	return false;
 };
 
@@ -52,6 +50,18 @@ Tweet.getUsernamesInTweet = function(tweet) {
 	var userNamesInTweet = tweet.text.match(/@\w+/g);
 	return userNamesInTweet;
 
+};
+
+Tweet.isTweetForMostHatedUser = function(tweet, user) {
+
+	if (!user) return false;
+
+	var tweetText = tweet.text.toLowerCase();
+	if (tweetText.indexOf(user.toLowerCase()) !== -1) {
+		return true;
+	}
+
+	return false;
 };
 
 module.exports = Tweet;

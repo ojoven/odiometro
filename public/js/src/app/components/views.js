@@ -1,4 +1,5 @@
 Vue.component('views', {
+
 	template: `
 		<div id="views">
 
@@ -10,6 +11,7 @@ Vue.component('views', {
 
 			<div id="user-container" v-show="showUser">
 				<most-hated-user></most-hated-user>
+				<most-hated-user-tweets></most-hated-user-tweets>
 			</div>
 
 			<div id="info-container" v-show="showInfo">
@@ -18,6 +20,7 @@ Vue.component('views', {
 
 		</div>
   `,
+
 	data() {
 		return {
 			showDashboard: store.showDashboard,
@@ -25,6 +28,7 @@ Vue.component('views', {
 			showInfo: store.showInfo
 		}
 	},
+
 	created: function() {
 		console.log('views: ' + this.showDashboard);
 
@@ -32,8 +36,6 @@ Vue.component('views', {
 		bus.$on('change-view', function(view) {
 			lib.updateViewParameters(that, view);
 		});
-	},
-	methods: {
 	}
 
 });

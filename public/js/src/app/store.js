@@ -7,3 +7,6 @@ var store = {};
 store.showDashboard = true;
 store.showUser = false;
 store.showInfo = false;
+
+// Track
+store.track = [];

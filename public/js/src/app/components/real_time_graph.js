@@ -1,10 +1,13 @@
 Vue.component('real-time-graph', {
+
 	template: `
 		<div id="real_time_graph">
 			<canvas id="canvas" width="400" height="100"></canvas>
 		</div>
   `,
+
 	data() {
+
 		return {
 			initial_delay: 100,
 			num_tweets_graph: 0,
@@ -13,6 +16,7 @@ Vue.component('real-time-graph', {
 			line: null
 		}
 	},
+
 	created: function() {
 
 		var that = this;
@@ -26,6 +30,7 @@ Vue.component('real-time-graph', {
 		}, this.initial_delay);
 
 	},
+
 	methods: {
 
 		initializeGraph: function() {

@@ -44,10 +44,11 @@ io.on('connection', function (socket) {
 		emitLastTweet();
 	});
 
-	// Immediately send the most hated user
+	// Immediately send the most hated user (and the first tweet)
 	socket.on('retrieve_most_hated_user', function() {
-		emitMostHatedUser();
+		emitMostHatedUserAndTweet();
 	});
+
 });
 
 // Twitter Stream
@@ -79,6 +80,10 @@ twitterStream.on('tweet', function (tweet) {
 
 		}
 
+		if (Tweet.isTweetForMostHatedUser(tweet, mostHatedUser)) {
+			io.sockets.emit('most_hated_user_tweet', tweet.text);
+		}
+
 	} catch (err) {
 		console.log(err);
 	}
@@ -104,11 +109,26 @@ function emitNumberTweets() {
 }
 
 // Most hated user
+var mostHatedUser = false;
 function emitMostHatedUser() {
 
 	database.getMostRepeatedUser(function(user) {
 
+		mostHatedUser = user.user;
 		io.sockets.emit('most_hated_user', user);
+	});
+}
+
+function emitMostHatedUserAndTweet() {
+
+	database.getMostRepeatedUser(function(user) {
+
+		mostHatedUser = user.user;
+		io.sockets.emit('most_hated_user', user);
+
+		database.getMostHatedUsersLastTweet(user, function(tweet) {
+			io.sockets.emit('most_hated_user_tweet', tweet);
+		})
 	});
 }
 
