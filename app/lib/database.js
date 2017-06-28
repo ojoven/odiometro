@@ -47,9 +47,8 @@ database.getNumberOfTweetsInLastMinute = function(callback) {
 
 	var that = this;
 	var numberOfTweets = 0;
-	var date = new Date();
-	date.setMinutes(date.getMinutes() - 1);
-	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	var timeInMinutes = 1;
+	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 	that.connection.query('SELECT COUNT(*) AS count FROM tweets WHERE published >= \'' + dateMysql + '\'', function (error, results, fields) {
 
 		if (results !== undefined) {
@@ -80,9 +79,7 @@ database.getLastTweetFromDatabase = function(callback) {
 database.cleanOldData = function(timeInMinutes) {
 
 	// Get date for X minutes ago
-	var date = new Date();
-	date.setMinutes(date.getMinutes() - timeInMinutes);
-	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 
 	// Clean old data from the different tables
 	this.connection.query('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
@@ -106,21 +103,26 @@ database.saveUsers = function(users) {
 database.getMostRepeatedUser = function(callback) {
 
 	var timeInMinutes = 10;
-	var date = new Date();
-	date.setMinutes(date.getMinutes() - timeInMinutes);
-	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 	var query = 'SELECT `user`, COUNT(`user`) AS `user_occurrence` FROM `users` WHERE published > \'' + dateMysql + '\' GROUP BY `user` ORDER BY `user_occurrence` DESC LIMIT 1';
-	console.log(query);
 	this.connection.query(query, function (error, results, fields) {
 
 		var user = results[0];
 		callback(user);
 	});
-}
+};
 
 // AUXILIAR
 database.currentDateTimeInMySQLFormat = function() {
 	return new Date().toISOString().slice(0, 19).replace('T', ' ');
+};
+
+database.getDateTimeInMySQLFormatXMinutesAgo = function(timeInMinutes) {
+
+	var date = new Date();
+	date.setMinutes(date.getMinutes() - timeInMinutes);
+	var dateMysql = date.toISOString().slice(0, 19).replace('T', ' ');
+	return dateMysql;
 };
 
 database.escapeSingleQuotes = function(string) {
