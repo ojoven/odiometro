@@ -84,7 +84,7 @@ footer a { color: #fff; }
 #header h1 i.left { left: -10px; }
 #header h1 i.right { left: 10px; -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -ms-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); }
 
-#menu { position: fixed; bottom: 60px; left: 0; width: 100%; text-align: center; }
+#menu { position: fixed; bottom: 60px; left: 0; width: 100%; text-align: center; z-index: 2; }
 #menu li { display: inline-block; }
 #menu li a { width: 32px; height: 32px; background: #cccccc; display: inline-block; margin: 10px; border-radius: 50%; }
 #menu li a.active, #menu li a:hover, #menu li a:focus { background: #8A0707; }
@@ -168,4 +168,6 @@ iframe { width: 100%; height: 92%; border: none; position: fixed; top: 54px; lef
 
 /** I18N **/
 /** SHAME **/
+#blood { display: block; width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 1; }
+
 /** MEDIA QUERIES **/

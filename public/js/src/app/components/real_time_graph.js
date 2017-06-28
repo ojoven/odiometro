@@ -2,7 +2,7 @@ Vue.component('real-time-graph', {
 
 	template: `
 		<div id="real_time_graph">
-			<canvas id="canvas" width="400" height="100"></canvas>
+			<canvas id="real_time_canvas" width="400" height="100"></canvas>
 		</div>
   `,
 
@@ -37,7 +37,7 @@ Vue.component('real-time-graph', {
 
 			this.options = { maxValueScale: 1.28, grid: { fillStyle:'#ffffff', strokeStyle: '#f0f0f0', sharpLines: true } ,labels: {fillStyle: '#0d0d0d', precision: 0 } };
 			this.graph = new SmoothieChart(this.options);
-			this.graph.streamTo(document.getElementById("canvas"), 0);
+			this.graph.streamTo(document.getElementById("real_time_canvas"), 0);
 		},
 
 		initializeLine: function() {
