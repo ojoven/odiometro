@@ -19,7 +19,7 @@ La web hace uso de las siguientes tecnologías:
 * Grunt
 
 Instalación
-============
+-------------
 
 1. Clonar el repositorio
 
@@ -39,7 +39,7 @@ Instalación
 
 
 Notas adicionales de desarrollo
-================================
+-------------------------------
 
 * Desde public tendrás que correr ```grunt``` para que los archivos SCSS compilen en CSS, se unifiquen los JS y el HTML.
 * Los componentes Vue se encuentran en js/src/app/components
@@ -54,5 +54,5 @@ Notas adicionales de desarrollo
 
 
 Contacta
-=================
+------------
 Si tienes alguna duda, sugerencia, crítica o palabra de odio, puedes contactarme en https://twitter.com/ojoven
