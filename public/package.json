@@ -1,11 +1,11 @@
 {
-  "name": "drupalmultisite",
-  "version": "0.0.1",
-  "description": "Themes for Drupal Multisite",
+  "name": "Odiometro",
+  "version": "0.9.0",
+  "description": "Measure hate tweets in real time on Twitter",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Majestic Media Ltd.",
+  "author": "Mikel Torres Ugarte",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-compass": "^1.1.0",

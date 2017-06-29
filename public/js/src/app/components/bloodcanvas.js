@@ -203,10 +203,6 @@ Vue.component('blood-canvas', {
 
 			};
 
-			window.onblur = function () {
-				//that.focused = false;
-			};
-
 			window.onfocus = function () {
 				console.log('focus!');
 				that.items = [];

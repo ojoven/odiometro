@@ -1,7 +1,7 @@
 {
-  "name": "NodeChatSystem",
-  "version": "0.0.1",
-  "description": "Realtime chat system for Tutorialzine.com",
+  "name": "Odiometro",
+  "version": "0.9.0",
+  "description": "Measure hate tweets in real time on Twitter",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "chat",
     "system"
   ],
-  "author": "Nikolay Anastasov",
+  "author": "Mikel Torres Ugarte",
   "license": "MIT",
   "dependencies": {
     "ejs": "^1.0.0",
