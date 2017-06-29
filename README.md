@@ -18,6 +18,8 @@ La web hace uso de las siguientes tecnologías:
 * SASS
 * Grunt
 
+
+
 Instalación
 -------------
 
@@ -38,6 +40,7 @@ Instalación
 ```mysql -u [username] -p [dbname] < db/odiometro.sql```
 
 
+
 Notas adicionales de desarrollo
 -------------------------------
 
@@ -51,6 +54,7 @@ Notas adicionales de desarrollo
     * vue-instance.js -> Inicializa la instancia Vue principal
 * en vendor/smoothie.js tenemos la librería que renderiza la gráfica en tiempo real
 * si tienes sugerencias sobre cómo optimizar el código, hacerlo más legible, refactorizar, etc. las sugerencias y los pull requests son bienvenidos.
+
 
 
 Contacta
