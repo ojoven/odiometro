@@ -30,7 +30,6 @@ Vue.component('views', {
 	},
 
 	created: function() {
-		console.log('views: ' + this.showDashboard);
 
 		var that = this;
 		bus.$on('change-view', function(view) {

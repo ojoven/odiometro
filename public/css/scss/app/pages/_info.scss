@@ -6,6 +6,8 @@
 	margin: 50px auto;
 	width: 600px;
 	max-width: 90%;
+	position: relative;
+	z-index: 99;
 
 	p, li {
 		@extend .regular;
@@ -13,5 +15,10 @@
 		margin: 10px;
 		color: $blackTundora;
 		line-height: 1.2;
+	}
+
+	a {
+		color: $redFirebrick;
+		font-weight: bold;
 	}
 }

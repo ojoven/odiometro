@@ -18,7 +18,6 @@ Vue.component('tweet-show', {
 		// Update tweet socket
 		socket.on('tweet', function(tweet) {
 			this.updateTweet(tweet);
-			console.log('new tweet');
 		}.bind(this));
 
 		// Retrieve the tracked queries (so we can highlight them in the tweets)

@@ -58,8 +58,11 @@ Vue.component('blood-canvas', {
 				shade: false
 			};
 
-			this.canvas.width = this.shadow.width = window.innerWidth;
-			this.canvas.height = this.shadow.height = window.innerHeight;
+			this.canvas.width = this.shadow.width = window.innerWidth * 2;
+			this.canvas.height = this.shadow.height = window.innerHeight * 2;
+
+			this.canvas.style.width = this.canvas.width/2 + "px";
+			this.canvas.style.height = this.canvas.height/2 + "px";
 			this.sctx.fillStyle = this.ctx.fillStyle = '#8A0707';
 		},
 
@@ -201,7 +204,12 @@ Vue.component('blood-canvas', {
 			};
 
 			window.onblur = function () {
-				this.focused = false;
+				//that.focused = false;
+			};
+
+			window.onfocus = function () {
+				console.log('focus!');
+				that.items = [];
 			};
 
 			var that = this;

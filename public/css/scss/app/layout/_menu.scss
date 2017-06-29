@@ -2,12 +2,13 @@
 // MENU
 // ==============================================
 
+$menuSize: 40px;
+
 #menu {
 
 	position: fixed;
 	bottom: 60px;
 	left: 0;
-	$menuSize: 32px;
 	width: 100%;
 	text-align: center;
 	z-index: 2;
@@ -21,7 +22,7 @@
 		height: $menuSize;
 		background: $greySilver;
 		display: inline-block;
-		margin: 10px;
+		margin: 5px;
 		border-radius: 50%;
 
 		&.active, &:hover, &:focus {
@@ -31,7 +32,8 @@
 		i {
 			color: $white;
 			position: relative;
-			top: 7px;
+			top: 8px;
+			font-size: 23px;
 
 			&.fa-dashboard { top: 6px; }
 		}

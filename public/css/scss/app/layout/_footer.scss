@@ -13,6 +13,7 @@ footer {
 	padding: 9px;
 	@extend .regular;
 	font-size: 12px;
+	z-index: 99;
 
 	a {
 		color: #fff;
