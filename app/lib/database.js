@@ -115,10 +115,13 @@ database.getMostRepeatedUser = function(callback) {
 database.getMostHatedUsersLastTweet = function(user, callback) {
 
 	var query = 'SELECT * FROM `tweets` WHERE tweet LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
+	console.log('QUERYYY: ' + query);
 	this.connection.query(query, function (error, results, fields) {
 
-		var tweet = results[0];
-		callback(tweet);
+		if (results && results[0] !== undefined) {
+			var tweet = results[0];
+			callback(tweet);
+		}
 	});
 };
 

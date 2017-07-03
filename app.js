@@ -59,10 +59,6 @@ twitterStream.on('tweet', function (tweet) {
 		// FILTER: If it's not a hate tweet, we ignore it
 		if (!Tweet.isItAHateTweet(tweet)) return;
 
-		// Save the users
-		var users = Tweet.getUsernamesInTweet(tweet);
-		database.saveUsers(users);
-
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
 			console.log('retweet');
@@ -72,6 +68,10 @@ twitterStream.on('tweet', function (tweet) {
 			// Or it is a tweet
 			console.log(tweet.text);
 			database.insertTweetToDatabase(tweet);
+
+			// Save the users
+			var users = Tweet.getUsernamesInTweet(tweet);
+			database.saveUsers(users);
 
 			// Is it a tweet to be shown?
 			if (Tweet.isItATweetToBeShown(tweet, track)) {
@@ -126,8 +126,8 @@ function emitMostHatedUserAndTweet() {
 		mostHatedUser = user.user;
 		io.sockets.emit('most_hated_user', user);
 
-		database.getMostHatedUsersLastTweet(user, function(tweet) {
-			io.sockets.emit('most_hated_user_tweet', tweet);
+		database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
+			io.sockets.emit('most_hated_user_tweet', tweet.tweet);
 		})
 	});
 }
@@ -144,7 +144,7 @@ setInterval(function() {
 // Most Hated User
 var frequencyMostHatedUser = 10000;
 setInterval(function() {
-	emitMostHatedUser();
+	emitMostHatedUserAndTweet();
 }, frequencyMostHatedUser);
 
 
