@@ -14,9 +14,9 @@ Vue.component('most-hated-user-tweets', {
 	created: function() {
 
 		// When we receive it, let's update the user
-		socket.on('most_hated_user_tweet', function(tweet) {
-			if (tweet) {
-				this.updateTweet(tweet);
+		socket.on('most_hated_user_tweet', function(data) {
+			if (data) {
+				this.updateTweet(data.tweet);
 			}
 		}.bind(this));
 
