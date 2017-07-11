@@ -1,6 +1,6 @@
 /** MAIN **/
 // VueJS Main
-const app = new Vue({
+const appVue = new Vue({
 	el:	'#app',
 	data: {
 	},
