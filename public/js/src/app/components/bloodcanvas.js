@@ -204,7 +204,6 @@ Vue.component('blood-canvas', {
 			};
 
 			window.onfocus = function () {
-				console.log('focus!');
 				that.items = [];
 			};
 
