@@ -115,7 +115,7 @@ footer a { color: #fff; }
 
 #user-container .tweets { margin: 0 auto; padding: 0 30px; height: auto; }
 #user-container .hate-user { float: left; width: 50%; }
-#user-container .hate-user.hateful-user { border-right: 4px solid #8A0707; height: 64vh; }
+#user-container .hate-user .most_hateful_user { border-right: 3px solid #ccc; }
 
 .most_hated_user { margin: 50px auto; }
 .most_hated_user > span { color: #aaa; font-size: 24px; line-height: 1.2; }

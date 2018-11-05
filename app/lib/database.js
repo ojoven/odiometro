@@ -102,7 +102,7 @@ database.saveUsers = function(users) {
 
 database.getMostHatedUser = function(callback) {
 
-	var timeInMinutes = 10;
+	var timeInMinutes = 2;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 	var query = 'SELECT `user`, COUNT(`user`) AS `user_occurrence` FROM `users` WHERE published > \'' + dateMysql + '\' GROUP BY `user` ORDER BY `user_occurrence` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {
@@ -135,7 +135,7 @@ database.getMostHatedUserNumberTweets = function(user, callback) {
 
 database.getMostHatefulUserAndTweet = function(callback) {
 
-	var timeInMinutes = 10;
+	var timeInMinutes = 2;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 	var query = 'SELECT `retweeted_user`, `retweeted_id`, `retweeted_text`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {

@@ -2,8 +2,8 @@ Vue.component('most-hateful-user', {
 
 	template: `
 		<div id="most_hateful_user" class="most_hated_user most_hateful_user">
-			<h3 class="username">{{ username }}</h3>
-			<span>es el usuario <b>generando más odio</b><br>en los últimos 10 minutos</span>
+			<h3 class="username"><a target="_blank" :href="'https://twitter.com/' + username">@{{ username }}</a></h3>
+			<span>es el usuario <b>generando más odio</b><br>en estos momentos.</span>
 		</div>
   `,
 
@@ -28,7 +28,7 @@ Vue.component('most-hateful-user', {
 	methods: {
 
 		updateMostHatefulUser: function(data) {
-			this.username = '@' + data;
+			this.username = data;
 		}
 	}
 

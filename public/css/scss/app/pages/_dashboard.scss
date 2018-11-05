@@ -54,9 +54,8 @@
 		float: left;
 		width: 50%;
 
-		&.hateful-user {
-			border-right: 4px solid $redFirebrick;
-			height: 64vh;
+		.most_hateful_user {
+			border-right: 3px solid #ccc;
 		}
 	}
 }
