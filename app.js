@@ -32,7 +32,7 @@ require('./routes')(app, io);
 console.log('Your application is running on http://localhost:' + port);
 
 // Vars
-var numberTweets, mostHatedUser, mostHatedUsersLastTweet, mostHatefulUser, mostHatefulUserTweet;
+var numberTweets, mostHatedUser, mostHatedUsersLastTweet, mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId;
 
 // When socket connection
 io.on('connection', function (socket) {
@@ -176,8 +176,21 @@ setInterval(function() {
 			mostHatedUsersLastTweetId = tweet.id_str;
 			mostHatedUsersLastTweetUser = tweet.screen_name;
 
-			database.getMostHatedUserNumberTweets(mostHatedUser, function(numTweets) {
-				database.saveHistoricData(numberTweets, mostHatedUser, numTweets, mostHatedUsersLastTweet, mostHatedUsersLastTweetId, mostHatedUsersLastTweetUser);
+			database.getMostHatedUserNumberTweets(mostHatedUser, function(mostHatedUserNumberTweets) {
+
+				database.getMostHatefulUserAndTweet(function(retweet) {
+
+					mostHatefulUser = retweet.retweeted_user;
+					mostHatefulUserTweet = retweet.retweeted_text;
+					mostHatefulUserTweetId = retweet.retweeted_id;
+
+					database.saveHistoricData(
+						numberTweets,
+						mostHatedUser, mostHatedUsersLastTweet, mostHatedUsersLastTweetId, mostHatedUsersLastTweetUser,
+						mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId
+					);
+				});
+
 			});
 
 		})

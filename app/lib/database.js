@@ -146,9 +146,18 @@ database.getMostHatefulUserAndTweet = function(callback) {
 };
 
 /** HISTORIC **/
-database.saveHistoricData = function(numberTweets, mostHatedUser, mostHatedUserNumTweets, exampleTweet, exampleTweetId, exampleTweetUser) {
+database.saveHistoricData = function(
+	numberTweets,
+	hatedUser, hatedUserExampleTweetText, hatedUserExampleTweetId, hatedUserExampleTweetUser,
+	hatefulUser, hatefulUserTweetText, hatefulUserTweetId) {
 
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \'' + mostHatedUser + '\', \'' + mostHatedUserNumTweets + '\', \'' + exampleTweet + '\', \'' + exampleTweetId + '\', \'' + exampleTweetUser + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	this.connection.query(
+		'INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \''
+		+ hatedUser + '\', \'' + hatedUserExampleTweetText + '\', \'' + hatedUserExampleTweetId + '\', \'' + hatedUserExampleTweetUser + '\', \''
+		+ hatefulUser + '\', \'' + hatefulUserTweetText + '\', \'' + hatefulUserTweetId
+		+ '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')',
+
+		function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
