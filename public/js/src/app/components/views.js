@@ -12,6 +12,13 @@ Vue.component('views', {
 			<div id="user-container" v-show="showUser">
 				<most-hated-user></most-hated-user>
 				<most-hated-user-tweets></most-hated-user-tweets>
+
+				<most-hateful-user></most-hateful-user>
+				<most-hateful-user-tweets></most-hateful-user-tweets>
+			</div>
+
+			<div id="stats-container" v-show="showStats">
+				<stats></stats>
 			</div>
 
 			<div id="info-container" v-show="showInfo">
@@ -25,7 +32,8 @@ Vue.component('views', {
 		return {
 			showDashboard: store.showDashboard,
 			showUser: store.showUser,
-			showInfo: store.showInfo
+			showInfo: store.showInfo,
+			showStats: store.showStats
 		}
 	},
 

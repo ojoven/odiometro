@@ -8,7 +8,7 @@ const lib = new Vue({
 		// Update View Parameters
 		updateViewParameters: function(that, view) {
 
-			that.showDashboard = that.showUser = that.showInfo = false;
+			that.showDashboard = that.showUser = that.showInfo = that.showStats =false;
 			var variable = 'show' + view;
 			that[variable] = true;
 		},
@@ -23,9 +23,11 @@ const lib = new Vue({
 
 			return tweet;
 		},
+
 		highlight: function(data, search) {
 			return data.replace( new RegExp( "(" + this.preg_quote( search ) + ")" , 'gi' ), "<b>$1</b>" );
 		},
+
 		preg_quote: function(str) {
 			return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
 		}

@@ -20,7 +20,7 @@ database.initialize = function() {
 database.saveTweet = function(tweet) {
 
 	var tweetText = this.escapeSingleQuotes(tweet.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -32,7 +32,7 @@ database.saveTweet = function(tweet) {
 // RETWEETS
 database.saveRetweet = function(tweet) {
 
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + tweet.retweeted_status.text + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -121,10 +121,43 @@ database.getMostHatedUsersLastTweet = function(user, callback) {
 	});
 };
 
-/** HISTORIC **/
-database.saveHistoricData = function(numberTweets, mostHatedUser, exampleTweet) {
+database.getMostHatedUserNumberTweets = function(user, callback) {
 
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \'' + mostHatedUser + '\', \'' + exampleTweet + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	var query = 'SELECT count(*) FROM `tweets` WHERE tweet LIKE \'%' + user + '%\'';
+	this.connection.query(query, function (error, results, fields) {
+
+		var numTweets = results[0];
+		callback(numTweets);
+	});
+
+};
+
+database.getMostHatefulUserAndTweetID = function(callback) {
+
+	var timeInMinutes = 10;
+	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
+	var query = 'SELECT `retweeted_user`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
+	this.connection.query(query, function (error, results, fields) {
+
+		var user = results[0];
+		callback(user);
+	});
+};
+
+database.getMostHatefulUserTweet = function(user, callback) {
+
+	var query = 'SELECT * FROM `tweets` WHERE tweet LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
+	this.connection.query(query, function (error, results, fields) {
+
+		var tweet = results[0];
+		callback(tweet);
+	});
+};
+
+/** HISTORIC **/
+database.saveHistoricData = function(numberTweets, mostHatedUser, mostHatedUserNumTweets, exampleTweet, exampleTweetId, exampleTweetUser) {
+
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \'' + mostHatedUser + '\', \'' + mostHatedUserNumTweets + '\', \'' + exampleTweet + '\', \'' + exampleTweetId + '\', \'' + exampleTweetUser + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
