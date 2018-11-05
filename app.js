@@ -126,7 +126,7 @@ function emitMostHatedUserAndTweet() {
 			io.sockets.emit('most_hated_user', user);
 
 			database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
-				mostHatedUsersLastTweet = tweet.text;
+				mostHatedUsersLastTweet = tweet.tweet;
 				io.sockets.emit('most_hated_user_tweet', tweet);
 			});
 		}

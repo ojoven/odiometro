@@ -119,8 +119,8 @@ footer a { color: #fff; }
 
 .most_hated_user { margin: 50px auto; }
 .most_hated_user > span { color: #aaa; font-size: 24px; line-height: 1.2; }
-.most_hated_user > span b { position: relative; font-weight: normal; display: inline-block; }
-.most_hated_user > span b::after { content: ' '; background: #8A0707; display: block; position: absolute; bottom: -2px; height: 3px; width: 100%; transform: rotate(-1deg); -webkit-transform: rotate(-1deg); }
+.most_hated_user > span b { font-weight: normal; color: #444; }
+.most_hated_user a { color: #8A0707; }
 
 #info { margin: 50px auto; width: 600px; max-width: 90%; position: relative; z-index: 99; }
 #info p, #info li { font-size: 14px; margin: 10px; color: #444; line-height: 1.2; }
@@ -149,16 +149,7 @@ input { -webkit-appearance: none; border-radius: 0; }
 /** COMPONENTS **/
 #blood { display: block; width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
 
-.btn { -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; -webkit-transition: all 0.2s ease; transition: all 0.2s ease; display: inline-block; font-size: 16px; line-height: 1.2; padding: 10px 20px 10px 20px; text-decoration: none; text-transform: uppercase; text-align: center; margin: 10px; }
-.btn.btn-rating { border-radius: 50%; width: 100px; height: 100px; border: 3px solid #ccc; box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.29804) inset, 0 -1px 1px 0 rgba(255, 255, 255, 0.14902) inset, 0 7px 0 0 #bbbbbb, 0 8px 3px 0 rgba(0, 0, 0, 0.2); }
-.btn.btn-rating > i { color: #ffffff; font-size: 50px; position: relative; top: 10px; text-shadow: 0 2px 2px #444; }
-.btn.btn-rating.active { box-shadow: none; -moz-transform: translate3d(0px, 5px, 0); -o-transform: translate3d(0px, 5px, 0); -ms-transform: translate3d(0px, 5px, 0); -webkit-transform: translate3d(0px, 5px, 0); transform: translate3d(0px, 5px, 0); }
-.btn.btn-rating.rating-positive { border-color: #590505; background: #8A0707; }
-.btn.btn-rating.rating-negative { border-color: #b3b3b3; background: #cccccc; }
-.btn.btn-default { color: #444; border: 3px solid #444; }
-.btn.btn-default:hover, .btn.btn-default:focus { background-color: #444; border-color: #ffffff; color: #ffffff; }
-.btn.btn-twitter { color: #1da1f2; border: 3px solid #1da1f2; background: #ffffff; text-transform: none; padding: 10px; }
-.btn.btn-twitter > i { margin-right: 5px; }
+.btn { -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; -webkit-transition: all 0.2s ease; transition: all 0.2s ease; background: #8A0707; color: #ffffff; display: inline-block; font-size: 18px; line-height: 1.2; padding: 6px 8px; text-decoration: none; text-align: center; margin: 20px auto; position: relative; }
 
 input { padding: 10px 20px; font-size: 14px; border: 2px solid #cccccc; width: 100%; margin: 0 0 10px; }
 
