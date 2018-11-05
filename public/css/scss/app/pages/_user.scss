@@ -3,11 +3,30 @@
 // ==============================================
 
 // Most hated user
-#most_hated_user {
+.most_hated_user {
 	margin: 50px auto;
 	> span {
 		@extend .bold;
-		color: #ccc;
+		color: #aaa;
 		font-size: 24px;
+		line-height: 1.2;
+
+		b {
+			position: relative;
+			font-weight: normal;
+			display: inline-block;
+
+			&::after {
+				content: ' ';
+				background: $redFirebrick;
+				display: block;
+				position: absolute;
+				bottom: -2px;
+				height: 3px;
+				width: 100%;
+				transform: rotate(-1deg);
+				-webkit-transform: rotate(-1deg);
+			}
+		}
 	}
 }

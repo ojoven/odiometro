@@ -10,11 +10,17 @@ Vue.component('views', {
 			</div>
 
 			<div id="user-container" v-show="showUser">
-				<most-hated-user></most-hated-user>
-				<most-hated-user-tweets></most-hated-user-tweets>
 
-				<most-hateful-user></most-hateful-user>
-				<most-hateful-user-tweets></most-hateful-user-tweets>
+				<div class="hate-user hateful-user">
+					<most-hateful-user></most-hateful-user>
+					<most-hateful-user-tweets></most-hateful-user-tweets>
+				</div>
+
+				<div class="hate-user hated-user">
+					<most-hated-user></most-hated-user>
+					<most-hated-user-tweets></most-hated-user-tweets>
+				</div>
+
 			</div>
 
 			<div id="stats-container" v-show="showStats">

@@ -16,7 +16,7 @@ Vue.component('most-hateful-user-tweets', {
 		// When we receive it, let's update the user
 		socket.on('most_hateful_user_tweet', function(data) {
 			if (data) {
-				this.updateTweet(data.tweet);
+				this.updateTweet(data);
 			}
 		}.bind(this));
 

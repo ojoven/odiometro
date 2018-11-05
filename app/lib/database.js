@@ -32,7 +32,8 @@ database.saveTweet = function(tweet) {
 // RETWEETS
 database.saveRetweet = function(tweet) {
 
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + tweet.retweeted_status.text + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	var retweetText = this.escapeSingleQuotes(tweet.retweeted_status.text);
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -132,25 +133,15 @@ database.getMostHatedUserNumberTweets = function(user, callback) {
 
 };
 
-database.getMostHatefulUserAndTweetID = function(callback) {
+database.getMostHatefulUserAndTweet = function(callback) {
 
 	var timeInMinutes = 10;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
-	var query = 'SELECT `retweeted_user`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
+	var query = 'SELECT `retweeted_user`, `retweeted_id`, `retweeted_text`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {
 
 		var user = results[0];
 		callback(user);
-	});
-};
-
-database.getMostHatefulUserTweet = function(user, callback) {
-
-	var query = 'SELECT * FROM `tweets` WHERE tweet LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
-	this.connection.query(query, function (error, results, fields) {
-
-		var tweet = results[0];
-		callback(tweet);
 	});
 };
 

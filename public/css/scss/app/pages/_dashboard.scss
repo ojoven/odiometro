@@ -4,11 +4,12 @@
 
 // Tweets
 .tweets {
+	@extend .monospace;
 	margin: 20px auto;
 	padding: 30px;
-	@extend .monospace;
 	line-height: 1.2;
 	height: 80px;
+	max-width: 600px;
 }
 
 // Number of Tweets
@@ -41,10 +42,21 @@
 }
 
 // Most hated user
-#most_hated_user {
-	> span {
-		@extend .bold;
-		color: #ccc;
-		font-size: 24px;
+#user-container {
+
+	.tweets {
+		margin: 0 auto;
+		padding: 0 30px;
+		height: auto;
+	}
+
+	.hate-user {
+		float: left;
+		width: 50%;
+
+		&.hateful-user {
+			border-right: 4px solid $redFirebrick;
+			height: 64vh;
+		}
 	}
 }
