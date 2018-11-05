@@ -16,9 +16,8 @@ database.initialize = function() {
 	this.connection.connect();
 };
 
-// INSERT
-// TWEETS
-database.insertTweetToDatabase = function(tweet) {
+/** TWEETS **/
+database.saveTweet = function(tweet) {
 
 	var tweetText = this.escapeSingleQuotes(tweet.text);
 	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
@@ -31,7 +30,7 @@ database.insertTweetToDatabase = function(tweet) {
 };
 
 // RETWEETS
-database.insertRetweetToDatabase = function(tweet) {
+database.saveRetweet = function(tweet) {
 
 	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
@@ -88,7 +87,7 @@ database.cleanOldData = function(timeInMinutes) {
 
 };
 
-// USERS
+/** USERS **/
 database.saveUsers = function(users) {
 
 	if (!users) return;

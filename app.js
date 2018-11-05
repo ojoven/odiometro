@@ -62,12 +62,12 @@ twitterStream.on('tweet', function (tweet) {
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
 			console.log('retweet');
-			database.insertRetweetToDatabase(tweet);
+			database.saveRetweet(tweet);
 		} else {
 
 			// Or it is a tweet
 			console.log(tweet.text);
-			database.insertTweetToDatabase(tweet);
+			database.saveTweet(tweet);
 
 			// Save the users
 			var users = Tweet.getUsernamesInTweet(tweet);
