@@ -31,6 +31,9 @@ require('./routes')(app, io);
 // Logging
 console.log('Your application is running on http://localhost:' + port);
 
+// Vars
+var numberTweets, mostHatedUser, mostHatedUsersLastTweet;
+
 // When socket connection
 io.on('connection', function (socket) {
 
@@ -81,6 +84,7 @@ twitterStream.on('tweet', function (tweet) {
 		}
 
 		if (Tweet.isTweetForMostHatedUser(tweet, mostHatedUser)) {
+			mostHatedUsersLastTweet = tweet.text;
 			io.sockets.emit('most_hated_user_tweet', tweet.text);
 		}
 
@@ -103,13 +107,13 @@ function emitLastTweet() {
 function emitNumberTweets() {
 
 	database.getNumberOfTweetsInLastMinute(function(number_tweets) {
+		numberTweets = number_tweets;
 		var data = { number_tweets: number_tweets };
 		io.sockets.emit('number_tweets', data);
 	});
 }
 
 // Most hated user
-var mostHatedUser = false;
 function emitMostHatedUser() {
 
 	database.getMostHatedUser(function(user) {
@@ -119,8 +123,6 @@ function emitMostHatedUser() {
 	});
 }
 
-var mostHatedUsersLastTweet;
-
 function emitMostHatedUserAndTweet() {
 
 	database.getMostHatedUser(function(user) {
@@ -128,11 +130,16 @@ function emitMostHatedUserAndTweet() {
 		mostHatedUser = user.user;
 		io.sockets.emit('most_hated_user', user);
 
-		database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
-			mostHatedUsersLastTweet = tweet.text;
-			io.sockets.emit('most_hated_user_tweet', tweet);
-		})
+		emitMostHaterUsersTweet();
 	});
+}
+
+function emitMostHaterUsersTweet() {
+
+	database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
+		mostHatedUsersLastTweet = tweet.text;
+		io.sockets.emit('most_hated_user_tweet', tweet);
+	})
 }
 
 // FREQUENT UPDATES
@@ -152,23 +159,20 @@ setInterval(function() {
 
 // Save historic data
 var frequencyOfHistoricData = 60000; // 1 minute in miliseconds
-var numberTweets, mostHatedUserHistoric, numberTweetsHatedUser, exampleTweet;
 
 setInterval(function() {
 
-	database.getNumberOfTweetsInLastMinute(function(number_tweets) {
-		
-		// NUMBER TWEETS
-		numberTweets = number_tweets;
+	database.getMostHatedUser(function(user) {
 
-		database.getMostHatedUser(function(user) {
+		mostHatedUser = user.user;
 
-			// MOST HATED USER
-			mostHatedUserHistoric = user.user;
-		});
+		// We need to get first the most hated user's last tweet
+		database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
+			mostHatedUsersLastTweet = tweet.tweet;
+
+			database.saveHistoricData(numberTweets, mostHatedUser, mostHatedUsersLastTweet);
+		})
 	});
-
-	database.saveHistoricData(numberTweets, mostHatedUserHistoric, mostHatedUsersLastTweet);
 
 }, frequencyOfHistoricData);
 
