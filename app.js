@@ -176,21 +176,17 @@ setInterval(function() {
 			mostHatedUsersLastTweetId = tweet.id_str;
 			mostHatedUsersLastTweetUser = tweet.screen_name;
 
-			database.getMostHatedUserNumberTweets(mostHatedUser, function(mostHatedUserNumberTweets) {
+			database.getMostHatefulUserAndTweet(function(retweet) {
 
-				database.getMostHatefulUserAndTweet(function(retweet) {
+				mostHatefulUser = retweet.retweeted_user;
+				mostHatefulUserTweet = retweet.retweeted_text;
+				mostHatefulUserTweetId = retweet.retweeted_id;
 
-					mostHatefulUser = retweet.retweeted_user;
-					mostHatefulUserTweet = retweet.retweeted_text;
-					mostHatefulUserTweetId = retweet.retweeted_id;
-
-					database.saveHistoricData(
-						numberTweets,
-						mostHatedUser, mostHatedUsersLastTweet, mostHatedUsersLastTweetId, mostHatedUsersLastTweetUser,
-						mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId
-					);
-				});
-
+				database.saveHistoricData(
+					numberTweets,
+					mostHatedUser, mostHatedUsersLastTweet, mostHatedUsersLastTweetId, mostHatedUsersLastTweetUser,
+					mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId
+				);
 			});
 
 		})
