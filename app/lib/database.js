@@ -99,7 +99,7 @@ database.saveUsers = function(users) {
 
 };
 
-database.getMostRepeatedUser = function(callback) {
+database.getMostHatedUser = function(callback) {
 
 	var timeInMinutes = 10;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
@@ -119,6 +119,18 @@ database.getMostHatedUsersLastTweet = function(user, callback) {
 		var tweet = results[0];
 		callback(tweet);
 	});
+};
+
+/** HISTORIC **/
+database.saveHistoricData = function(numberTweets, mostHatedUser, exampleTweet) {
+
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \'' + mostHatedUser + '\', \'' + exampleTweet + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+		if (error) {
+			console.log(error);
+			throw error;
+		}
+	});
+
 };
 
 // AUXILIAR
