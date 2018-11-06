@@ -139,7 +139,7 @@ function emitMostHatefulUserAndTweet() {
 	database.getMostHatefulUserAndTweet(function(retweet) {
 
 		mostHatefulUser = retweet.retweeted_user;
-		mostHatefulUserTweet = retweet.retweeted_text;
+		mostHatefulUserTweet = { tweet: retweet.retweeted_text, id_str: retweet.retweeted_id, screen_name: retweet.retweeted_user };
 		io.sockets.emit('most_hateful_user', mostHatefulUser);
 		io.sockets.emit('most_hateful_user_tweet', mostHatefulUserTweet);
 	});

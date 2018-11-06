@@ -4,14 +4,13 @@ Vue.component('most-hated-user-tweets', {
 		<div>
 			<div id="most_hated_user_tweets" class="tweets" v-html="tweet">
 			</div>
-			<a class="btn" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">@{{ username }}</a>
+			<a class="btn" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">ver tuit</a>
 		</div>
   `,
 
 	data() {
 		return {
 			tweet: '',
-			username: '',
 			screen_name: '',
 			tweet_id: ''
 		}
@@ -22,7 +21,6 @@ Vue.component('most-hated-user-tweets', {
 		// When we receive it, let's update the user
 		socket.on('most_hated_user_tweet', function(data) {
 			if (data) {
-				console.log(data);
 				this.updateTweet(data.tweet);
 				this.updateLink(data.id_str, data.screen_name);
 			}
