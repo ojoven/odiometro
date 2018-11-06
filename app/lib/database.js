@@ -112,7 +112,7 @@ database.getMostHatedUser = function(callback) {
 	});
 };
 
-database.getMostHatedUsersLastTweet = function(user, callback) {
+database.getMostHatedUserExampleTweet = function(user, callback) {
 
 	var query = 'SELECT * FROM `tweets` WHERE tweet LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {
@@ -120,17 +120,6 @@ database.getMostHatedUsersLastTweet = function(user, callback) {
 		var tweet = results[0];
 		callback(tweet);
 	});
-};
-
-database.getMostHatedUserNumberTweets = function(user, callback) {
-
-	var query = 'SELECT count(*) FROM `tweets` WHERE tweet LIKE \'%' + user + '%\'';
-	this.connection.query(query, function (error, results, fields) {
-
-		var numTweets = results[0];
-		callback(numTweets);
-	});
-
 };
 
 database.getMostHatefulUserAndTweet = function(callback) {

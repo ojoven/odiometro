@@ -125,7 +125,7 @@ function emitMostHatedUserAndTweet() {
 			mostHatedUser = user.user;
 			io.sockets.emit('most_hated_user', user);
 
-			database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
+			database.getMostHatedUserExampleTweet(mostHatedUser, function(tweet) {
 				mostHatedUsersLastTweet = tweet.tweet;
 				io.sockets.emit('most_hated_user_tweet', tweet);
 			});
@@ -171,7 +171,7 @@ setInterval(function() {
 		mostHatedUser = user.user;
 
 		// We need to get first the most hated user's last tweet
-		database.getMostHatedUsersLastTweet(mostHatedUser, function(tweet) {
+		database.getMostHatedUserExampleTweet(mostHatedUser, function(tweet) {
 			mostHatedUsersLastTweet = tweet.tweet;
 			mostHatedUsersLastTweetId = tweet.id_str;
 			mostHatedUsersLastTweetUser = tweet.screen_name;
