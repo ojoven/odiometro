@@ -27,7 +27,10 @@ Vue.component('blood-canvas', {
 		this.initializeMouseEvents();
 
 		socket.on('tweet', function(tweet) {
-			this.randomSplatter();
+			var that = this;
+			setTimeout(function() {
+				that.randomSplatter();
+			}, 200);
 		}.bind(this));
 	},
 
