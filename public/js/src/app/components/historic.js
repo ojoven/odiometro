@@ -21,6 +21,7 @@ Vue.component('historic', {
 
 		var parameters = {};
 		parameters.type = 'hour';
+		parameters.number = 1;
 
 		// Let's ask immediately for the most hated user
 		socket.emit('retrieve_historic', parameters);
@@ -38,7 +39,7 @@ Vue.component('historic', {
 
 			var ctx = document.getElementById("stats-canvas");
 			var parsedData = this.parseHistoricDataForGraph(data);
-			var labels = this.getLabels(data);
+			var labels = this.getLabels(parsedData);
 			var pointColors = this.getPointColors(data, 'rgba(138, 7, 7, 1)');
 
 			var myChart = new Chart(ctx, {
@@ -70,17 +71,13 @@ Vue.component('historic', {
 					tooltips: {
 						callbacks: {
 							label: function(tooltipItem, data) {
-								var label = data.datasets[tooltipItem.datasetIndex].label || '';
+								console.log(tooltipItem, data.datasets[tooltipItem.datasetIndex]);
 
-								if (label) {
-									label = 'Hace ' + label + ' minutos';
-								}
-								label += Math.round(tooltipItem.yLabel * 100) / 100;
-								//return label;
-								return 20;
+								var label = tooltipItem.yLabel + ' tuits de odio a las ' + tooltipItem.xLabel;
+								return label;
 							},
 							title: function(tooltipItem, data) {
-								return "TITLE";
+								return "Número de tuits de odio por minuto";
 							}
 						}
 					}
@@ -101,18 +98,18 @@ Vue.component('historic', {
 
 			});
 
-			console.log(parsedData);
 			return parsedData;
 
 		},
 
-		getLabels: function(data) {
+		getLabels: function(parsedData) {
 
 			var labels = [];
 
-			data.forEach(function(point) {
+			parsedData.forEach(function(point) {
 
-				labels.push(point.number_tweets);
+				point.t.setHours(point.t.getHours()+1);
+				labels.push(point.t.getHours() + ':' + point.t.getMinutes());
 
 			});
 

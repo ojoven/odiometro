@@ -155,8 +155,23 @@ function emitHistoric(parameters) {
 
 	console.log(JSON.stringify(parameters));
 
-	var dateStart = '2018-11-06 14:22:08';
-	var dateEnd = '2018-11-06 15:37:14';
+	var now = new Date();
+	var hours = 1000*60*60;
+	var days = hours*24;
+	var dateStartUnix;
+
+	if (parameters.type === 'hour') {
+		dateStartUnix = new Date(now.getTime() - (parameters.number*hours));
+	} else if (parameters.type === 'day') {
+		dateStartUnix = new Date(now.getTime() - (parameters.number*days));
+	}
+
+	var dateStart = dateStartUnix.toISOString().slice(0, 19).replace('T', ' ');
+	var dateEnd = now.toISOString().slice(0, 19).replace('T', ' '); // now
+
+	console.log('DAAAAAAAAAATEEEES');
+	console.log(dateStart);
+	console.log(dateEnd);
 
 	database.getHistoricData(dateStart, dateEnd, function(historicData) {
 
