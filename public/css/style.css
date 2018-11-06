@@ -126,6 +126,11 @@ footer a { color: #fff; }
 #info p, #info li { font-size: 14px; margin: 10px; color: #444; line-height: 1.2; }
 #info a { color: #8A0707; font-weight: bold; }
 
+#historic { margin: 50px 0; }
+
+.stats-container { margin: 25px auto; width: 800px; height: 400px; }
+
+@media (max-width: 767px) { .stats-container { width: 90%; } }
 /** HELPERS **/
 .srt { clip: rect(1px, 1px, 1px, 1px); position: absolute; margin: 0; padding: 0; }
 

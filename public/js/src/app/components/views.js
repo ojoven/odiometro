@@ -23,8 +23,8 @@ Vue.component('views', {
 
 			</div>
 
-			<div id="stats-container" v-show="showStats">
-				<stats></stats>
+			<div id="historic-container" v-show="showHistoric">
+				<historic></historic>
 			</div>
 
 			<div id="info-container" v-show="showInfo">
@@ -38,8 +38,8 @@ Vue.component('views', {
 		return {
 			showDashboard: store.showDashboard,
 			showUser: store.showUser,
-			showInfo: store.showInfo,
-			showStats: store.showStats
+			showHistoric: store.showHistoric,
+			showInfo: store.showInfo
 		}
 	},
 

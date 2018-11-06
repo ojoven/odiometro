@@ -1,0 +1,23 @@
+// ==============================================
+// HISTORIC
+// ==============================================
+
+#historic {
+	margin: 50px 0;
+}
+
+.stats-container {
+	margin: 25px auto;
+	width: 800px;
+	height: 400px;
+}
+
+@include mobile {
+
+	.stats-container {
+
+		width: 90%;
+
+	}
+
+}

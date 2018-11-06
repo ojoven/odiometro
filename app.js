@@ -57,6 +57,11 @@ io.on('connection', function (socket) {
 		emitMostHatefulUserAndTweet();
 	});
 
+	// Immediately send the historic
+	socket.on('retrieve_historic', function(parameters) {
+		emitHistoric(parameters);
+	});
+
 });
 
 // Twitter Stream
@@ -145,6 +150,21 @@ function emitMostHatefulUserAndTweet() {
 	});
 }
 
+// Historic data
+function emitHistoric(parameters) {
+
+	console.log(JSON.stringify(parameters));
+
+	var dateStart = '2018-11-06 14:22:08';
+	var dateEnd = '2018-11-06 15:37:14';
+
+	database.getHistoricData(dateStart, dateEnd, function(historicData) {
+
+		io.sockets.emit('historic', historicData);
+	});
+
+}
+
 
 // FREQUENT UPDATES
 // Number Tweets
@@ -167,6 +187,8 @@ var mostHatedUsersLastTweetId, mostHatedUsersLastTweetUser;
 setInterval(function() {
 
 	database.getMostHatedUser(function(user) {
+
+		if (!user) return;
 
 		mostHatedUser = user.user;
 

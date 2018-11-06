@@ -135,10 +135,27 @@ database.getMostHatefulUserAndTweet = function(callback) {
 };
 
 /** HISTORIC **/
+database.getHistoricData = function(dateStart, dateEnd, callback) {
+
+	var timeInMinutes = 2;
+	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
+	var query = 'SELECT `id`, `number_tweets`, `hated_user`, `hated_user_example_tweet_text`, `hated_user_example_tweet_id`, `hated_user_example_tweet_user`, ' +
+		'`hateful_user`, `hateful_user_tweet_text`, `hateful_user_tweet_id`, `date`' +
+		'FROM `historic` WHERE date >= \'' + dateStart + '\' AND date <= \'' + dateEnd + '\' ORDER BY `date` ASC';
+	this.connection.query(query, function (error, results, fields) {
+
+		callback(results);
+	});
+
+};
+
 database.saveHistoricData = function(
 	numberTweets,
 	hatedUser, hatedUserExampleTweetText, hatedUserExampleTweetId, hatedUserExampleTweetUser,
 	hatefulUser, hatefulUserTweetText, hatefulUserTweetId) {
+
+	hatedUserExampleTweetText = this.escapeSingleQuotes(hatedUserExampleTweetText);
+	hatefulUserTweetText = this.escapeSingleQuotes(hatefulUserTweetText);
 
 	this.connection.query(
 		'INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \''

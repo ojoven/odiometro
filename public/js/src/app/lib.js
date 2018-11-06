@@ -8,7 +8,7 @@ const lib = new Vue({
 		// Update View Parameters
 		updateViewParameters: function(that, view) {
 
-			that.showDashboard = that.showUser = that.showInfo = that.showStats =false;
+			that.showDashboard = that.showUser = that.showInfo = that.showHistoric =false;
 			var variable = 'show' + view;
 			that[variable] = true;
 		},

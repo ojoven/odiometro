@@ -4,7 +4,7 @@ Vue.component('menu-options', {
 		<ul id="menu">
 			<li><a href="#" @click="setActive('Dashboard')" :class="{ active: showDashboard }"><i class="fa fa-dashboard"></i></a></li>
 			<li><a href="#" @click="setActive('User')" :class="{ active: showUser }"><i class="fa fa-user"></i></a></li>
-			<!--<li><a href="#" @click="setActive('Stats')" :class="{ active: showStats }"><i class="fa fa-bar-chart"></i></a></li>-->
+			<li><a href="#" @click="setActive('Historic')" :class="{ active: showHistoric }"><i class="fa fa-bar-chart"></i></a></li>
 			<li><a href="#" @click="setActive('Info')" :class="{ active: showInfo }"><i class="fa fa-info"></i></a></li>
 		</ul>
   `,
@@ -14,7 +14,7 @@ Vue.component('menu-options', {
 		return {
 			showDashboard: store.showDashboard,
 			showUser: store.showUser,
-			showStats: store.showStats,
+			showHistoric: store.showHistoric,
 			showInfo: store.showInfo
 		}
 	},
