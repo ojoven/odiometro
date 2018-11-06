@@ -40,22 +40,3 @@
 		margin: 0 auto;
 	}
 }
-
-// Most hated user
-#user-container {
-
-	.tweets {
-		margin: 0 auto;
-		padding: 0 30px;
-		height: auto;
-	}
-
-	.hate-user {
-		float: left;
-		width: 50%;
-
-		.most_hateful_user {
-			border-right: 3px solid #ccc;
-		}
-	}
-}

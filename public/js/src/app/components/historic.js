@@ -3,7 +3,18 @@ Vue.component('historic', {
 	template: `
 		<div id="historic">
 			<h3>Histórico de odio</h3>
-			<span class="subtitle">Recogiendo datos desde {{ first_date }}</span>
+			<span class="subtitle">
+			Mostrar estadísticas de
+				<select id="stats-dropdown" name="stats-dropdown" @change="onStatsDropdownChange">
+					<option data-type="hour" data-number="1">Última hora</option>
+					<option data-type="hour" data-number="3">Últimas 3 horas</option>
+					<!--<option data-type="hour" data-number="6">Últimas 6 horas</option>
+					<option data-type="hour" data-number="12">Últimas 12 horas</option>
+					<option data-type="hour" data-number="24">Últimas 24 horas</option>
+					<option data-type="day" data-number="3">Últimos 3 días</option>
+					<option data-type="day" data-number="7">Últimos 7 días</option>-->
+				</select>
+			</span>
 
 			<div class="stats-container">
 				<canvas id="stats-canvas" width="800" height="300"></canvas>
@@ -13,18 +24,19 @@ Vue.component('historic', {
 
 	data() {
 		return {
-			first_date: ''
+			historicStatsChart: null,
+			rangeBetweenPoints: 1,
+			parameters: {}
 		}
 	},
 
 	created: function() {
 
-		var parameters = {};
-		parameters.type = 'hour';
-		parameters.number = 1;
+		this.parameters.type = 'hour';
+		this.parameters.number = 1;
 
 		// Let's ask immediately for the most hated user
-		socket.emit('retrieve_historic', parameters);
+		socket.emit('retrieve_historic', this.parameters);
 
 		// When we receive it, let's update the user
 		socket.on('historic', function(data) {
@@ -35,14 +47,34 @@ Vue.component('historic', {
 
 	methods: {
 
+		onStatsDropdownChange: function(event) {
+
+			var activeOption = document.getElementById('stats-dropdown').options[document.getElementById('stats-dropdown').selectedIndex];
+			this.parameters.type = activeOption.getAttribute('data-type');
+			this.parameters.number = activeOption.getAttribute('data-number');
+
+			socket.emit('retrieve_historic', this.parameters);
+		},
+
 		updateHistoric: function(data) {
 
-			var ctx = document.getElementById("stats-canvas");
+			// If previously created, we destroy it before creating a new one
+			if (this.historicStatsChart) {
+				this.historicStatsChart.destroy();
+			}
+
+			// Parse data for the graph
 			var parsedData = this.parseHistoricDataForGraph(data);
+
+			// Create new data array by intervals
+			this.calculateDecimateRange(data);
+			parsedData = this.decimate(parsedData);
+
+			var ctx = document.getElementById("stats-canvas");
 			var labels = this.getLabels(parsedData);
 			var pointColors = this.getPointColors(data, 'rgba(138, 7, 7, 1)');
 
-			var myChart = new Chart(ctx, {
+			this.historicStatsChart = new Chart(ctx, {
 				type: 'line',
 				data: {
 					labels: labels,
@@ -61,6 +93,7 @@ Vue.component('historic', {
 					}]
 				},
 				options: {
+					maintainAspectRatio: false,
 					scales: {
 						yAxes: [{
 							ticks: {
@@ -69,10 +102,14 @@ Vue.component('historic', {
 						}]
 					},
 					tooltips: {
+						titleFontFamily: 'Ubuntu',
+						bodyFontFamily: 'Ubuntu',
+						footerFontFamily: 'Ubuntu',
+						cornerRadius: 0,
+						xPadding: 12,
+						yPadding: 12,
 						callbacks: {
 							label: function(tooltipItem, data) {
-								console.log(tooltipItem, data.datasets[tooltipItem.datasetIndex]);
-
 								var label = tooltipItem.yLabel + ' tuits de odio a las ' + tooltipItem.xLabel;
 								return label;
 							},
@@ -109,7 +146,12 @@ Vue.component('historic', {
 			parsedData.forEach(function(point) {
 
 				point.t.setHours(point.t.getHours()+1);
-				labels.push(point.t.getHours() + ':' + point.t.getMinutes());
+				var minutes = point.t.getMinutes();
+				var str = "" + minutes;
+				var pad = "00";
+				minutes = pad.substring(0, pad.length - str.length) + str;
+
+				labels.push(point.t.getHours() + ':' + minutes);
 
 			});
 
@@ -128,7 +170,11 @@ Vue.component('historic', {
 			return pointColors;
 		},
 
-		decimate: function(sample, blocksz) {
+		decimate: function(sample) {
+
+			var blocksz = this.rangeBetweenPoints;
+			if (blocksz == 1) return sample;
+
 			var chunks = [];
 
 			// Chunk up the sample
@@ -145,14 +191,44 @@ Vue.component('historic', {
 					val.push(chunks[chunk][i]["y"]);
 				}
 
+				var average = Math.floor(val.reduce(function(p,c,i,a){return p + (c/a.length)},0));
+
 				new_sample.push({
-					x: chunks[chunk][Math.floor(chunks[chunk].length/2)]["x"],
-					y: math.mean(val)
+					t: chunks[chunk][0]["t"],
+					y: average
 				});
 			}
 
 			return new_sample;
-		}
+		},
+
+		calculateDecimateRange: function() {
+
+			// Last hour
+			if (this.parameters.type === 'hour' && this.parameters.number == 1) {
+				this.rangeBetweenPoints = 1;
+
+				// Last 3 hours
+			} else if (this.parameters.type === 'hour' && this.parameters.number == 3) {
+				this.rangeBetweenPoints = 5;
+
+				// Last 6 hours
+			} else if (this.parameters.type === 'hour' && this.parameters.number == 6) {
+				this.rangeBetweenPoints = 10;
+
+				// Last 12 hours
+			} else if (this.parameters.type === 'hour' && this.parameters.number == 12) {
+				this.rangeBetweenPoints = 20;
+
+				// Last 24 hours
+			} else if (this.parameters.type === 'hour' && this.parameters.number == 24) {
+				this.rangeBetweenPoints = 30;
+
+			} else if (this.parameters.type === 'day') {
+				this.rangeBetweenPoints = 60;
+			}
+
+		},
 
 	}
 

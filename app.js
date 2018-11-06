@@ -169,10 +169,6 @@ function emitHistoric(parameters) {
 	var dateStart = dateStartUnix.toISOString().slice(0, 19).replace('T', ' ');
 	var dateEnd = now.toISOString().slice(0, 19).replace('T', ' '); // now
 
-	console.log('DAAAAAAAAAATEEEES');
-	console.log(dateStart);
-	console.log(dateEnd);
-
 	database.getHistoricData(dateStart, dateEnd, function(historicData) {
 
 		io.sockets.emit('historic', historicData);

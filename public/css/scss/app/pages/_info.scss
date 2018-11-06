@@ -22,3 +22,10 @@
 		font-weight: bold;
 	}
 }
+
+@include mobile {
+
+	#info {
+		margin-top: 20px;
+	}
+}

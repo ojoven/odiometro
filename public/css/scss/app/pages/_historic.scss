@@ -4,6 +4,16 @@
 
 #historic {
 	margin: 50px 0;
+
+	.subtitle {
+		display: block;
+		margin: 10px 0;
+	}
+
+	select {
+		padding: 5px 10px;
+		margin-left: 5px;
+	}
 }
 
 .stats-container {
@@ -15,9 +25,30 @@
 @include mobile {
 
 	.stats-container {
-
 		width: 90%;
+		height: 240px;
+	}
 
+	#historic {
+		margin: 20px 0;
+
+		.subtitle {
+			text-align: center;
+
+			select {
+				display: block;
+				margin: 10px auto;
+			}
+		}
+
+	}
+
+}
+
+@include ipadPortrait {
+
+	.stats-container {
+		width: 90%;
 	}
 
 }

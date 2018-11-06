@@ -24,11 +24,21 @@
 
 			&.left {
 				left: -10px;
+				transform-origin: bottom left;
+
+				&.active {
+					@include animation(0, .5s, stabLeft, 1, both);
+				}
 			}
 
 			&.right {
 				left: 10px;
-				@include scaleX(-1);
+				background-image: url(../img/knife-reverse.png);
+				transform-origin: bottom right;
+
+				&.active {
+					@include animation(0, .5s, stabRight, 1, both);
+				}
 			}
 		}
 

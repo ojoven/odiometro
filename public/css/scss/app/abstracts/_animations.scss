@@ -76,3 +76,20 @@
   75% { @include translate3d(0,5px,0); }
   100% { @include translate3d(0,0,0); }
 }
+
+// Stabs
+@include keyframe(stabLeft) {
+  0% { @include rotate(0); }
+  25% { @include rotate(-10); }
+  50% { @include rotate(0); }
+  75% { @include rotate(10); }
+  100% { @include rotate(0); }
+}
+
+@include keyframe(stabRight) {
+  0% { @include rotate(0); }
+  25% { @include rotate(10); }
+  50% { @include rotate(0); }
+  75% { @include rotate(-10); }
+  100% { @include rotate(0); }
+}
