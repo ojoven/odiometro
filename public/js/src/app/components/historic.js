@@ -4,20 +4,30 @@ Vue.component('historic', {
 		<div id="historic">
 			<h3>Histórico de odio</h3>
 			<span class="subtitle">
-			Mostrar estadísticas de
+			Mostrar <select id="view-dropdown" name="view-dropdown" @change="onViewDropdownChange">
+					<option value="graph">gráfico</option>
+					<option value="resume">resumen</option>
+				</select> de
 				<select id="stats-dropdown" name="stats-dropdown" @change="onStatsDropdownChange">
-					<option data-type="hour" data-number="1">Última hora</option>
-					<option data-type="hour" data-number="3">Últimas 3 horas</option>
-					<option data-type="hour" data-number="6">Últimas 6 horas</option>
-					<option data-type="hour" data-number="12">Últimas 12 horas</option>
-					<option data-type="hour" data-number="24">Últimas 24 horas</option>
-					<!--<option data-type="day" data-number="3">Últimos 3 días</option>
-					<option data-type="day" data-number="7">Últimos 7 días</option>-->
+					<option data-type="hour" data-number="1">última hora</option>
+					<option data-type="hour" data-number="3">últimas 3 horas</option>
+					<option data-type="hour" data-number="6">últimas 6 horas</option>
+					<option data-type="hour" data-number="12">últimas 12 horas</option>
+					<option data-type="hour" data-number="24">últimas 24 horas</option>
+					<!--<option data-type="day" data-number="3">últimos 3 días</option>
+					<option data-type="day" data-number="7">últimos 7 días</option>-->
 				</select>
 			</span>
 
-			<div class="stats-container">
+			<div class="stats-container" v-show="showHistoricGraph">
 				<canvas id="stats-canvas" width="800" height="300"></canvas>
+			</div>
+
+			<div class="resume-container" v-show="showHistoricResume">
+				<section>
+					<div class="user-message">El usuario que <b>más odio ha recibido</b> durante este tiempo ha sido <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div>
+					<div class="example-container">Ejemplo: <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
+				</section>
 			</div>
 		</div>
   `,
@@ -26,7 +36,19 @@ Vue.component('historic', {
 		return {
 			historicStatsChart: null,
 			rangeBetweenPoints: 1,
-			parameters: {}
+			parameters: {},
+			showHistoricGraph: true,
+			showHistoricResume: false,
+			resume: {
+				hatedUser: {
+					user: '',
+					tweet: {
+						text: '',
+						id: '',
+						user: ''
+					}
+				}
+			}
 		}
 	},
 
@@ -46,6 +68,19 @@ Vue.component('historic', {
 	},
 
 	methods: {
+
+		onViewDropdownChange: function(event) {
+
+			var activeOption = document.getElementById('view-dropdown').value;
+
+			if (activeOption == 'graph') {
+				this.showHistoricGraph = true;
+				this.showHistoricResume = false;
+			} else { // resume
+				this.showHistoricGraph = false;
+				this.showHistoricResume = true;
+			}
+		},
 
 		onStatsDropdownChange: function(event) {
 
@@ -248,18 +283,16 @@ Vue.component('historic', {
 			// Get array with all hated users
 			data.forEach(function(point) {
 				hatedUsers.push(point.hated_user);
-				hatedUsersWithExamples[point.hated_user] = {text:point.hated_user_example_tweet_text,id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_id};
+				hatedUsersWithExamples[point.hated_user] = {text:point.hated_user_example_tweet_text,id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_user};
 			});
 
 			hatedUsers = lib.sortByFrequency(hatedUsers);
-			console.log(hatedUsers);
 			hatedUsers = hatedUsers.slice(0,5);
 			hatedUsers.forEach(function(hatedUser) {
 				hatedUsersComplete.push({user:hatedUser, tweet:hatedUsersWithExamples[hatedUser]});
 			});
 
-			resume.hatedUsers = hatedUsersComplete;
-			console.log(resume);
+			this.resume.hatedUser = hatedUsersComplete[0];
 
 			// Get array with all hateful users
 			data.forEach(function(point) {
@@ -269,7 +302,6 @@ Vue.component('historic', {
 			hatefulUsers = lib.sortByFrequency(hatefulUsers);
 			resume.hatefulUsers = hatefulUsers;
 
-			return resume;
 		},
 
 	}

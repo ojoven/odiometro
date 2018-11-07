@@ -47,9 +47,9 @@ Tweet.isItATweetToBeShown = function(tweet, track) {
 };
 
 // GET USERS
-Tweet.getUsernamesInTweet = function(tweet) {
+Tweet.getUsernamesInTweet = function(tweetText) {
 
-	var userNamesInTweet = tweet.text.match(/@\w+/g);
+	var userNamesInTweet = tweetText.match(/@\w+/g);
 	return userNamesInTweet;
 
 };

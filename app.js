@@ -69,21 +69,21 @@ twitterStream.on('tweet', function (tweet) {
 
 	try {
 
+		var tweetText;
+
 		// FILTER: If it's not a hate tweet, we ignore it
 		if (!Tweet.isItAHateTweet(tweet)) return;
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
 			database.saveRetweet(tweet);
+			tweetText = tweet.retweeted_status.text;
 		} else {
 
 			// Or it is a tweet
 			console.log(tweet.text);
 			database.saveTweet(tweet);
-
-			// Save the users
-			var users = Tweet.getUsernamesInTweet(tweet);
-			database.saveUsers(users);
+			tweetText = tweet.text;
 
 			// Is it a tweet to be shown?
 			if (Tweet.isItATweetToBeShown(tweet, track)) {
@@ -91,6 +91,10 @@ twitterStream.on('tweet', function (tweet) {
 			}
 
 		}
+
+		// Save the users
+		var users = Tweet.getUsernamesInTweet(tweetText);
+		database.saveUsers(users);
 
 		if (Tweet.isTweetForMostHatedUser(tweet, mostHatedUser)) {
 			mostHatedUsersLastTweet = tweet.text;
@@ -131,8 +135,10 @@ function emitMostHatedUserAndTweet() {
 			io.sockets.emit('most_hated_user', user);
 
 			database.getMostHatedUserExampleTweet(mostHatedUser, function(tweet) {
-				mostHatedUsersLastTweet = tweet.tweet;
-				io.sockets.emit('most_hated_user_tweet', tweet);
+				if (tweet) {
+					mostHatedUsersLastTweet = tweet.tweet;
+					io.sockets.emit('most_hated_user_tweet', tweet);
+				}
 			});
 		}
 	});
@@ -141,10 +147,10 @@ function emitMostHatedUserAndTweet() {
 // Most hateful user
 function emitMostHatefulUserAndTweet() {
 
-	database.getMostHatefulUserAndTweet(function(retweet) {
+	database.getMostHatefulUserAndTweet(function(tweet) {
 
-		mostHatefulUser = retweet.retweeted_user;
-		mostHatefulUserTweet = { tweet: retweet.retweeted_text, id_str: retweet.retweeted_id, screen_name: retweet.retweeted_user };
+		mostHatefulUser = tweet.user;
+		mostHatefulUserTweet = { tweet: tweet.text, id_str: tweet.id_str, screen_name: tweet.user};
 		io.sockets.emit('most_hateful_user', mostHatefulUser);
 		io.sockets.emit('most_hateful_user_tweet', mostHatefulUserTweet);
 	});
@@ -152,8 +158,6 @@ function emitMostHatefulUserAndTweet() {
 
 // Historic data
 function emitHistoric(parameters) {
-
-	console.log(JSON.stringify(parameters));
 
 	var now = new Date();
 	var hours = 1000*60*60;
@@ -205,15 +209,20 @@ setInterval(function() {
 
 		// We need to get first the most hated user's last tweet
 		database.getMostHatedUserExampleTweet(mostHatedUser, function(tweet) {
+
+			if (!tweet) return;
+
 			mostHatedUsersLastTweet = tweet.tweet;
 			mostHatedUsersLastTweetId = tweet.id_str;
 			mostHatedUsersLastTweetUser = tweet.screen_name;
 
-			database.getMostHatefulUserAndTweet(function(retweet) {
+			database.getMostHatefulUserAndTweet(function(tweet) {
 
-				mostHatefulUser = retweet.retweeted_user;
-				mostHatefulUserTweet = retweet.retweeted_text;
-				mostHatefulUserTweetId = retweet.retweeted_id;
+				if (!tweet) return;
+
+				mostHatefulUser = tweet.user;
+				mostHatefulUserTweet = tweet.text;
+				mostHatefulUserTweetId = tweet.id_str;
 
 				database.saveHistoricData(
 					numberTweets,

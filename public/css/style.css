@@ -9,11 +9,11 @@ h2, h3, h4 { font-weight: normal; }
 @font-face { font-family: "LaramiePro Regular"; src: url("fonts/LaramiePro-Regular.eot"); src: url("fonts/LaramiePro-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/LaramiePro-Regular.woff") format("woff"), url("fonts/LaramiePro-Regular.ttf") format("truetype"), url("fonts/LaramiePro-Regular.svg#LaramiePro Regular") format("svg"); font-weight: normal; font-style: normal; }
 .regular, body, p, footer, #info p, #info li, input, h4 { font-family: 'Ubuntu', sans-serif; font-weight: 400; }
 
-.bold, #number_tweets .num, #number_tweets .suffix, .most_hated_user > span, .btn, h1, h2, h3 { font-family: 'Bahiana', cursive; font-weight: 400; }
+.bold, #number_tweets .num, #number_tweets .suffix, .most_hated_user > span, .resume-container .user-message, .btn, h1, h2, h3 { font-family: 'Bahiana', cursive; font-weight: 400; }
 
 .title, #header h1 { font-family: 'Bahiana', cursive; font-weight: 400; }
 
-.monospace, .tweets { font-family: 'Cutive Mono', monospace; }
+.monospace, .tweets, .resume-container .example-container { font-family: 'Cutive Mono', monospace; }
 
 @-moz-keyframes scale { 0% { -moz-transform: scale(0, 0); -o-transform: scale(0, 0); -ms-transform: scale(0, 0); -webkit-transform: scale(0, 0); transform: scale(0, 0); }
   70% { -moz-transform: scale(1.1, 1.1); -o-transform: scale(1.1, 1.1); -ms-transform: scale(1.1, 1.1); -webkit-transform: scale(1.1, 1.1); transform: scale(1.1, 1.1); }
@@ -182,10 +182,18 @@ footer a { color: #fff; }
 
 .stats-container { margin: 25px auto; width: 800px; height: 400px; max-height: 40vh; }
 
-@media (max-width: 767px) { .stats-container { width: 90%; height: 240px; }
-  #historic { margin: 20px 0; }
+.resume-container { padding: 20px 0; text-align: center; }
+.resume-container section { padding: 20px; }
+.resume-container .user-message { font-size: 24px; color: #aaa; }
+.resume-container .user-message b { font-weight: normal; color: #444; }
+.resume-container .user-message .highlight-user { display: block; margin: 10px auto; color: #8A0707; font-size: 40px; }
+.resume-container .example-container { display: block; margin: 10px auto; width: 600px; max-width: 90%; }
+.resume-container .example-container a { color: #444; }
+
+@media (max-width: 767px) { #historic { margin: 20px 0; }
   #historic .subtitle { text-align: center; }
-  #historic .subtitle select { display: block; margin: 10px auto; } }
+  #historic .subtitle select { display: block; margin: 10px auto; }
+  .stats-container { width: 90%; height: 240px; } }
 @media (max-width: 980px) { .stats-container { width: 90%; } }
 /** HELPERS **/
 .srt { clip: rect(1px, 1px, 1px, 1px); position: absolute; margin: 0; padding: 0; }

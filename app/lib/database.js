@@ -114,11 +114,31 @@ database.getMostHatedUser = function(callback) {
 
 database.getMostHatedUserExampleTweet = function(user, callback) {
 
+	var that = this;
+
+	// FIRST WE RETRIEVE THE EXAMPLE FROM SIMPLE TWEETS
 	var query = 'SELECT * FROM `tweets` WHERE tweet LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {
 
-		var tweet = results[0];
-		callback(tweet);
+		if (results) {
+
+			var tweet = results[0];
+			callback(tweet);
+
+		} else {
+
+			// IF NO RESULTS WITH TWEETS, WE SEARCH ON RETWEETS
+			var query = 'SELECT * FROM `retweets` WHERE retweeted_text LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 1';
+			that.connection.query(query, function (error, results, fields) {
+
+				if (results) {
+					var tweet = results[0];
+					callback(tweet);
+				}
+
+			});
+
+		}
 	});
 };
 
@@ -126,11 +146,27 @@ database.getMostHatefulUserAndTweet = function(callback) {
 
 	var timeInMinutes = 2;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
-	var query = 'SELECT `retweeted_user`, `retweeted_id`, `retweeted_text`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
+
+	// FIRST WE SEARCH FOR THE HATEFUL USER ON RETWEETS, AS IT'S ON THEM WHERE THE INFLUENCE HAPPENS
+	var query = 'SELECT `retweeted_user` AS `user`, `retweeted_id` AS `id_str`, `retweeted_text` AS `text`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE retweeted_text LIKE \'%@%\' AND published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {
 
-		var user = results[0];
-		callback(user);
+		if (results) {
+			var user = results[0];
+			callback(user);
+
+		} else {
+
+			// IF NO RETWEETS WITH HATE, WE SEARCH ON SIMPLE TWEETS
+			var query = 'SELECT `screen_name` AS `user`, `id_str`, `tweet` AS `text`, COUNT(`id`) AS `user_occurrence` FROM `tweets` WHERE tweet LIKE \'%@%\' AND published > \'' + dateMysql + '\' GROUP BY `screen_name` ORDER BY `user_occurrence` DESC LIMIT 1';
+			this.connection.query(query, function (error, results, fields) {
+
+				if (results) {
+					var user = results[0];
+					callback(user);
+				}
+			});
+		}
 	});
 };
 

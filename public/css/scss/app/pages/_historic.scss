@@ -2,6 +2,7 @@
 // HISTORIC
 // ==============================================
 
+// MENU
 #historic {
 	margin: 50px 0;
 
@@ -16,6 +17,7 @@
 	}
 }
 
+// STATS
 .stats-container {
 	margin: 25px auto;
 	width: 800px;
@@ -23,13 +25,49 @@
 	max-height: 40vh;
 }
 
-@include mobile {
+// RESUME
+.resume-container {
+	padding: 20px 0;
+	text-align: center;
 
-	.stats-container {
-		width: 90%;
-		height: 240px;
+	section {
+		padding: 20px;
 	}
 
+	.user-message {
+		@extend .bold;
+		font-size: 24px;
+		color: #aaa;
+
+		b {
+			font-weight: normal;
+			color: $blackTundora;
+		}
+
+		.highlight-user {
+			display: block;
+			margin: 10px auto;
+			color: $redFirebrick;
+			font-size: 40px;
+		}
+	}
+
+	.example-container {
+		@extend .monospace;
+		display: block;
+		margin: 10px auto;
+		width: 600px;
+		max-width: 90%;
+
+		a {
+			color: $blackTundora;
+		}
+	}
+}
+
+@include mobile {
+
+	// MENU
 	#historic {
 		margin: 20px 0;
 
@@ -44,10 +82,17 @@
 
 	}
 
+	// STATS
+	.stats-container {
+		width: 90%;
+		height: 240px;
+	}
+
 }
 
 @include ipadPortrait {
 
+	// STATS
 	.stats-container {
 		width: 90%;
 	}
