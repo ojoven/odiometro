@@ -180,7 +180,7 @@ footer a { color: #fff; }
 #historic .subtitle { display: block; margin: 10px 0; }
 #historic select { padding: 5px 10px; margin-left: 5px; }
 
-.stats-container { margin: 25px auto; width: 800px; height: 400px; }
+.stats-container { margin: 25px auto; width: 800px; height: 400px; max-height: 40vh; }
 
 @media (max-width: 767px) { .stats-container { width: 90%; height: 240px; }
   #historic { margin: 20px 0; }

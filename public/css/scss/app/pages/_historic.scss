@@ -20,6 +20,7 @@
 	margin: 25px auto;
 	width: 800px;
 	height: 400px;
+	max-height: 40vh;
 }
 
 @include mobile {

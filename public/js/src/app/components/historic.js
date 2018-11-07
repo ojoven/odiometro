@@ -8,10 +8,10 @@ Vue.component('historic', {
 				<select id="stats-dropdown" name="stats-dropdown" @change="onStatsDropdownChange">
 					<option data-type="hour" data-number="1">Última hora</option>
 					<option data-type="hour" data-number="3">Últimas 3 horas</option>
-					<!--<option data-type="hour" data-number="6">Últimas 6 horas</option>
+					<option data-type="hour" data-number="6">Últimas 6 horas</option>
 					<option data-type="hour" data-number="12">Últimas 12 horas</option>
 					<option data-type="hour" data-number="24">Últimas 24 horas</option>
-					<option data-type="day" data-number="3">Últimos 3 días</option>
+					<!--<option data-type="day" data-number="3">Últimos 3 días</option>
 					<option data-type="day" data-number="7">Últimos 7 días</option>-->
 				</select>
 			</span>
@@ -58,10 +58,14 @@ Vue.component('historic', {
 
 		updateHistoric: function(data) {
 
+			console.log(data);
+
 			// If previously created, we destroy it before creating a new one
 			if (this.historicStatsChart) {
 				this.historicStatsChart.destroy();
 			}
+
+			var resume = this.getResumeFromData(data);
 
 			// Parse data for the graph
 			var parsedData = this.parseHistoricDataForGraph(data);
@@ -94,6 +98,9 @@ Vue.component('historic', {
 				},
 				options: {
 					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
 					scales: {
 						yAxes: [{
 							ticks: {
@@ -228,6 +235,41 @@ Vue.component('historic', {
 				this.rangeBetweenPoints = 60;
 			}
 
+		},
+
+		getResumeFromData: function(data) {
+
+			var resume = {};
+			var hatedUsers = [];
+			var hatefulUsers = [];
+			var hatedUsersWithExamples = [];
+			var hatedUsersComplete = [];
+
+			// Get array with all hated users
+			data.forEach(function(point) {
+				hatedUsers.push(point.hated_user);
+				hatedUsersWithExamples[point.hated_user] = {text:point.hated_user_example_tweet_text,id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_id};
+			});
+
+			hatedUsers = lib.sortByFrequency(hatedUsers);
+			console.log(hatedUsers);
+			hatedUsers = hatedUsers.slice(0,5);
+			hatedUsers.forEach(function(hatedUser) {
+				hatedUsersComplete.push({user:hatedUser, tweet:hatedUsersWithExamples[hatedUser]});
+			});
+
+			resume.hatedUsers = hatedUsersComplete;
+			console.log(resume);
+
+			// Get array with all hateful users
+			data.forEach(function(point) {
+				hatefulUsers.push(point.hateful_user);
+			});
+
+			hatefulUsers = lib.sortByFrequency(hatefulUsers);
+			resume.hatefulUsers = hatefulUsers;
+
+			return resume;
 		},
 
 	}
