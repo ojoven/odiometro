@@ -24,10 +24,27 @@ Vue.component('historic', {
 			</div>
 
 			<div class="resume-container" v-show="showHistoricResume">
+
 				<section>
-					<div class="user-message">El usuario que <b>más odio ha recibido</b> durante este tiempo ha sido <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div>
+					<div class="user-message">El usuario que <b>más odio ha recibido</b> durante este tiempo ha sido <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div></div>
 					<div class="example-container">Ejemplo: <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
+					<div class="others"><span class="hide-mobile">Otros:</span>
+						<ul><li v-for="user in resume.hatedUser.others">
+    						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
+  						</li></ul>
+					</div>
 				</section>
+
+				<section>
+					<div class="user-message">El usuario que <b>más odio ha generado</b> durante este tiempo ha sido <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">{{ resume.hatefulUser.user }}</a></div></div>
+					<div class="example-container">Tuit: <a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
+					<div class="others"><span class="hide-mobile">Otros:</span>
+						<ul><li v-for="user in resume.hatefulUser.others">
+    						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
+  						</li></ul>
+					</div>
+				</section>
+
 			</div>
 		</div>
   `,
@@ -37,6 +54,7 @@ Vue.component('historic', {
 			historicStatsChart: null,
 			rangeBetweenPoints: 1,
 			parameters: {},
+			parsedData: {},
 			showHistoricGraph: true,
 			showHistoricResume: false,
 			resume: {
@@ -46,7 +64,17 @@ Vue.component('historic', {
 						text: '',
 						id: '',
 						user: ''
-					}
+					},
+					others: []
+				},
+				hatefulUser: {
+					user: '',
+					tweet: {
+						text: '',
+						id: '',
+						user: ''
+					},
+					others: []
 				}
 			}
 		}
@@ -100,18 +128,20 @@ Vue.component('historic', {
 				this.historicStatsChart.destroy();
 			}
 
-			var resume = this.getResumeFromData(data);
+			this.getResumeFromData(data);
 
 			// Parse data for the graph
-			var parsedData = this.parseHistoricDataForGraph(data);
+			this.parsedData = this.parseHistoricDataForGraph(data);
 
 			// Create new data array by intervals
 			this.calculateDecimateRange(data);
-			parsedData = this.decimate(parsedData);
+			this.parsedData = this.decimate(this.parsedData);
 
 			var ctx = document.getElementById("stats-canvas");
-			var labels = this.getLabels(parsedData);
+			var labels = this.getLabels(this.parsedData);
 			var pointColors = this.getPointColors(data, 'rgba(138, 7, 7, 1)');
+
+			var that = this;
 
 			this.historicStatsChart = new Chart(ctx, {
 				type: 'line',
@@ -119,7 +149,7 @@ Vue.component('historic', {
 					labels: labels,
 					datasets: [{
 						label: 'Tuits de odio por minuto',
-						data: parsedData,
+						data: this.parsedData,
 						backgroundColor: [
 							'rgba(138,7,7,0.1)'
 						],
@@ -143,6 +173,10 @@ Vue.component('historic', {
 							}
 						}]
 					},
+					hover: {
+						mode: 'index',
+						intersect: false
+					},
 					tooltips: {
 						titleFontFamily: 'Ubuntu',
 						bodyFontFamily: 'Ubuntu',
@@ -150,6 +184,8 @@ Vue.component('historic', {
 						cornerRadius: 0,
 						xPadding: 12,
 						yPadding: 12,
+						mode: 'index',
+						intersect: false,
 						callbacks: {
 							label: function(tooltipItem, data) {
 								var label = tooltipItem.yLabel + ' tuits de odio a las ' + tooltipItem.xLabel;
@@ -157,6 +193,15 @@ Vue.component('historic', {
 							},
 							title: function(tooltipItem, data) {
 								return "Número de tuits de odio por minuto";
+							},
+							afterBody: function(tooltipItem, data) {
+								var multistringText = [
+									'------------------------------------------------------------------',
+									'@' + that.parsedData[tooltipItem[0].index].hu2 + ' es el usuario que más odio ha generado',
+									that.parsedData[tooltipItem[0].index].hu1 + ' es el usuario que más odio ha recibido'
+								];
+
+								return multistringText;
 							}
 						}
 					}
@@ -173,6 +218,8 @@ Vue.component('historic', {
 				var parsedPoint = {};
 				parsedPoint.t = new Date(point.date);
 				parsedPoint.y = point.number_tweets;
+				parsedPoint.hu1 = point.hated_user;
+				parsedPoint.hu2 = point.hateful_user;
 				parsedData.push(parsedPoint);
 
 			});
@@ -229,15 +276,23 @@ Vue.component('historic', {
 			for (var chunk in chunks) {
 
 				var val = [];
+				var hu1 = [];
+				var hu2 = [];
 				for (var i in chunks[chunk]) {
 					val.push(chunks[chunk][i]["y"]);
+					hu1.push(chunks[chunk][i]["hu1"]);
+					hu2.push(chunks[chunk][i]["hu2"]);
 				}
 
 				var average = Math.floor(val.reduce(function(p,c,i,a){return p + (c/a.length)},0));
+				hu1 = lib.sortByFrequency(hu1)[0];
+				hu2 = lib.sortByFrequency(hu2)[0];
 
 				new_sample.push({
 					t: chunks[chunk][0]["t"],
-					y: average
+					y: average,
+					hu1: hu1,
+					hu2: hu2
 				});
 			}
 
@@ -274,11 +329,16 @@ Vue.component('historic', {
 
 		getResumeFromData: function(data) {
 
+			// Initialize variables
 			var resume = {};
+
 			var hatedUsers = [];
-			var hatefulUsers = [];
 			var hatedUsersWithExamples = [];
 			var hatedUsersComplete = [];
+
+			var hatefulUsers = [];
+			var hatefulUsersWithExamples = [];
+			var hatefulUsersComplete = [];
 
 			// Get array with all hated users
 			data.forEach(function(point) {
@@ -292,15 +352,23 @@ Vue.component('historic', {
 				hatedUsersComplete.push({user:hatedUser, tweet:hatedUsersWithExamples[hatedUser]});
 			});
 
-			this.resume.hatedUser = hatedUsersComplete[0];
+			this.resume.hatedUser = hatedUsersComplete.shift();
+			this.resume.hatedUser.others = hatedUsersComplete;
 
 			// Get array with all hateful users
 			data.forEach(function(point) {
 				hatefulUsers.push(point.hateful_user);
+				hatefulUsersWithExamples[point.hateful_user] = {text:point.hateful_user_tweet_text,id:point.hateful_user_tweet_id,user:point.hateful_user};
 			});
 
 			hatefulUsers = lib.sortByFrequency(hatefulUsers);
-			resume.hatefulUsers = hatefulUsers;
+			hatefulUsers = hatefulUsers.slice(0,5);
+			hatefulUsers.forEach(function(hatefulUser) {
+				hatefulUsersComplete.push({user:hatefulUser, tweet:hatefulUsersWithExamples[hatefulUser]});
+			});
+
+			this.resume.hatefulUser = hatefulUsersComplete.shift();
+			this.resume.hatefulUser.others = hatefulUsersComplete;
 
 		},
 

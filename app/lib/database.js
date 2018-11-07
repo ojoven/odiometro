@@ -134,6 +134,8 @@ database.getMostHatedUserExampleTweet = function(user, callback) {
 				if (results) {
 					var tweet = results[0];
 					callback(tweet);
+				} else {
+					callback(false);
 				}
 
 			});
@@ -164,6 +166,8 @@ database.getMostHatefulUserAndTweet = function(callback) {
 				if (results) {
 					var user = results[0];
 					callback(user);
+				} else {
+					callback(false);
 				}
 			});
 		}

@@ -44,9 +44,12 @@
 			color: $blackTundora;
 		}
 
-		.highlight-user {
-			display: block;
+		.user-container {
+			text-align: center;
 			margin: 10px auto;
+		}
+
+		.highlight-user {
 			color: $redFirebrick;
 			font-size: 40px;
 		}
@@ -58,6 +61,32 @@
 		margin: 10px auto;
 		width: 600px;
 		max-width: 90%;
+
+		a {
+			color: $blackTundora;
+			text-decoration: none;
+
+			&:hover, &:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.others {
+		@extend .bold;
+		margin: 10px;
+		font-size: 20px;
+		color: #aaa;
+
+		ul {
+			display: inline-block;
+			margin-left: 5px;
+		}
+
+		li {
+			display: inline-block;
+			margin-right: 10px;
+		}
 
 		a {
 			color: $blackTundora;
@@ -73,11 +102,7 @@
 
 		.subtitle {
 			text-align: center;
-
-			select {
-				display: block;
-				margin: 10px auto;
-			}
+			font-size: 12px;
 		}
 
 	}
@@ -86,6 +111,34 @@
 	.stats-container {
 		width: 90%;
 		height: 240px;
+	}
+
+	// RESUME
+	.resume-container {
+		padding: 0;
+
+		section {
+			padding: 10px;
+		}
+
+		.user-message {
+			font-size: 17px;
+
+			.highlight-user {
+				font-size: 34px;
+			}
+		}
+
+		.example-container {
+			max-height: 36px;
+			overflow: hidden;
+			font-size: 12px;
+		}
+
+		.others {
+			max-height: 21px;
+			overflow: hidden;
+		}
 	}
 
 }

@@ -29,7 +29,11 @@ Vue.component('blood-canvas', {
 		socket.on('tweet', function(tweet) {
 			var that = this;
 			setTimeout(function() {
-				that.randomSplatter();
+				if (that.items.length < 100) {
+					that.randomSplatter();
+				} else {
+					that.items = [];
+				}
 			}, 200);
 		}.bind(this));
 	},

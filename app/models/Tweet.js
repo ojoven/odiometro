@@ -15,8 +15,6 @@ Tweet.isItAHateTweet = function(tweet) {
 	// We'll be ignoring tweets like "Soy idiota" "Estoy gilipollas"
 	if (tweetTextLowercase.indexOf('soy') !== -1 || tweetTextLowercase.indexOf('estoy') !== -1) return false;
 
-
-
 	return true;
 };
 
