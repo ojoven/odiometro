@@ -178,7 +178,7 @@ footer a { color: #fff; }
 @media (max-width: 767px) { #info { margin-top: 20px; } }
 #historic { margin: 50px 0; }
 #historic .subtitle { display: block; margin: 10px 0; }
-#historic select { padding: 5px 10px; margin-left: 5px; }
+#historic select { padding: 5px 10px; margin: 0 5px; }
 
 .stats-container { margin: 25px auto; width: 800px; height: 400px; max-height: 40vh; }
 
@@ -197,14 +197,13 @@ footer a { color: #fff; }
 .resume-container .others a { color: #444; }
 
 @media (max-width: 767px) { #historic { margin: 20px 0; }
-  #historic .subtitle { text-align: center; font-size: 12px; }
+  #historic .subtitle { text-align: center; font-size: 10px; }
   .stats-container { width: 90%; height: 240px; }
   .resume-container { padding: 0; }
   .resume-container section { padding: 10px; }
   .resume-container .user-message { font-size: 17px; }
   .resume-container .user-message .highlight-user { font-size: 34px; }
-  .resume-container .example-container { max-height: 36px; overflow: hidden; font-size: 12px; }
-  .resume-container .others { max-height: 21px; overflow: hidden; } }
+  .resume-container .example-container { font-size: 12px; } }
 @media (max-width: 980px) { .stats-container { width: 90%; } }
 /** HELPERS **/
 .srt { clip: rect(1px, 1px, 1px, 1px); position: absolute; margin: 0; padding: 0; }
