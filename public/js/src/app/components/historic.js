@@ -2,13 +2,13 @@ Vue.component('historic', {
 
 	template: `
 		<div id="historic">
-			<h3>Histórico de odio</h3>
+			<h3>{{ $t("historic.title") }}</h3>
 			<span class="subtitle">
 			{{ $t("historic.show") }} <select id="view-dropdown" name="view-dropdown" @change="onViewDropdownChange">
 					<option value="graph">{{ $t("historic.type_graph.graph") }}</option>
 					<option value="hateful">{{ $t("historic.type_graph.hateful") }}</option>
 					<option value="hated">{{ $t("historic.type_graph.hated") }}</option>
-				</select> de
+				</select> {{ $t("historic.for") }}
 				<select id="stats-dropdown" name="stats-dropdown" @change="onStatsDropdownChange">
 					<option data-type="hour" data-number="1">{{ $t("historic.time_graph.last_fs") }} {{ $t("historic.time_graph.hour_s") }}</option>
 					<option data-type="hour" data-number="3">{{ $t("historic.time_graph.last_fp") }} 3 {{ $t("historic.time_graph.hour_p") }}</option>
