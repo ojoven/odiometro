@@ -8,7 +8,7 @@ var args = process.argv.slice(2);
 
 // GET language
 var defaultLang = 'es';
-global.lang = (args && typeof args[0] !== "undefined" && acceptedLangs.indexOf(args) !== -1) ? args[0] : defaultLang;
+global.lang = (args && typeof args[0] !== "undefined" && acceptedLangs.indexOf(args[0]) !== -1) ? args[0] : defaultLang;
 
 // ROOT PATH
 var path = require('path');
