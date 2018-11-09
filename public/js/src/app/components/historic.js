@@ -4,19 +4,19 @@ Vue.component('historic', {
 		<div id="historic">
 			<h3>Histórico de odio</h3>
 			<span class="subtitle">
-			Mostrar <select id="view-dropdown" name="view-dropdown" @change="onViewDropdownChange">
-					<option value="graph">gráfico</option>
-					<option value="hateful">usuario más odiador</option>
-					<option value="hated">usuario más odiado</option>
+			{{ $t("historic.show") }} <select id="view-dropdown" name="view-dropdown" @change="onViewDropdownChange">
+					<option value="graph">{{ $t("historic.type_graph.graph") }}</option>
+					<option value="hateful">{{ $t("historic.type_graph.hateful") }}</option>
+					<option value="hated">{{ $t("historic.type_graph.hated") }}</option>
 				</select> de
 				<select id="stats-dropdown" name="stats-dropdown" @change="onStatsDropdownChange">
-					<option data-type="hour" data-number="1">última hora</option>
-					<option data-type="hour" data-number="3">últimas 3 horas</option>
-					<option data-type="hour" data-number="6">últimas 6 horas</option>
-					<option data-type="hour" data-number="12">últimas 12 horas</option>
-					<option data-type="hour" data-number="24">últimas 24 horas</option>
-					<!--<option data-type="day" data-number="3">últimos 3 días</option>
-					<option data-type="day" data-number="7">últimos 7 días</option>-->
+					<option data-type="hour" data-number="1">{{ $t("historic.time_graph.last_fs") }} {{ $t("historic.time_graph.hour_s") }}</option>
+					<option data-type="hour" data-number="3">{{ $t("historic.time_graph.last_fp") }} 3 {{ $t("historic.time_graph.hour_p") }}</option>
+					<option data-type="hour" data-number="6">{{ $t("historic.time_graph.last_fp") }} 6 {{ $t("historic.time_graph.hour_p") }}</option>
+					<option data-type="hour" data-number="12">{{ $t("historic.time_graph.last_fp") }} 12 {{ $t("historic.time_graph.hour_p") }}</option>
+					<option data-type="hour" data-number="24">{{ $t("historic.time_graph.last_fp") }} 24 {{ $t("historic.time_graph.hour_p") }}</option>
+					<!--<option data-type="day" data-number="3">{{ $t("historic.time_graph.last_mp") }} 3 {{ $t("historic.time_graph.day_p") }}</option>
+					<option data-type="day" data-number="7">{{ $t("historic.time_graph.last_mp") }} 7 {{ $t("historic.time_graph.day_p") }}</option>-->
 				</select>
 			</span>
 
@@ -27,9 +27,9 @@ Vue.component('historic', {
 			<div class="resume-container hated-container" v-show="showHatedResume">
 
 				<section>
-					<div class="user-message">El usuario que <b>más odio ha recibido</b> durante este tiempo ha sido <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div></div>
-					<div class="example-container">Ejemplo: <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
-					<div class="others"><span class="hide-mobile">Otros:</span>
+					<div class="user-message"><span v-html='$t("historic.resume.hated")'></span> <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div></div>
+					<div class="example-container">{{ $t("historic.resume.example") }}: <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
+					<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 						<ul><li v-for="user in resume.hatedUser.others">
     						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
   						</li></ul>
@@ -41,9 +41,9 @@ Vue.component('historic', {
 			<div class="resume-container hateful-container" v-show="showHatefulResume">
 
 				<section>
-					<div class="user-message">El usuario que <b>más odio ha generado</b> durante este tiempo ha sido <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">{{ resume.hatefulUser.user }}</a></div></div>
-					<div class="example-container">Tuit: <a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
-					<div class="others"><span class="hide-mobile">Otros:</span>
+					<div class="user-message"><span v-html='$t("historic.resume.hateful")'></span> <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">{{ resume.hatefulUser.user }}</a></div></div>
+					<div class="example-container">{{ $t("historic.resume.tweet") }}: <a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
+					<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 						<ul><li v-for="user in resume.hatefulUser.others">
     						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
   						</li></ul>
@@ -200,17 +200,17 @@ Vue.component('historic', {
 						intersect: false,
 						callbacks: {
 							label: function(tooltipItem, data) {
-								var label = tooltipItem.yLabel + ' tuits de odio a las ' + tooltipItem.xLabel;
+								var label = tooltipItem.yLabel + that.$t('historic.graph.tweets_at') + tooltipItem.xLabel;
 								return label;
 							},
 							title: function(tooltipItem, data) {
-								return "Número de tuits de odio por minuto";
+								return that.$t('historic.graph.number_tweets');
 							},
 							afterBody: function(tooltipItem, data) {
 								var multistringText = [
 									'------------------------------------------------------------------',
-									'@' + that.parsedData[tooltipItem[0].index].hu2 + ' es el usuario que más odio ha generado',
-									that.parsedData[tooltipItem[0].index].hu1 + ' es el usuario que más odio ha recibido'
+									'@' + that.parsedData[tooltipItem[0].index].hu2 + that.$t('historic.graph.hateful'),
+									that.parsedData[tooltipItem[0].index].hu1 + that.$t('historic.graph.hated')
 								];
 
 								return multistringText;

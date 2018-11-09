@@ -3,7 +3,7 @@ Vue.component('most-hated-user', {
 	template: `
 		<div id="most_hated_user" class="most_hated_user">
 			<h3 class="username"><a target="_blank" :href="'https://twitter.com/' + username">{{ username }}</a></h3>
-			<span>es el usuario <b>recibiendo más odio</b><var class="hide-mobile"><br>en estos momentos</var>.</span>
+			<span v-html='$t("hated_user")'></span>
 		</div>
   `,
 

@@ -1,6 +1,15 @@
 /** APP **/
 // Node app
 
+var acceptedLangs = ['es', 'en'];
+
+// GET parameters
+var args = process.argv.slice(2);
+
+// GET language
+var defaultLang = 'es';
+global.lang = (args && typeof args[0] !== "undefined" && acceptedLangs.indexOf(args) !== -1) ? args[0] : defaultLang;
+
 // ROOT PATH
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
@@ -14,7 +23,7 @@ var port = process.env.PORT || 8001;
 // Libs
 var database = require("./app/lib/database.js");
 var twitterStream = require("./app/lib/twitterStream.js");
-var track = require(global.appRoot + '/public/track.json');
+var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -149,10 +158,12 @@ function emitMostHatefulUserAndTweet() {
 
 	database.getMostHatefulUserAndTweet(function(tweet) {
 
-		mostHatefulUser = tweet.user;
-		mostHatefulUserTweet = { tweet: tweet.text, id_str: tweet.id_str, screen_name: tweet.user};
-		io.sockets.emit('most_hateful_user', mostHatefulUser);
-		io.sockets.emit('most_hateful_user_tweet', mostHatefulUserTweet);
+		if (tweet) {
+			mostHatefulUser = tweet.user;
+			mostHatefulUserTweet = { tweet: tweet.text, id_str: tweet.id_str, screen_name: tweet.user};
+			io.sockets.emit('most_hateful_user', mostHatefulUser);
+			io.sockets.emit('most_hateful_user_tweet', mostHatefulUserTweet);
+		}
 	});
 }
 

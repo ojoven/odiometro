@@ -23,7 +23,7 @@ Vue.component('tweet-show', {
 		}.bind(this));
 
 		// Retrieve the tracked queries (so we can highlight them in the tweets)
-		axios.get('/track.json').then(function(response) {
+		axios.get('/track_' + this.$locale + '.json').then(function(response) {
 			store.track = response.data;
 		});
 	},

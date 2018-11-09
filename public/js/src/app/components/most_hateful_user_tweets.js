@@ -4,7 +4,7 @@ Vue.component('most-hateful-user-tweets', {
 		<div>
 			<div id="most_hateful_user_tweets" class="tweets" v-html="tweet">
 			</div>
-			<a class="btn" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">ver tuit</a>
+			<a class="btn" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">{{$t("see_tweet")}}</a>
 		</div>
   `,
 

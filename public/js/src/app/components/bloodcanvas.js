@@ -1,7 +1,5 @@
 Vue.component('blood-canvas', {
 
-	// Fiddle by https://jsfiddle.net/decx/Ca9Y7/
-
 	template: `
 		<canvas id="blood"></canvas>
   `,

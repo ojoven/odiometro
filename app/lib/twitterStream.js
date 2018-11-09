@@ -11,7 +11,13 @@ var twitterObject = new Twit({
 	timeout_ms:           60*1000  // optional HTTP request timeout to apply to all requests.
 });
 
-var track = require(global.appRoot + '/public/track.json');
-var twitterStream = twitterObject.stream('statuses/filter', { track: track, language: 'es', place: 'Spain' });
+var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
+var twitterStream;
+
+if (global.lang === 'es') {
+	twitterStream = twitterObject.stream('statuses/filter', { track: track, language: 'es', place: 'Spain' });
+} else {
+	twitterStream = twitterObject.stream('statuses/filter', { track: track, language: 'en'});
+}
 
 module.exports = twitterStream;

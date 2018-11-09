@@ -1,13 +1,31 @@
 /** MAIN **/
-// VueJS Main
-const appVue = new Vue({
+
+var app = {
 	el:	'#app',
-	data: {
-	},
+	data: { },
 	created: function() {
 		console.log('Vue is running');
 	},
-	methods: {
-
+	methods: { },
+	components: {
+		Info
 	}
+};
+
+// Create VueI18n instance with options
+app.i18n = new VueI18n({
+	locale: 'es', // set locale
+	messages // set locale messages
 });
+
+Object.defineProperty(Vue.prototype, '$locale', {
+	get: function () {
+		return app.i18n.locale
+	},
+	set: function (locale) {
+		app.i18n.locale = locale
+	}
+})
+
+// VueJS Main
+const appVue = new Vue(app);
