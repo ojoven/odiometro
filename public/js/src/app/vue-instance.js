@@ -14,7 +14,7 @@ var app = {
 
 // Create VueI18n instance with options
 app.i18n = new VueI18n({
-	locale: 'en', // set locale
+	locale: 'es', // set locale
 	messages // set locale messages
 });
 

@@ -1,7 +1,9 @@
 Vue.component('tweet-show', {
 
 	template: `
-		<div id="tweets" class="tweets" v-html="tweet"></div>
+		<div id="tweets" class="tweets" v-html="tweet">
+
+		</div>
   `,
 
 	data() {

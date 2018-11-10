@@ -27,8 +27,8 @@ Vue.component('historic', {
 			<div class="resume-container hated-container" v-show="showHatedResume">
 
 				<section>
-					<div class="user-message"><span v-html='$t("historic.resume.hated")'></span> <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div></div>
-					<div class="example-container">{{ $t("historic.resume.example") }}: <a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
+					<div class="user-message"><div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div><span v-html='$t("historic.resume.hated")'></span></div>
+					<div class="example-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
 					<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 						<ul><li v-for="user in resume.hatedUser.others">
     						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
@@ -41,11 +41,11 @@ Vue.component('historic', {
 			<div class="resume-container hateful-container" v-show="showHatefulResume">
 
 				<section>
-					<div class="user-message"><span v-html='$t("historic.resume.hateful")'></span> <div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">{{ resume.hatefulUser.user }}</a></div></div>
-					<div class="example-container">{{ $t("historic.resume.tweet") }}: <a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
+					<div class="user-message"><div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">@{{ resume.hatefulUser.user }}</a></div><span v-html='$t("historic.resume.hateful")'></span></div>
+					<div class="example-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
 					<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 						<ul><li v-for="user in resume.hatefulUser.others">
-    						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
+    						<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">@{{ user.user }}</a>
   						</li></ul>
 					</div>
 				</section>
@@ -182,6 +182,14 @@ Vue.component('historic', {
 						yAxes: [{
 							ticks: {
 								beginAtZero:true
+							},
+							gridLines: {
+								color: "#eeeeee"
+							}
+						}],
+						xAxes: [{
+							gridLines: {
+								color: "#eeeeee"
 							}
 						}]
 					},
@@ -190,9 +198,9 @@ Vue.component('historic', {
 						intersect: false
 					},
 					tooltips: {
-						titleFontFamily: 'Ubuntu',
-						bodyFontFamily: 'Ubuntu',
-						footerFontFamily: 'Ubuntu',
+						titleFontFamily: 'Montserrat Regular',
+						bodyFontFamily: 'Montserrat Regular',
+						footerFontFamily: 'Montserrat Regular',
 						cornerRadius: 0,
 						xPadding: 12,
 						yPadding: 12,

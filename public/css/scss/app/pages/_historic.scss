@@ -4,6 +4,7 @@
 
 // MENU
 #historic {
+	@extend .light;
 	margin: 50px 0;
 
 	.subtitle {
@@ -12,6 +13,7 @@
 	}
 
 	select {
+		@extend .light;
 		padding: 5px 10px;
 		margin: 0 5px;
 	}
@@ -30,13 +32,9 @@
 	padding: 20px 0;
 	text-align: center;
 
-	section {
-		padding: 20px;
-	}
-
 	.user-message {
-		@extend .bold;
-		font-size: 24px;
+		@extend .light;
+		font-size: 16px;
 		color: #aaa;
 
 		b {
@@ -50,13 +48,19 @@
 		}
 
 		.highlight-user {
+			@extend .bold;
 			color: $redFirebrick;
-			font-size: 40px;
+			font-size: 30px;
+			text-decoration: none;
+
+			&:hover, &:focus {
+				text-decoration: underline;
+			}
 		}
 	}
 
 	.example-container {
-		@extend .monospace;
+		@extend .light;
 		display: block;
 		margin: 10px auto;
 		width: 600px;
@@ -73,10 +77,11 @@
 	}
 
 	.others {
-		@extend .bold;
-		margin: 10px;
-		font-size: 20px;
+		@extend .light;
+		margin: 20px auto;
+		font-size: 16px;
 		color: #aaa;
+		width: 50%;
 
 		ul {
 			display: inline-block;
@@ -85,11 +90,11 @@
 
 		li {
 			display: inline-block;
-			margin-right: 10px;
+			margin: 5px;
 		}
 
 		a {
-			color: $blackTundora;
+			color: $redFirebrick;
 		}
 	}
 }
@@ -144,4 +149,14 @@
 		width: 90%;
 	}
 
+}
+
+@include mobile {
+
+	.resume-container {
+
+		.others {
+			width: 90%;
+		}
+	}
 }

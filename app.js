@@ -22,7 +22,8 @@ var port = process.env.PORT || 8001;
 
 // Libs
 var database = require("./app/lib/database.js");
-var twitterStream = require("./app/lib/twitterStream.js");
+var twitter = require("./app/lib/twitter.js");
+var twitterStream = require("./app/lib/twitterStream.js")(twitter);
 var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
 
 // Models
@@ -38,7 +39,7 @@ require('./config')(app, io);
 require('./routes')(app, io);
 
 // Logging
-console.log('Your application is running on http://localhost:' + port);
+console.log('Odiometro is running on http://localhost:' + port);
 
 // Vars
 var numberTweets, mostHatedUser, mostHatedUsersLastTweet, mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId;

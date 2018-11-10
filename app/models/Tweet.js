@@ -64,5 +64,17 @@ Tweet.isTweetForMostHatedUser = function(tweet, user) {
 	return false;
 };
 
+Tweet.postTweet = function(tweetText, callback) {
+
+	twitter.post('statuses/update', {
+
+		status: tweetText
+
+	}, function(err, data, response) {
+
+			callback(data);
+	});
+};
+
 module.exports = Tweet;
 

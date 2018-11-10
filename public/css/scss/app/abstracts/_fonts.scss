@@ -6,34 +6,34 @@
 @mixin typo($t,$name) {
 	@font-face {
 		font-family: $name;
-		src: url('fonts/#{$t}.eot');
-		src: url('fonts/#{$t}.eot?#iefix') format('embedded-opentype'),
-		url('fonts/#{$t}.woff') format('woff'),
-		url('fonts/#{$t}.ttf') format('truetype'),
-		url('fonts/#{$t}.svg##{$name}') format('svg');
+		src: url('fonts/#{$t}.woff2') format('woff2'),
+		url('fonts/#{$t}.woff') format('woff'),;
 		font-weight: normal;
 		font-style: normal;
 	}
 }
 
-@include typo('LaramiePro-Regular', 'LaramiePro Regular');
+@include typo('Montserrat-Light', 'Montserrat Light');
+@include typo('Montserrat-Regular', 'Montserrat Regular');
+@include typo('Montserrat-SemiBold', 'Montserrat SemiBold');
+@include typo('Tungsten-Bold', 'Tungsten Bold');
 
 // List of fonts
+.light {
+	font-family: 'Montserrat Light', sans-serif;
+}
+
 .regular {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Monstserrat Regular', sans-serif;
   font-weight: 400;
 }
 
 .bold {
-	font-family: 'Bahiana', cursive;
+	font-family: 'Montserrat SemiBold', sans-serif;
 	font-weight: 400;
 }
 
 .title {
-	font-family: 'Bahiana', cursive;
+	font-family: 'Tungsten Bold', sans-serif;
 	font-weight: 400;
-}
-
-.monospace {
-	font-family: 'Cutive Mono', monospace;
 }

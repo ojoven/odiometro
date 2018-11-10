@@ -5,10 +5,11 @@
 // Most hated user
 .most_hated_user {
 	margin: 50px auto;
+
 	> span {
-		@extend .bold;
+		@extend .light;
 		color: #aaa;
-		font-size: 24px;
+		font-size: 16px;
 		line-height: 1.2;
 
 		b {
@@ -18,7 +19,16 @@
 	}
 
 	a {
+		@extend .bold;
+		letter-spacing: -1px;
 		color: $redFirebrick;
+		text-decoration: none;
+		font-size: 34px;
+		text-transform: none;
+
+		&:hover, &:focus {
+			text-decoration: underline;
+		}
 	}
 }
 
@@ -43,12 +53,12 @@
 @include mobile {
 
 	.most_hated_user {
-		margin: 20px auto 5px;
+		margin: 10px auto 5px;
 
-		h3 { font-size: 24px; }
+		h3 a { font-size: 22px; }
 
 		> span {
-			font-size: 18px;
+			font-size: 16px;
 
 			b {
 				display: block;
@@ -58,9 +68,14 @@
 
 	#user-container {
 
+		.hate-user {
+			float: none;
+			width: 100%;
+		}
+
 		.tweets {
-			padding: 0 20px;
-			font-size: 14px;
+			padding: 0 10px;
+			font-size: 12px;
 		}
 
 	}

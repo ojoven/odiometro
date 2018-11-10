@@ -19,7 +19,7 @@ const messages = {
 			'El odiómetro es una aplicación que rastrea en Twitter insultos, descalificaciones, etc. las contabiliza y las muestra.',
 			'Su objetivo es servir de espejo para <b>hacernos conscientes de la cantidad de odio que vertemos en las redes</b> y plantear una alternativa. ¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación y del humor para transmitir y discutir nuestras ideas?',
 			'Es éste un proyecto Open Source que no pretende ser una herramienta exhaustiva, si quieres contribuir puedes hacer una pull request <a target="_blank" href="https://github.com/ojoven/odiometro">en nuestro repositorio en GitHub</a> o hacerme alguna sugerencia vía Twitter en <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a>',
-			'Tenemos también una versión en inglés en <br><a href="https://hatemeter.com">hatemeter.com</a>'
+			'<!--Tenemos también una versión en inglés en <br><a href="https://hatemeter.com">hatemeter.com</a>-->'
 		],
 
 		// USERS
@@ -63,8 +63,8 @@ const messages = {
 
 			// RESUME
 			resume: {
-				hated: 'El usuario que <b>más odio ha recibido</b> durante este tiempo ha sido',
-				hateful: 'El usuario que <b>más odio ha generado</b> durante este tiempo ha sido',
+				hated: 'es el usuario que <b>más odio ha recibido</b> durante este tiempo',
+				hateful: 'es el usuario que <b>más odio ha generado</b> durante este tiempo',
 				others: 'Otros',
 				example: 'Ejemplo',
 				tweet: 'Tuit'
@@ -94,7 +94,7 @@ const messages = {
 			'The HateMeter is an app that tracks and measures insults and hate on Twitter and renders some useful and curious statistics with them.',
 			'Its aim is to serve as a mirror <b>to make us aware of the amount of hate we post in our social networks</b> and to propose an alternative. Are we aware of the power of persuassion, inteligence, empathy, education and humour to transmit and debate our ideas?',
 			'This is an Open Source project and it doesn\'t pretend to be an exhaustive tool, if you want to contribute you can create a pull request <a target="_blank" href="https://github.com/ojoven/odiometro">in our GitHub repository</a> or make me any suggestion via Twitter at <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a> (I mostly tweet in spanish but I usually work in English so feel free to ping me)',
-			'The original version of the HateMeter, in spanish is on <br><a href="https://odiometro.es">odiometro.es</a>'
+			'<!--The original version of the HateMeter, in spanish is on <br><a href="https://odiometro.es">odiometro.es</a>-->'
 		],
 
 		// USERS
@@ -138,8 +138,8 @@ const messages = {
 
 			// RESUME
 			resume: {
-				hated: 'The user that has <b>received the most hate</b> during this time has been',
-				hateful: 'The user that has <b>generated the most hate</b> during this time has been',
+				hated: 'is the user that has <b>received the most hate</b> during this time',
+				hateful: 'is the user that has <b>generated the most hate</b> during this time',
 				others: 'Others',
 				example: 'Example',
 				tweet: 'Tweet'

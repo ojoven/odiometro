@@ -191,21 +191,7 @@ Vue.component('blood-canvas', {
 
 			this.canvas.onmousemove = function (e) {
 
-				if (that.clicked) {
-					var distx = (that.mouse.px - that.mouse.x),
-						disty = (that.mouse.py - that.mouse.y);
-					that.mouse = {
-						x: e.pageX,
-						y: e.pageY,
-						dx: (Math.abs(distx) > 10) ? -1 : distx,
-						dy: (Math.abs(disty) > 10) ? -1 : disty,
-						px: mouse.x,
-						py: mouse.y
-					};
-					that.splat(that.mouse.x, that.mouse.y, that.items);
-
-				}
-
+				return false;
 			};
 
 			window.onfocus = function () {

@@ -10,8 +10,8 @@
 	z-index: 99;
 
 	p, li {
-		@extend .regular;
-		font-size: 14px;
+		@extend .light;
+		font-size: 15px;
 		margin: 10px;
 		color: $blackTundora;
 		line-height: 1.2;
@@ -27,5 +27,9 @@
 
 	#info {
 		margin-top: 20px;
+
+		p, li {
+			font-size: 13px;
+		}
 	}
 }

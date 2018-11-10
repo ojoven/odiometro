@@ -4,29 +4,37 @@
 
 // Tweets
 .tweets {
-	@extend .monospace;
+	@extend .light;
+	display: block;
 	margin: 20px auto;
 	padding: 30px;
 	line-height: 1.2;
 	height: 80px;
 	max-width: 600px;
+	color: $blackTundora;
+	text-decoration: none;
+
+	&:hover, &:focus {
+		text-decoration: underline;
+	}
 }
 
 // Number of Tweets
 #number_tweets {
 
 	.num {
-		font-size: 70px;
+		@extend .title;
+		font-size: 90px;
 		display: block;
 		margin: 20px auto 0;
-		@extend .bold;
 	}
 
 	.suffix {
+		@extend .light;
 		display: block;
-		font-size: 24px;
-		color: $greySilver;
-		@extend .bold;
+		font-size: 20px;
+		letter-spacing: -1px;
+		color: $greyDark;
 	}
 }
 
