@@ -59,7 +59,7 @@ Vue.component('historic', {
 			historicStatsChart: null,
 			rangeBetweenPoints: 1,
 			parameters: {},
-			parsedData: {},
+			graphData: {},
 			showHistoricGraph: true,
 			showHatedResume: false,
 			showHatefulResume: false,
@@ -140,18 +140,15 @@ Vue.component('historic', {
 				this.historicStatsChart.destroy();
 			}
 
-			this.getResumeFromData(data);
+			this.resume = data.resume;
 
 			// Parse data for the graph
-			this.parsedData = this.parseHistoricDataForGraph(data);
+			this.graphData = data.graphData;
 
 			// Create new data array by intervals
-			this.calculateDecimateRange(data);
-			this.parsedData = this.decimate(this.parsedData);
-
 			var ctx = document.getElementById("stats-canvas");
-			var labels = this.getLabels(this.parsedData);
-			var pointColors = this.getPointColors(data, 'rgba(138, 7, 7, 1)');
+			var labels = this.getLabels(this.graphData);
+			var pointColors = this.getPointColors(this.graphData, 'rgba(138, 7, 7, 1)');
 
 			var that = this;
 
@@ -161,7 +158,7 @@ Vue.component('historic', {
 					labels: labels,
 					datasets: [{
 						label: 'Tuits de odio por minuto',
-						data: this.parsedData,
+						data: this.graphData,
 						backgroundColor: [
 							'rgba(138,7,7,0.1)'
 						],
@@ -181,7 +178,7 @@ Vue.component('historic', {
 					scales: {
 						yAxes: [{
 							ticks: {
-								beginAtZero:true
+								beginAtZero: true
 							},
 							gridLines: {
 								color: "#eeeeee"
@@ -217,8 +214,8 @@ Vue.component('historic', {
 							afterBody: function(tooltipItem, data) {
 								var multistringText = [
 									'------------------------------------------------------------------',
-									'@' + that.parsedData[tooltipItem[0].index].hu2 + that.$t('historic.graph.hateful'),
-									that.parsedData[tooltipItem[0].index].hu1 + that.$t('historic.graph.hated')
+									'@' + that.graphData[tooltipItem[0].index].hu2 + that.$t('historic.graph.hateful'),
+									that.graphData[tooltipItem[0].index].hu1 + that.$t('historic.graph.hated')
 								];
 
 								return multistringText;
@@ -229,31 +226,13 @@ Vue.component('historic', {
 			});
 		},
 
-		parseHistoricDataForGraph: function(data) {
-
-			var parsedData = [];
-
-			data.forEach(function(point) {
-
-				var parsedPoint = {};
-				parsedPoint.t = new Date(point.date);
-				parsedPoint.y = point.number_tweets;
-				parsedPoint.hu1 = point.hated_user;
-				parsedPoint.hu2 = point.hateful_user;
-				parsedData.push(parsedPoint);
-
-			});
-
-			return parsedData;
-
-		},
-
-		getLabels: function(parsedData) {
+		getLabels: function(graphData) {
 
 			var labels = [];
 
-			parsedData.forEach(function(point) {
+			graphData.forEach(function(point) {
 
+				point.t = new Date(point.t);
 				point.t.setHours(point.t.getHours()+1);
 				var minutes = point.t.getMinutes();
 				var str = "" + minutes;
@@ -261,7 +240,6 @@ Vue.component('historic', {
 				minutes = pad.substring(0, pad.length - str.length) + str;
 
 				labels.push(point.t.getHours() + ':' + minutes);
-
 			});
 
 			return labels;
@@ -279,118 +257,6 @@ Vue.component('historic', {
 			return pointColors;
 		},
 
-		decimate: function(sample) {
-
-			var blocksz = this.rangeBetweenPoints;
-			if (blocksz == 1) return sample;
-
-			var chunks = [];
-
-			// Chunk up the sample
-			while (sample.length > 0) {
-				chunks.push(sample.splice(0, blocksz));
-			}
-
-			var new_sample = [];
-			// Process each chunk, and downsample
-			for (var chunk in chunks) {
-
-				var val = [];
-				var hu1 = [];
-				var hu2 = [];
-				for (var i in chunks[chunk]) {
-					val.push(chunks[chunk][i]["y"]);
-					hu1.push(chunks[chunk][i]["hu1"]);
-					hu2.push(chunks[chunk][i]["hu2"]);
-				}
-
-				var average = Math.floor(val.reduce(function(p,c,i,a){return p + (c/a.length)},0));
-				hu1 = lib.sortByFrequency(hu1)[0];
-				hu2 = lib.sortByFrequency(hu2)[0];
-
-				new_sample.push({
-					t: chunks[chunk][0]["t"],
-					y: average,
-					hu1: hu1,
-					hu2: hu2
-				});
-			}
-
-			return new_sample;
-		},
-
-		calculateDecimateRange: function() {
-
-			// Last hour
-			if (this.parameters.type === 'hour' && this.parameters.number == 1) {
-				this.rangeBetweenPoints = 1;
-
-				// Last 3 hours
-			} else if (this.parameters.type === 'hour' && this.parameters.number == 3) {
-				this.rangeBetweenPoints = 5;
-
-				// Last 6 hours
-			} else if (this.parameters.type === 'hour' && this.parameters.number == 6) {
-				this.rangeBetweenPoints = 10;
-
-				// Last 12 hours
-			} else if (this.parameters.type === 'hour' && this.parameters.number == 12) {
-				this.rangeBetweenPoints = 20;
-
-				// Last 24 hours
-			} else if (this.parameters.type === 'hour' && this.parameters.number == 24) {
-				this.rangeBetweenPoints = 30;
-
-			} else if (this.parameters.type === 'day') {
-				this.rangeBetweenPoints = 60;
-			}
-
-		},
-
-		getResumeFromData: function(data) {
-
-			// Initialize variables
-			var resume = {};
-
-			var hatedUsers = [];
-			var hatedUsersWithExamples = [];
-			var hatedUsersComplete = [];
-
-			var hatefulUsers = [];
-			var hatefulUsersWithExamples = [];
-			var hatefulUsersComplete = [];
-
-			// Get array with all hated users
-			data.forEach(function(point) {
-				hatedUsers.push(point.hated_user);
-				hatedUsersWithExamples[point.hated_user] = {text:point.hated_user_example_tweet_text,id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_user};
-			});
-
-			hatedUsers = lib.sortByFrequency(hatedUsers);
-			hatedUsers = hatedUsers.slice(0,5);
-			hatedUsers.forEach(function(hatedUser) {
-				hatedUsersComplete.push({user:hatedUser, tweet:hatedUsersWithExamples[hatedUser]});
-			});
-
-			this.resume.hatedUser = hatedUsersComplete.shift();
-			this.resume.hatedUser.others = hatedUsersComplete;
-
-			// Get array with all hateful users
-			data.forEach(function(point) {
-				hatefulUsers.push(point.hateful_user);
-				hatefulUsersWithExamples[point.hateful_user] = {text:point.hateful_user_tweet_text,id:point.hateful_user_tweet_id,user:point.hateful_user};
-			});
-
-			hatefulUsers = lib.sortByFrequency(hatefulUsers);
-			hatefulUsers = hatefulUsers.slice(0,5);
-			hatefulUsers.forEach(function(hatefulUser) {
-				hatefulUsersComplete.push({user:hatefulUser, tweet:hatefulUsersWithExamples[hatefulUser]});
-			});
-
-			this.resume.hatefulUser = hatefulUsersComplete.shift();
-			this.resume.hatefulUser.others = hatefulUsersComplete;
-
-		},
 
 	}
 

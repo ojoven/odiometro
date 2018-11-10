@@ -28,6 +28,7 @@ var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
+var Historic = require("./app/models/Historic.js");
 
 // Initialize a new socket.io object. It is bound to 
 // the express app, which allows them to coexist.
@@ -187,7 +188,13 @@ function emitHistoric(parameters) {
 
 	database.getHistoricData(dateStart, dateEnd, function(historicData) {
 
-		io.sockets.emit('historic', historicData);
+		var data = {};
+		data.resume = Historic.getResumeFromData(historicData);
+		data.labels = Historic.getLabels(historicData);
+		data.graphData = Historic.parseHistoricDataForGraph(historicData);
+		data.graphData = Historic.decimate(data.graphData, parameters);
+
+		io.sockets.emit('historic', data);
 	});
 
 }

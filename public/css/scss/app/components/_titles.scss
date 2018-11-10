@@ -3,9 +3,9 @@
 // ==============================================
 
 h1, h2, h3 {
-	@extend .title;
+	@extend .bold;
 	color: $blackTundora;
-	font-size: 38px;
+	font-size: 32px;
 	line-height: 1.2;
 	text-transform: uppercase;
 }

@@ -2,7 +2,7 @@ Vue.component('most-hated-user-tweets', {
 
 	template: `
 		<div>
-			<a id="most_hated_user_tweets" class="tweets" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">
+			<a id="most_hated_user_tweets" class="tweets" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">
 				<span v-html="tweet"></span>
 			</a>
 		</div>

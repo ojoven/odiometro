@@ -15,8 +15,6 @@
 
 @include typo('Montserrat-Light', 'Montserrat Light');
 @include typo('Montserrat-Regular', 'Montserrat Regular');
-@include typo('Montserrat-SemiBold', 'Montserrat SemiBold');
-@include typo('Tungsten-Bold', 'Tungsten Bold');
 
 // List of fonts
 .light {
@@ -29,11 +27,11 @@
 }
 
 .bold {
-	font-family: 'Montserrat SemiBold', sans-serif;
+	font-family: 'Special Elite', sans-serif;
 	font-weight: 400;
 }
 
 .title {
-	font-family: 'Tungsten Bold', sans-serif;
+	font-family: 'Bahiana', sans-serif;
 	font-weight: 400;
 }

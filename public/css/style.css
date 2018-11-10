@@ -8,15 +8,13 @@ h2, h3, h4 { font-weight: normal; }
 /** ABSTRACTS **/
 @font-face { font-family: "Montserrat Light"; src: url("fonts/Montserrat-Light.woff2") format("woff2"), url("fonts/Montserrat-Light.woff") format("woff"); font-weight: normal; font-style: normal; }
 @font-face { font-family: "Montserrat Regular"; src: url("fonts/Montserrat-Regular.woff2") format("woff2"), url("fonts/Montserrat-Regular.woff") format("woff"); font-weight: normal; font-style: normal; }
-@font-face { font-family: "Montserrat SemiBold"; src: url("fonts/Montserrat-SemiBold.woff2") format("woff2"), url("fonts/Montserrat-SemiBold.woff") format("woff"); font-weight: normal; font-style: normal; }
-@font-face { font-family: "Tungsten Bold"; src: url("fonts/Tungsten-Bold.woff2") format("woff2"), url("fonts/Tungsten-Bold.woff") format("woff"); font-weight: normal; font-style: normal; }
 .light, p, .tweets, #number_tweets .suffix, .most_hated_user > span, #info p, #info li, #historic, #historic select, .resume-container .user-message, .resume-container .example-container, .resume-container .others, input { font-family: 'Montserrat Light', sans-serif; }
 
 .regular, body, footer, h4 { font-family: 'Monstserrat Regular', sans-serif; font-weight: 400; }
 
-.bold, .most_hated_user a, .resume-container .user-message .highlight-user, .btn { font-family: 'Montserrat SemiBold', sans-serif; font-weight: 400; }
+.bold, .most_hated_user a, .resume-container .user-message .highlight-user, .btn, h1, h2, h3 { font-family: 'Special Elite', sans-serif; font-weight: 400; }
 
-.title, #header h1, #number_tweets .num, h1, h2, h3 { font-family: 'Tungsten Bold', sans-serif; font-weight: 400; }
+.title, #header h1, #number_tweets .num { font-family: 'Bahiana', sans-serif; font-weight: 400; }
 
 @-moz-keyframes scale { 0% { -moz-transform: scale(0, 0); -o-transform: scale(0, 0); -ms-transform: scale(0, 0); -webkit-transform: scale(0, 0); transform: scale(0, 0); }
   70% { -moz-transform: scale(1.1, 1.1); -o-transform: scale(1.1, 1.1); -ms-transform: scale(1.1, 1.1); -webkit-transform: scale(1.1, 1.1); transform: scale(1.1, 1.1); }
@@ -240,7 +238,7 @@ input { -webkit-appearance: none; border-radius: 0; }
 
 input { padding: 10px 20px; font-size: 14px; border: 2px solid #cccccc; width: 100%; margin: 0 0 10px; }
 
-h1, h2, h3 { color: #444; font-size: 38px; line-height: 1.2; text-transform: uppercase; }
+h1, h2, h3 { color: #444; font-size: 32px; line-height: 1.2; text-transform: uppercase; }
 
 h4 { font-size: 18px; font-weight: bold; line-height: 1.5; }
 
