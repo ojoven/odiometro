@@ -2,6 +2,38 @@
 
 var Historic = {
 
+	getDatesFromParameters: function(parameters) {
+
+		var now = new Date();
+		var hours = 1000*60*60;
+		var days = hours*24;
+		var dateStartUnix;
+
+		if (parameters.type === 'hour') {
+			dateStartUnix = new Date(now.getTime() - (parameters.number * hours));
+		} else if (parameters.type === 'day') {
+			dateStartUnix = new Date(now.getTime() - (parameters.number * days));
+		}
+
+		var date = {};
+		date.start = dateStartUnix.toISOString().slice(0, 19).replace('T', ' ');
+		date.end = now.toISOString().slice(0, 19).replace('T', ' '); // now
+
+		return date;
+	},
+
+	parseHistoricData: function(parameters, historicData) {
+
+		var data = {};
+		data.resume = Historic.getResumeFromData(historicData);
+		data.graphData = Historic.parseHistoricDataForGraph(historicData);
+		data.graphData = Historic.decimate(data.graphData, parameters);
+		data.labels = Historic.getLabels(data.graphData);
+
+		return data;
+
+	},
+
 	parseHistoricDataForGraph: function(data) {
 
 		var parsedData = [];
@@ -85,8 +117,13 @@ var Historic = {
 		} else if (parameters.type === 'hour' && parameters.number == 24) {
 			rangeBetweenPoints = 30;
 
-		} else if (parameters.type === 'day') {
+			// Last 3 days
+		} else if (parameters.type === 'day' && parameters.number == 3) {
 			rangeBetweenPoints = 60;
+
+			// Last 7 days
+		}  else if (parameters.type === 'day' && parameters.number == 7) {
+			rangeBetweenPoints = 90;
 		}
 
 		return rangeBetweenPoints;

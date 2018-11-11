@@ -15,8 +15,8 @@ Vue.component('historic', {
 					<option data-type="hour" data-number="6">{{ $t("historic.time_graph.last_fp") }} 6 {{ $t("historic.time_graph.hour_p") }}</option>
 					<option data-type="hour" data-number="12">{{ $t("historic.time_graph.last_fp") }} 12 {{ $t("historic.time_graph.hour_p") }}</option>
 					<option data-type="hour" data-number="24">{{ $t("historic.time_graph.last_fp") }} 24 {{ $t("historic.time_graph.hour_p") }}</option>
-					<!--<option data-type="day" data-number="3">{{ $t("historic.time_graph.last_mp") }} 3 {{ $t("historic.time_graph.day_p") }}</option>
-					<option data-type="day" data-number="7">{{ $t("historic.time_graph.last_mp") }} 7 {{ $t("historic.time_graph.day_p") }}</option>-->
+					<option data-type="day" data-number="3">{{ $t("historic.time_graph.last_mp") }} 3 {{ $t("historic.time_graph.day_p") }}</option>
+					<option data-type="day" data-number="7">{{ $t("historic.time_graph.last_mp") }} 7 {{ $t("historic.time_graph.day_p") }}</option>
 				</select>
 			</span>
 

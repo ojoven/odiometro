@@ -25,6 +25,7 @@ const lib = new Vue({
 		},
 
 		highlight: function(data, search) {
+			if (!data) return false;
 			return data.replace( new RegExp( "(" + this.preg_quote( search ) + ")" , 'gi' ), "<b>$1</b>" );
 		},
 

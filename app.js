@@ -172,28 +172,11 @@ function emitMostHatefulUserAndTweet() {
 // Historic data
 function emitHistoric(parameters) {
 
-	var now = new Date();
-	var hours = 1000*60*60;
-	var days = hours*24;
-	var dateStartUnix;
+	var date = Historic.getDatesFromParameters(parameters);
 
-	if (parameters.type === 'hour') {
-		dateStartUnix = new Date(now.getTime() - (parameters.number*hours));
-	} else if (parameters.type === 'day') {
-		dateStartUnix = new Date(now.getTime() - (parameters.number*days));
-	}
+	database.getHistoricData(date.start, date.end, function(historicData) {
 
-	var dateStart = dateStartUnix.toISOString().slice(0, 19).replace('T', ' ');
-	var dateEnd = now.toISOString().slice(0, 19).replace('T', ' '); // now
-
-	database.getHistoricData(dateStart, dateEnd, function(historicData) {
-
-		var data = {};
-		data.resume = Historic.getResumeFromData(historicData);
-		data.graphData = Historic.parseHistoricDataForGraph(historicData);
-		data.graphData = Historic.decimate(data.graphData, parameters);
-		data.labels = Historic.getLabels(data.graphData);
-
+		var data = Historic.parseHistoricData(parameters, historicData);
 		io.sockets.emit('historic', data);
 	});
 
