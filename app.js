@@ -247,3 +247,31 @@ setInterval(function() {
 
 // Run functions when server starts
 database.cleanOldData(timeBeforeTweetsAreCleaned);
+
+
+// GET AVERAGES
+database.getHistoricNumberTweets(function(results) {
+
+	var averages = [];
+
+	results.forEach(function(result) {
+
+		var hour = result.date.getHours();
+		var minute = result.date.getMinutes();
+		minute = Historic.addPaddingZeroesToMinutes(minute);
+		var index = hour + ':' + minute;
+
+		if (typeof averages[index] === "undefined") {
+			averages[index] = [];
+		}
+
+		averages[index].push(result.number_tweets);
+	});
+
+	console.log('this is the end!');
+	console.log(console.log(Object.keys(averages).length));
+	Object.keys(averages).forEach(function(key, index) {
+		console.log(key);
+		console.log(index);
+	});
+});

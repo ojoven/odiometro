@@ -187,6 +187,19 @@ database.getHistoricData = function(dateStart, dateEnd, callback) {
 
 };
 
+database.getHistoricNumberTweets = function(callback) {
+
+	var limit = 43200; // 30 days of historic data
+
+	var query = 'SELECT `id`, `number_tweets`, `date`' +
+		'FROM `historic` ORDER BY `date` DESC LIMIT 0, ' + limit;
+	this.connection.query(query, function (error, results, fields) {
+
+		callback(results);
+	});
+
+};
+
 database.saveHistoricData = function(
 	numberTweets,
 	hatedUser, hatedUserExampleTweetText, hatedUserExampleTweetId, hatedUserExampleTweetUser,

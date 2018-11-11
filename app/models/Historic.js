@@ -1,5 +1,4 @@
 /** HISTORIC **/
-
 var Historic = {
 
 	getDatesFromParameters: function(parameters) {
@@ -133,21 +132,29 @@ var Historic = {
 	getLabels: function(graphData) {
 
 		var labels = [];
+		var that = this;
 
 		graphData.forEach(function(point) {
 
 			point.t = new Date(point.t);
 			point.t.setHours(point.t.getHours()+1);
 			var minutes = point.t.getMinutes();
-			var str = "" + minutes;
-			var pad = "00";
-			minutes = pad.substring(0, pad.length - str.length) + str;
+			minutes = that.addPaddingZeroesToMinutes(minutes);
 
 			labels.push(point.t.getHours() + ':' + minutes);
 		});
 
 		return labels;
 
+	},
+
+	addPaddingZeroesToMinutes: function(minutes) {
+
+		var str = "" + minutes;
+		var pad = "00";
+		minutes = pad.substring(0, pad.length - str.length) + str;
+
+		return minutes;
 	},
 
 	getResumeFromData: function(data) {
@@ -208,6 +215,15 @@ var Historic = {
 		return uniques.sort(function(a, b) {
 			return frequency[b] - frequency[a];
 		});
+	},
+
+	getAverageNumberTweets: function(callback) {
+
+		var averages = [];
+		var that = this;
+
+
+
 	}
 };
 
