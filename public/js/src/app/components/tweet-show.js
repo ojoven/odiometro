@@ -1,14 +1,18 @@
 Vue.component('tweet-show', {
 
 	template: `
-		<div id="tweets" class="tweets" v-html="tweet">
-
+		<div id="tweets">
+			<a target="_blank" class="tweets" :href="'https://twitter.com/' + screen_name + '/status/' + id_str">
+				<span v-html="tweet"></span>
+			</a>
 		</div>
   `,
 
 	data() {
 		return {
 			tweet: '',
+			id_str: '',
+			screen_name: '',
 			lastStabWasLeft: false
 		}
 	},
@@ -33,7 +37,9 @@ Vue.component('tweet-show', {
 	methods: {
 
 		updateTweet: function(tweet) {
-			this.tweet = lib.parseTweet(tweet, store.track);
+			this.tweet = lib.parseTweet(tweet.tweet, store.track);
+			this.id_str = tweet.id_str;
+			this.screen_name = tweet.screen_name;
 		},
 
 		updateHeaderStabs: function() {

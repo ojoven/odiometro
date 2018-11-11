@@ -177,10 +177,8 @@ database.getMostHatefulUserAndTweet = function(callback) {
 /** HISTORIC **/
 database.getHistoricData = function(dateStart, dateEnd, callback) {
 
-	var timeInMinutes = 2;
-	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
-	var query = 'SELECT `id`, `number_tweets`, `hated_user`, `hated_user_example_tweet_id`, ' +
-		'`hateful_user`, `hateful_user_tweet_id`, `date`' +
+	var query = 'SELECT `id`, `number_tweets`, `hated_user`, `hated_user_example_tweet_text`, `hated_user_example_tweet_id`, `hated_user_example_tweet_user`, ' +
+		'`hateful_user`, `hateful_user_tweet_text`, `hateful_user_tweet_id`, `date`' +
 		'FROM `historic` WHERE date >= \'' + dateStart + '\' AND date <= \'' + dateEnd + '\' ORDER BY `date` ASC';
 	this.connection.query(query, function (error, results, fields) {
 

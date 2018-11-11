@@ -93,6 +93,26 @@ var Historic = {
 
 	},
 
+	getLabels: function(graphData) {
+
+		var labels = [];
+
+		graphData.forEach(function(point) {
+
+			point.t = new Date(point.t);
+			point.t.setHours(point.t.getHours()+1);
+			var minutes = point.t.getMinutes();
+			var str = "" + minutes;
+			var pad = "00";
+			minutes = pad.substring(0, pad.length - str.length) + str;
+
+			labels.push(point.t.getHours() + ':' + minutes);
+		});
+
+		return labels;
+
+	},
+
 	getResumeFromData: function(data) {
 
 		// Initialize variables
@@ -109,7 +129,7 @@ var Historic = {
 		// Get array with all hated users
 		data.forEach(function(point) {
 			hatedUsers.push(point.hated_user);
-			hatedUsersWithExamples[point.hated_user] = {id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_user};
+			hatedUsersWithExamples[point.hated_user] = {text:point.hated_user_example_tweet_text,id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_user};
 		});
 
 		hatedUsers = this.sortByFrequency(hatedUsers);
@@ -124,7 +144,7 @@ var Historic = {
 		// Get array with all hateful users
 		data.forEach(function(point) {
 			hatefulUsers.push(point.hateful_user);
-			hatefulUsersWithExamples[point.hateful_user] = {id:point.hateful_user_tweet_id,user:point.hateful_user};
+			hatefulUsersWithExamples[point.hateful_user] = {text:point.hateful_user_tweet_text,id:point.hateful_user_tweet_id,user:point.hateful_user};
 		});
 
 		hatefulUsers = this.sortByFrequency(hatefulUsers);

@@ -134,6 +134,8 @@ Vue.component('historic', {
 		updateHistoric: function(data) {
 
 			console.log(data);
+			console.log(data.resume.hatedUser);
+			console.log(data.resume.hatedUser.tweet);
 
 			// If previously created, we destroy it before creating a new one
 			if (this.historicStatsChart) {
@@ -147,7 +149,6 @@ Vue.component('historic', {
 
 			// Create new data array by intervals
 			var ctx = document.getElementById("stats-canvas");
-			var labels = this.getLabels(this.graphData);
 			var pointColors = this.getPointColors(this.graphData, 'rgba(138, 7, 7, 1)');
 
 			var that = this;
@@ -155,9 +156,8 @@ Vue.component('historic', {
 			this.historicStatsChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: labels,
+					labels: data.labels,
 					datasets: [{
-						label: 'Tuits de odio por minuto',
 						data: this.graphData,
 						backgroundColor: [
 							'rgba(138,7,7,0.1)'
@@ -224,26 +224,6 @@ Vue.component('historic', {
 					}
 				}
 			});
-		},
-
-		getLabels: function(graphData) {
-
-			var labels = [];
-
-			graphData.forEach(function(point) {
-
-				point.t = new Date(point.t);
-				point.t.setHours(point.t.getHours()+1);
-				var minutes = point.t.getMinutes();
-				var str = "" + minutes;
-				var pad = "00";
-				minutes = pad.substring(0, pad.length - str.length) + str;
-
-				labels.push(point.t.getHours() + ':' + minutes);
-			});
-
-			return labels;
-
 		},
 
 		getPointColors: function(data, color) {

@@ -122,7 +122,7 @@ twitterStream.on('tweet', function (tweet) {
 function emitLastTweet() {
 
 	database.getLastTweetFromDatabase(function(tweet) {
-		io.sockets.emit('tweet', tweet.tweet);
+		io.sockets.emit('tweet', tweet);
 	});
 }
 
@@ -190,9 +190,9 @@ function emitHistoric(parameters) {
 
 		var data = {};
 		data.resume = Historic.getResumeFromData(historicData);
-		data.labels = Historic.getLabels(historicData);
 		data.graphData = Historic.parseHistoricDataForGraph(historicData);
 		data.graphData = Historic.decimate(data.graphData, parameters);
+		data.labels = Historic.getLabels(data.graphData);
 
 		io.sockets.emit('historic', data);
 	});
