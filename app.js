@@ -98,7 +98,13 @@ twitterStream.on('tweet', function (tweet) {
 
 			// Is it a tweet to be shown?
 			if (Tweet.isItATweetToBeShown(tweet, track)) {
-				io.sockets.emit('tweet', tweet.text);
+
+				var tweetParsed = {};
+				tweetParsed.id_str = tweet.id_str;
+				tweetParsed.tweet = tweet.text;
+				tweetParsed.screen_name = tweet.user.screen_name;
+
+				io.sockets.emit('tweet', tweetParsed);
 			}
 
 		}
@@ -250,6 +256,7 @@ database.cleanOldData(timeBeforeTweetsAreCleaned);
 
 
 // GET AVERAGES
+/**
 database.getHistoricNumberTweets(function(results) {
 
 	var averages = [];
@@ -275,3 +282,4 @@ database.getHistoricNumberTweets(function(results) {
 		console.log(index);
 	});
 });
+ **/
