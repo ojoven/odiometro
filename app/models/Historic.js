@@ -21,15 +21,42 @@ var Historic = {
 		return date;
 	},
 
-	parseHistoricData: function(parameters, historicData) {
+	parseHistoricData: function(parameters, historicData, averages) {
 
 		var data = {};
-		data.resume = Historic.getResumeFromData(historicData);
-		data.graphData = Historic.parseHistoricDataForGraph(historicData);
-		data.graphData = Historic.decimate(data.graphData, parameters);
-		data.labels = Historic.getLabels(data.graphData);
+		data.resume = this.getResumeFromData(historicData);
+		data.graphData = this.parseHistoricDataForGraph(historicData);
+		data.graphData = this.decimate(data.graphData, parameters);
+		data.labels = this.getLabels(data.graphData);
+		data.averageData = this.getAverageDataset(data.graphData, averages);
 
 		return data;
+
+	},
+
+	getAverageDataset: function(data, averages) {
+
+		var averageDataset = [];
+
+		var that = this;
+
+		data.forEach(function(point) {
+
+			var hours = point.t.getHours();
+			var minutes = point.t.getMinutes();
+			minutes = that.addPaddingZeroesToMinutes(minutes);
+			var index = hours + ':' + minutes;
+
+			var averagePoint = {
+				t: point.t,
+				y: averages[index]
+			};
+
+			averageDataset.push(averagePoint);
+
+		});
+
+		return averageDataset;
 
 	},
 
@@ -102,27 +129,27 @@ var Historic = {
 
 			// Last 3 hours
 		} else if (parameters.type === 'hour' && parameters.number == 3) {
-			rangeBetweenPoints = 5;
+			rangeBetweenPoints = 3;
 
 			// Last 6 hours
 		} else if (parameters.type === 'hour' && parameters.number == 6) {
-			rangeBetweenPoints = 10;
+			rangeBetweenPoints = 5;
 
 			// Last 12 hours
 		} else if (parameters.type === 'hour' && parameters.number == 12) {
-			rangeBetweenPoints = 20;
+			rangeBetweenPoints = 10;
 
 			// Last 24 hours
 		} else if (parameters.type === 'hour' && parameters.number == 24) {
-			rangeBetweenPoints = 30;
+			rangeBetweenPoints = 20;
 
 			// Last 3 days
 		} else if (parameters.type === 'day' && parameters.number == 3) {
-			rangeBetweenPoints = 60;
+			rangeBetweenPoints = 30;
 
 			// Last 7 days
 		}  else if (parameters.type === 'day' && parameters.number == 7) {
-			rangeBetweenPoints = 90;
+			rangeBetweenPoints = 60;
 		}
 
 		return rangeBetweenPoints;

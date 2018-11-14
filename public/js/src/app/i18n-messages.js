@@ -56,6 +56,7 @@ const messages = {
 			// GRAPH
 			graph: {
 				tweets_at: ' tuits de odio a las ',
+				average_tweets_at: ' es la media mensual de tuits de odio a las ',
 				number_tweets: 'Número de tuits de odio por minuto',
 				hateful: ' es el usuario que más odio ha generado',
 				hated: ' es el usuario que más odio ha recibido'
@@ -131,6 +132,7 @@ const messages = {
 			// GRAPH
 			graph: {
 				tweets_at: ' hate tweets at ',
+				average_tweets_at: ' is the monthly average number of hate tweets at ',
 				number_tweets: 'Number of hate tweets per minute',
 				hateful: ' is the user that has generated the most hate',
 				hated: ' is the user that has received the most hate'

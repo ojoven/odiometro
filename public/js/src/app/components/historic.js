@@ -133,6 +133,8 @@ Vue.component('historic', {
 
 		updateHistoric: function(data) {
 
+			console.log(data);
+
 			// If previously created, we destroy it before creating a new one
 			if (this.historicStatsChart) {
 				this.historicStatsChart.destroy();
@@ -142,6 +144,7 @@ Vue.component('historic', {
 
 			// Parse data for the graph
 			this.graphData = data.graphData;
+			this.averageData = data.averageData;
 
 			// Create new data array by intervals
 			var ctx = document.getElementById("stats-canvas");
@@ -153,18 +156,33 @@ Vue.component('historic', {
 				type: 'line',
 				data: {
 					labels: data.labels,
-					datasets: [{
-						data: this.graphData,
-						backgroundColor: [
-							'rgba(138,7,7,0.1)'
-						],
-						borderColor: [
-							'rgba(138, 7, 7, 1)'
-						],
-						pointBackgroundColor: pointColors,
-						pointBorderColor: pointColors,
-						borderWidth: 2
-					}]
+					datasets: [
+
+						// GRAPH DATA
+						{
+							data: this.graphData,
+							backgroundColor: [
+								'rgba(138,7,7,0.1)'
+							],
+							borderColor: [
+								'rgba(138, 7, 7, 1)'
+							],
+							pointBackgroundColor: pointColors,
+							pointBorderColor: pointColors,
+							pointRadius: 0,
+							borderWidth: 2
+						},
+						// AVERAGE DATA
+						{
+							data: this.averageData,
+							backgroundColor: false,
+							fill: false,
+							borderColor: 'rgba(0, 0, 0, .5)',
+							borderDash: [5, 5],
+							borderWidth: 2,
+							pointRadius: 0
+						}
+					]
 				},
 				options: {
 					maintainAspectRatio: false,
@@ -202,6 +220,9 @@ Vue.component('historic', {
 						callbacks: {
 							label: function(tooltipItem, data) {
 								var label = tooltipItem.yLabel + that.$t('historic.graph.tweets_at') + tooltipItem.xLabel;
+								if (tooltipItem.datasetIndex == 1) {
+									label = tooltipItem.yLabel + that.$t('historic.graph.average_tweets_at') + tooltipItem.xLabel;
+								}
 								return label;
 							},
 							title: function(tooltipItem, data) {

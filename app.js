@@ -182,7 +182,7 @@ function emitHistoric(parameters) {
 
 	database.getHistoricData(date.start, date.end, function(historicData) {
 
-		var data = Historic.parseHistoricData(parameters, historicData);
+		var data = Historic.parseHistoricData(parameters, historicData, averages);
 		io.sockets.emit('historic', data);
 	});
 
@@ -256,10 +256,11 @@ database.cleanOldData(timeBeforeTweetsAreCleaned);
 
 
 // GET AVERAGES
+var averages = [];
+
 database.getHistoricNumberTweets(function(results) {
 
 	var averagesAux = [];
-	var averages = [];
 
 	results.forEach(function(result) {
 
