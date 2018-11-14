@@ -249,6 +249,32 @@ var Historic = {
 		var average = Math.floor(array.reduce(function(p,c,i,a){return p + (c/a.length)},0));
 		return average;
 
+	},
+
+	createAveragesFromHistoricNumberTweets: function(results) {
+
+		var averages = [];
+		var averagesAux = [];
+
+		results.forEach(function(result) {
+
+			var hour = result.date.getHours();
+			var minute = result.date.getMinutes();
+			minute = Historic.addPaddingZeroesToMinutes(minute);
+			var index = hour + ':' + minute;
+
+			if (typeof averagesAux[index] === "undefined") {
+				averagesAux[index] = [];
+			}
+
+			averagesAux[index].push(result.number_tweets);
+		});
+
+		Object.keys(averagesAux).forEach(function(key, index) {
+			averages[key] = Historic.getAverageNumberFromArray(averagesAux[key]);
+		});
+
+		return averages;
 	}
 };
 

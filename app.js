@@ -257,28 +257,15 @@ database.cleanOldData(timeBeforeTweetsAreCleaned);
 
 // GET AVERAGES
 var averages = [];
-
-database.getHistoricNumberTweets(function(results) {
-
-	var averagesAux = [];
-
-	results.forEach(function(result) {
-
-		var hour = result.date.getHours();
-		var minute = result.date.getMinutes();
-		minute = Historic.addPaddingZeroesToMinutes(minute);
-		var index = hour + ':' + minute;
-
-		if (typeof averagesAux[index] === "undefined") {
-			averagesAux[index] = [];
-		}
-
-		averagesAux[index].push(result.number_tweets);
+function updateAverages() {
+	database.getHistoricNumberTweets(function(results) {
+		averages = Historic.createAveragesFromHistoricNumberTweets(results);
 	});
+}
 
-	console.log('this is the end!');
-	Object.keys(averagesAux).forEach(function(key, index) {
-		averages[key] = Historic.getAverageNumberFromArray(averagesAux[key]);
-		console.log(key + ' -> ' + averages[key]);
-	});
-});
+updateAverages();
+
+var frequencyOfUpdatingAverages = 86400000; // Once a day
+setInterval(function() {
+	updateAverages();
+}, frequencyOfUpdatingAverages);
