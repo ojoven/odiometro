@@ -77,7 +77,7 @@ var Historic = {
 				hu2.push(chunks[chunk][i]["hu2"]);
 			}
 
-			var average = Math.floor(val.reduce(function(p,c,i,a){return p + (c/a.length)},0));
+			var average = this.getAverageNumberFromArray(val);
 			hu1 = this.sortByFrequency(hu1)[0];
 			hu2 = this.sortByFrequency(hu2)[0];
 
@@ -217,12 +217,10 @@ var Historic = {
 		});
 	},
 
-	getAverageNumberTweets: function(callback) {
+	getAverageNumberFromArray: function(array) {
 
-		var averages = [];
-		var that = this;
-
-
+		var average = Math.floor(array.reduce(function(p,c,i,a){return p + (c/a.length)},0));
+		return average;
 
 	}
 };

@@ -256,9 +256,9 @@ database.cleanOldData(timeBeforeTweetsAreCleaned);
 
 
 // GET AVERAGES
-/**
 database.getHistoricNumberTweets(function(results) {
 
+	var averagesAux = [];
 	var averages = [];
 
 	results.forEach(function(result) {
@@ -268,18 +268,16 @@ database.getHistoricNumberTweets(function(results) {
 		minute = Historic.addPaddingZeroesToMinutes(minute);
 		var index = hour + ':' + minute;
 
-		if (typeof averages[index] === "undefined") {
-			averages[index] = [];
+		if (typeof averagesAux[index] === "undefined") {
+			averagesAux[index] = [];
 		}
 
-		averages[index].push(result.number_tweets);
+		averagesAux[index].push(result.number_tweets);
 	});
 
 	console.log('this is the end!');
-	console.log(console.log(Object.keys(averages).length));
-	Object.keys(averages).forEach(function(key, index) {
-		console.log(key);
-		console.log(index);
+	Object.keys(averagesAux).forEach(function(key, index) {
+		averages[key] = Historic.getAverageNumberFromArray(averagesAux[key]);
+		console.log(key + ' -> ' + averages[key]);
 	});
 });
- **/
