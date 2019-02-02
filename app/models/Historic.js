@@ -210,7 +210,12 @@ var Historic = {
 		});
 
 		resume.hatedUser = hatedUsersComplete.shift();
-		resume.hatedUser.others = hatedUsersComplete;
+		if (resume.hatedUser) {
+			resume.hatedUser.others = hatedUsersComplete;
+		} else {
+			resume.hatedUser = {};
+			resume.hatedUser.others = hatedUsersComplete;
+		}
 
 		// Get array with all hateful users
 		data.forEach(function(point) {
@@ -225,7 +230,12 @@ var Historic = {
 		});
 
 		resume.hatefulUser = hatefulUsersComplete.shift();
-		resume.hatefulUser.others = hatefulUsersComplete;
+		if (resume.hatefulUser) {
+			resume.hatefulUser.others = hatefulUsersComplete;
+		} else {
+			resume.hatefulUser = {};
+			resume.hatefulUser.others = hatefulUsersComplete;
+		}
 
 		return resume;
 	},
@@ -255,6 +265,8 @@ var Historic = {
 
 		var averages = [];
 		var averagesAux = [];
+
+		if (!results) return averages;
 
 		results.forEach(function(result) {
 
