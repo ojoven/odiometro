@@ -32,7 +32,7 @@ Tweet.isItATweetToBeShown = function(tweet, track) {
 		var keywords = track[i].split(' ');
 		var allKeywordsMatch = true;
 		for (var j in keywords) {
-			if (tweetText.indexOf(keywords[j]) === -1) {
+			if (tweetText.indexOf(keywords[j].toLowerCase()) === -1) {
 				allKeywordsMatch = false;
 			}
 		}
