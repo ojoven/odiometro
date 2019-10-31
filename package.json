@@ -14,7 +14,7 @@
   "author": "Mikel Torres Ugarte",
   "license": "MIT",
   "dependencies": {
-    "ejs": "^1.0.0",
+    "ejs": "^2.7.1",
     "express": "^4.8.2",
     "gravatar": "~1.0.6",
     "socket.io": "1.0.6",
