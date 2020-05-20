@@ -159,14 +159,15 @@ footer a { color: #fff; }
 #real_time_graph { max-width: 100%; overflow: hidden; margin: 30px auto; }
 #real_time_graph canvas { margin: 0 auto; }
 
-.most_hated_user { margin: 50px auto; }
+.most_hated_user { margin: 10px auto; }
 .most_hated_user > span { color: #aaa; font-size: 16px; line-height: 1.2; }
 .most_hated_user > span b { font-weight: normal; color: #444; }
 .most_hated_user a { letter-spacing: -1px; color: #8A0707; text-decoration: none; font-size: 34px; text-transform: none; }
 .most_hated_user a:hover, .most_hated_user a:focus { text-decoration: underline; }
 
 #user-container .tweets { margin: 0 auto; padding: 0 30px; height: auto; }
-#user-container .hate-user { float: left; width: 50%; }
+#user-container .hate-user { float: left; width: 50%; text-align: center; }
+#user-container .hate-user .image { margin-top: 40px; width: 100px; height: 100px; border-radius: 50%; display: inline-block; background-position: center; background-size: cover; background-repeat: no-repeat; }
 #user-container .hate-user .most_hateful_user { border-right: 3px solid #ccc; }
 
 @media (max-width: 767px) { .most_hated_user { margin: 10px auto 5px; }
@@ -174,7 +175,8 @@ footer a { color: #fff; }
   .most_hated_user > span { font-size: 16px; }
   .most_hated_user > span b { display: block; }
   #user-container .hate-user { float: none; width: 100%; }
-  #user-container .tweets { padding: 0 10px; font-size: 12px; } }
+  #user-container .hate-user .image { margin-top: 20px; width: 60px; height: 60px; }
+  #user-container .tweets { padding: 0 10px; font-size: 10px; } }
 #info { margin: 50px auto; width: 600px; max-width: 90%; position: relative; z-index: 99; }
 #info p, #info li { font-size: 15px; margin: 10px; color: #444; line-height: 1.2; }
 #info a { color: #8A0707; font-weight: bold; }

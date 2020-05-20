@@ -86,7 +86,7 @@ Vue.component('historic', {
 		}
 	},
 
-	created: function() {
+	created: function () {
 
 		this.parameters.type = 'hour';
 		this.parameters.number = 1;
@@ -95,7 +95,7 @@ Vue.component('historic', {
 		socket.emit('retrieve_historic', this.parameters);
 
 		// When we receive it, let's update the user
-		socket.on('historic', function(data) {
+		socket.on('historic', function (data) {
 			this.updateHistoric(data);
 		}.bind(this));
 
@@ -103,7 +103,7 @@ Vue.component('historic', {
 
 	methods: {
 
-		onViewDropdownChange: function(event) {
+		onViewDropdownChange: function (event) {
 
 			var activeOption = document.getElementById('view-dropdown').value;
 
@@ -122,7 +122,7 @@ Vue.component('historic', {
 			}
 		},
 
-		onStatsDropdownChange: function(event) {
+		onStatsDropdownChange: function (event) {
 
 			var activeOption = document.getElementById('stats-dropdown').options[document.getElementById('stats-dropdown').selectedIndex];
 			this.parameters.type = activeOption.getAttribute('data-type');
@@ -131,9 +131,7 @@ Vue.component('historic', {
 			socket.emit('retrieve_historic', this.parameters);
 		},
 
-		updateHistoric: function(data) {
-
-			console.log(data);
+		updateHistoric: function (data) {
 
 			// If previously created, we destroy it before creating a new one
 			if (this.historicStatsChart) {
@@ -218,17 +216,17 @@ Vue.component('historic', {
 						mode: 'index',
 						intersect: false,
 						callbacks: {
-							label: function(tooltipItem, data) {
+							label: function (tooltipItem, data) {
 								var label = tooltipItem.yLabel + that.$t('historic.graph.tweets_at') + tooltipItem.xLabel;
 								if (tooltipItem.datasetIndex == 1) {
 									label = tooltipItem.yLabel + that.$t('historic.graph.average_tweets_at') + tooltipItem.xLabel;
 								}
 								return label;
 							},
-							title: function(tooltipItem, data) {
+							title: function (tooltipItem, data) {
 								return that.$t('historic.graph.number_tweets');
 							},
-							afterBody: function(tooltipItem, data) {
+							afterBody: function (tooltipItem, data) {
 								var multistringText = [
 									'------------------------------------------------------------------',
 									'@' + that.graphData[tooltipItem[0].index].hu2 + that.$t('historic.graph.hateful'),
@@ -243,7 +241,7 @@ Vue.component('historic', {
 			});
 		},
 
-		getPointColors: function(data, color) {
+		getPointColors: function (data, color) {
 
 			var pointColors = [];
 

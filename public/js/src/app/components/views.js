@@ -12,11 +12,13 @@ Vue.component('views', {
 			<div id="user-container" v-show="showUser">
 
 				<div class="hate-user hateful-user">
+					<most-hateful-user-image></most-hateful-user-image>
 					<most-hateful-user></most-hateful-user>
 					<most-hateful-user-tweets></most-hateful-user-tweets>
 				</div>
 
 				<div class="hate-user hated-user">
+					<most-hated-user-image></most-hated-user-image>
 					<most-hated-user></most-hated-user>
 					<most-hated-user-tweets></most-hated-user-tweets>
 				</div>
@@ -43,10 +45,10 @@ Vue.component('views', {
 		}
 	},
 
-	created: function() {
+	created: function () {
 
 		var that = this;
-		bus.$on('change-view', function(view) {
+		bus.$on('change-view', function (view) {
 			lib.updateViewParameters(that, view);
 		});
 	}
