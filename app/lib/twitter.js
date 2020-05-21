@@ -11,22 +11,22 @@ var twitterObject = new Twit({
 	timeout_ms: 60 * 1000 // optional HTTP request timeout to apply to all requests.
 });
 
-twitterObject.postTweet = function (tweet) {
+twitterObject.postTweet = function (tweet, callback) {
 
 	twitterObject.post('statuses/update', {
 		status: tweet
 	}, function (err, data, response) {
-		console.log(data)
+		callback(data)
 	})
 }
 
-twitterObject.postTweetAsReplyTo = function (tweet, id_str) {
+twitterObject.postTweetAsReplyTo = function (tweet, id_str, callback) {
 
 	twitterObject.post('statuses/update', {
 		status: tweet,
 		in_reply_to_status_id: '' + id_str
 	}, function (err, data, response) {
-		console.log(data)
+		callback(data)
 	})
 }
 

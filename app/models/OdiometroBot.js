@@ -13,44 +13,144 @@ OdiometroBot.initialize = function (twitter) {
 // Filters //
 OdiometroBot.postDailyResumeTweets = function () {
 
-	this.postTweetHateful();
-	//this.postTweetHated();
-
-};
-
-OdiometroBot.postTweetHateful = function () {
-
 	var that = this;
 
-	database.getMostHatefulUserAndTweet(function (tweet) {
+	var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * 24);
+	console.log(dateStart);
+	var dateEnd = database.currentDateTimeInMySQLFormat();
 
-		var templateResumeFirst = '🔪 Resumen diario del Odio en Twitter\n' +
-			'📅 ' + new Date().toJSON().slice(0, 10).split('-').reverse().join('/') + '\n' +
-			'📈 Media: 203 tuits/odio minuto\n' +
-			'🔥 Pico: 352 tuits/odio minuto\n\n' +
+	database.getHistoricData(dateStart, dateEnd, function (historicData) {
+
+		console.log(historicData);
+
+		var average = OdiometroBot.getAverageNumTweetsFromHistoricData(historicData);
+		var max = OdiometroBot.getMaxNumTweetsFromHistoricData(historicData);
+		var hatefulUser = OdiometroBot.getMostHatefulUserAndTweet(historicData);
+		var hatedUser = OdiometroBot.getMostHatedUserAndTweet(historicData);
+
+		console.log(average);
+		console.log(max);
+		console.log(hatefulUser);
+		console.log(hatedUser);
+
+		var templateResumeFirst = '🔪 Odio en Twitter *ÚLTIMAS 24 HORAS*\n\n' +
+			'📈 Media: ' + average + ' tuits/odio minuto\n' +
+			'🔥 Pico: ' + max + ' tuits/odio minuto\n\n' +
 			'👇👇👇 (continúa)';
 
-		var templateResumeSecond = '😠 El usuario que más odio ha propagado es @donpepitobot, con este tuit: https://twitter.com/donpepitobot/status/12634';
-		var templateResumeThird = '🤕 El usuario que más odio ha recibido es @donpepitobot, con tuits como este: https://twitter.com/donpepitobot/status/1263403275258388485';
-		var templateResumeLast = 'Recordatorio:\n👉 tuits/odio por minuto incluye retuits\n' +
-			'👉 el odio no es fácil de identificar de manera automatizada, por lo que puede haber errores en los datos, ¡no nos odies por ello!';
+		var templateResumeSecond = '😠 El usuario que más odio ha propagado es @' + hatefulUser.user + ', con este tuit: https://twitter.com/' + hatefulUser.user + '/status/' + hatefulUser.id_str;
+		var templateResumeThird = '🤕 El usuario que más odio ha recibido es ' + hatedUser.user + ', con tuits como este: https://twitter.com/' + hatedUser.hatefulUser + '/status/' + hatedUser.id_str;
+		var templateResumeLast = '👉 Recuerda: mira nuestro tuit fijado para saber más sobre el proyecto Odiómetro y su objetivo.\n\n' +
+			'👉 Síguenos para recibir el resumen diario.\n\n👉 Entra en https://odiometro.es para ver el odio en tiempo real y el histórico actualizado.';
 
+		console.log(templateResumeFirst);
+		console.log(templateResumeSecond);
+		console.log(templateResumeThird);
+		console.log(templateResumeLast);
 
-		//var mostHatefulUserTweet = { tweet: tweet.text, id_str: tweet.id_str, screen_name: tweet.user};
-		//that.twitter.postTweet(templateResumeFirst);
-		that.twitter.postTweetAsReplyTo(templateResumeThird, '1263403275258388485');
+		/**
+		that.twitter.postTweet(templateResumeFirst, function (firstTweet) {
+			that.twitter.postTweetAsReplyTo(templateResumeSecond, firstTweet.id_str, function (secondTweet) {
+				that.twitter.postTweetAsReplyTo(templateResumeThird, secondTweet.id_str, function (thirdTweet) {
+					that.twitter.postTweetAsReplyTo(templateResumeLast, thirdTweet.id_str, function (lastTweet) {
+						console.log('finished!');
+					});
+				});
+			});
+		});
+		 */
+
 	});
 
 };
 
+OdiometroBot.getAverageNumTweetsFromHistoricData = function (historicData) {
 
+	var total = 0;
+	historicData.forEach(function (row) {
+		total += row.number_tweets;
+	});
 
-OdiometroBot.getTemplateHateful = function () {
+	return parseInt(total / historicData.length);
+}
 
-	var templates = [
-		'Parece que [user] es el usuario que más odio ha generado en las '
-	];
+OdiometroBot.getMaxNumTweetsFromHistoricData = function (historicData) {
 
-};
+	var max = 0;
+	historicData.forEach(function (row) {
+
+		if (row.number_tweets > max)
+			max = row.number_tweets;
+	});
+
+	return max;
+}
+
+OdiometroBot.getMostHatefulUserAndTweet = function (historicData) {
+
+	var users = [];
+	historicData.forEach(function (row) {
+		users.push(row.hateful_user);
+	});
+
+	var tweetId = null;
+	var user = mode(users);
+	historicData.forEach(function (row) {
+		if (row.hateful_user === user) {
+			tweetId = row.hateful_user_tweet_id;
+		}
+	});
+
+	var data = {
+		user: user,
+		id_str: tweetId
+	}
+
+	return data;
+}
+
+OdiometroBot.getMostHatedUserAndTweet = function (historicData) {
+
+	var users = [];
+	historicData.forEach(function (row) {
+		users.push(row.hated_user);
+	});
+
+	var tweetId = null;
+	var user = mode(users);
+	historicData.forEach(function (row) {
+		if (row.hated_user === user) {
+			tweetId = row.hated_user_example_tweet_id;
+			hatefulUser = row.hated_user_example_tweet_user;
+		}
+	});
+
+	var data = {
+		user: user,
+		id_str: tweetId
+	}
+
+	return data;
+}
+
+function mode(array) {
+	if (array.length == 0)
+		return null;
+	var modeMap = {};
+	var maxEl = array[0],
+		maxCount = 1;
+	for (var i = 0; i < array.length; i++) {
+		var el = array[i];
+		if (modeMap[el] == null)
+			modeMap[el] = 1;
+		else
+			modeMap[el]++;
+		if (modeMap[el] > maxCount) {
+			maxEl = el;
+			maxCount = modeMap[el];
+		}
+	}
+	return maxEl;
+}
 
 module.exports = OdiometroBot;
