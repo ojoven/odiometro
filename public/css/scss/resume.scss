@@ -1,0 +1,114 @@
+/** RESET **/
+@import "app/base/reset";
+@import "app/abstracts/variables";
+@import "app/abstracts/media-declarations";
+@import "app/abstracts/mixins";
+@import "app/abstracts/colors";
+@import "app/abstracts/fonts";
+@import "app/abstracts/animations";
+@import "app/abstracts/z-index-layers";
+@import "app/base/component-mixins";
+@import "app/layout/container";
+@import "app/layout/footer";
+@import "app/layout/grid";
+@import "app/layout/header";
+@import "app/layout/menu";
+@import "app/layout/sections";
+@import "app/pages/historic";
+@import "app/helpers/desktop-mediaqueries";
+@import "app/helpers/helpers";
+
+
+.page-resume {
+	background: #8A0707;
+
+	h1 {
+		text-align: center;
+		font-size: 24px;
+		margin-bottom: 30px;
+		color: $white;
+
+		i {
+			display: inline-block;
+			background: url(../img/knife.png) no-repeat center center;
+			background-size: contain;
+			width: 40px;
+			height: 40px;
+			position: relative;
+			top: 4px;
+
+			&.left {
+				left: -10px;
+				transform-origin: bottom left;
+			}
+
+			&.right {
+				left: 10px;
+				background-image: url(../img/knife-reverse.png);
+				transform-origin: bottom right;
+			}
+		}
+	}
+
+	.container {
+		width: 650px;
+		max-width: 90%;
+		margin: 50px auto;
+		padding: 20px 30px;
+	}
+
+	.disclaimer {
+		display: block;
+		text-align: right;
+		margin-right: 10px;
+		font-size: 12px;
+		color: $white;
+	}
+
+}
+
+.graph-block {
+	width: 46%;
+	margin-right: 20px;
+	display: inline-block;
+	margin-bottom: 20px;
+	background: $white;
+	border-radius: 10px;
+	padding: 15px;
+
+	&:nth-child(odd) {
+		margin-right: 0;
+	}
+
+	.block-title {
+		@extend .regular;
+		color: #444;
+	}
+}
+
+.hate-user {
+	$imageSize: 120px;
+
+	img {
+		width: $imageSize;
+		height: $imageSize;
+		border-radius: 50%;
+		margin: 15px auto;
+		display: block;
+	}
+
+	.name {
+		font-size: 20px;
+	}
+}
+
+.num-tweets {
+
+	.num {
+		@extend .title;
+		font-size: 100px;
+		display: block;
+		margin: 20px auto 0;
+		font-weight: 400;
+	}
+}

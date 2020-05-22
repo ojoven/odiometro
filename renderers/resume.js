@@ -2,11 +2,15 @@
 
 // Get the url of the tweet to render via console argument
 var system = require('system');
-var url = 'https://odiometro.es';
-var filePath = system.args[2];
-var extension = system.args[3];
+var url = 'http://localhost:8001/resume';
+var filePath = '/var/www/html/odiometro/public/img/resume/resume.png';
+var extension = 'png';
 
 var page = require('webpage').create();
+page.viewportSize = {
+	width: 1280,
+	height: 800
+};
 
 // For logging errors
 page.onResourceError = function (resourceError) {
@@ -25,7 +29,7 @@ page.open(url, function (status) {
 		window.setTimeout(function () {
 
 			var bb = page.evaluate(function () {
-				return document.getElementsByClassName("permalink-tweet")[0].getBoundingClientRect();
+				return document.getElementsByClassName("container")[0].getBoundingClientRect();
 			});
 
 			page.clipRect = {

@@ -1,16 +1,16 @@
-/** APP **/
-// Node app
+/*
+|--------------------------------------------------------------------------
+| INITIALIZATION
+|--------------------------------------------------------------------------
+*/
 
+// Languages
 var acceptedLangs = ['es', 'en'];
-
-// GET parameters
 var args = process.argv.slice(2);
-
-// GET language
 var defaultLang = 'es';
 global.lang = (args && typeof args[0] !== "undefined" && acceptedLangs.indexOf(args[0]) !== -1) ? args[0] : defaultLang;
 
-// ROOT PATH
+// Path
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
 
@@ -19,6 +19,10 @@ var express = require('express'),
 	app = express();
 
 var port = process.env.PORT || 8001;
+
+var io = require('socket.io').listen(app.listen(port));
+require('./config')(app, io);
+require('./routes')(app, io);
 
 // Libs
 var database = require("./app/lib/database.js");
@@ -30,21 +34,17 @@ var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
 var Tweet = require("./app/models/Tweet.js");
 var Historic = require("./app/models/Historic.js");
 
-// Initialize a new socket.io object. It is bound to
-// the express app, which allows them to coexist.
-var io = require('socket.io').listen(app.listen(port));
-
-// Require the configuration and the routes files, and pass
-// the app and io as arguments to the returned functions.
-require('./config')(app, io);
-require('./routes')(app, io);
-
 // Logging
 console.log('Odiometro is running on http://localhost:' + port);
 
 // Vars
 var numberTweets, mostHatedUser, mostHatedUsersLastTweet, mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId;
 
+/*
+|--------------------------------------------------------------------------
+| EVENT CATCHING
+|--------------------------------------------------------------------------
+*/
 // When socket connection
 io.on('connection', function (socket) {
 
@@ -123,7 +123,11 @@ twitterStream.on('tweet', function (tweet) {
 
 });
 
-// EMIT DATA
+/*
+|--------------------------------------------------------------------------
+| EMIT DATA
+|--------------------------------------------------------------------------
+*/
 // Last tweet
 function emitLastTweet() {
 
@@ -232,7 +236,11 @@ function emitHistoric(parameters) {
 }
 
 
-// FREQUENT UPDATES
+/*
+|--------------------------------------------------------------------------
+| FREQUENT UPDATES
+|--------------------------------------------------------------------------
+*/
 // Number Tweets
 var frequencyOfUpdateNumberTweets = 500;
 setInterval(function () {
@@ -297,7 +305,6 @@ setInterval(function () {
 // Run functions when server starts
 database.cleanOldData(timeBeforeTweetsAreCleaned);
 
-
 // GET AVERAGES
 var averages = [];
 
@@ -313,3 +320,50 @@ var frequencyOfUpdatingAverages = 86400000; // Once a day
 setInterval(function () {
 	updateAverages();
 }, frequencyOfUpdatingAverages);
+
+/*
+|--------------------------------------------------------------------------
+| RESUME AUXILIARY PAGE
+|--------------------------------------------------------------------------
+*/
+app.get('/resume', function (req, res) {
+
+	var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * 24);
+	var dateEnd = database.currentDateTimeInMySQLFormat();
+
+	database.getHistoricData(dateStart, dateEnd, function (historicData) {
+
+		var average = Historic.getAverageNumTweetsFromHistoricData(historicData);
+		var max = Historic.getMaxNumTweetsFromHistoricData(historicData);
+		var hatefulUser = Historic.getMostHatefulUserAndTweet(historicData);
+		var hatedUser = Historic.getMostHatedUserAndTweet(historicData);
+
+		console.log(average);
+		console.log(max);
+		console.log(hatefulUser);
+		console.log(hatedUser);
+
+		database.getUserImage(hatefulUser.user, function (hatefulUserImage) {
+
+			database.getUserImage(hatedUser.user, function (hatedUserImage) {
+
+				res.render('resume', {
+					averageNum: average,
+					maxNum: max,
+					mostHatefulUser: {
+						screen_name: hatefulUser.user,
+						image_url: hatefulUserImage.image_url
+					},
+					mostHatedUser: {
+						screen_name: hatedUser.user,
+						image_url: hatedUserImage.image_url
+					},
+				});
+
+			});
+
+		});
+
+	});
+
+});

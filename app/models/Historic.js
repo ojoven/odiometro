@@ -1,11 +1,11 @@
 /** HISTORIC **/
 var Historic = {
 
-	getDatesFromParameters: function(parameters) {
+	getDatesFromParameters: function (parameters) {
 
 		var now = new Date();
-		var hours = 1000*60*60;
-		var days = hours*24;
+		var hours = 1000 * 60 * 60;
+		var days = hours * 24;
 		var dateStartUnix;
 
 		if (parameters.type === 'hour') {
@@ -21,7 +21,7 @@ var Historic = {
 		return date;
 	},
 
-	parseHistoricData: function(parameters, historicData, averages) {
+	parseHistoricData: function (parameters, historicData, averages) {
 
 		var data = {};
 		data.resume = this.getResumeFromData(historicData);
@@ -34,13 +34,13 @@ var Historic = {
 
 	},
 
-	getAverageDataset: function(data, averages) {
+	getAverageDataset: function (data, averages) {
 
 		var averageDataset = [];
 
 		var that = this;
 
-		data.forEach(function(point) {
+		data.forEach(function (point) {
 
 			var hours = point.t.getHours();
 			var minutes = point.t.getMinutes();
@@ -60,11 +60,11 @@ var Historic = {
 
 	},
 
-	parseHistoricDataForGraph: function(data) {
+	parseHistoricDataForGraph: function (data) {
 
 		var parsedData = [];
 
-		data.forEach(function(point) {
+		data.forEach(function (point) {
 
 			var parsedPoint = {};
 			parsedPoint.t = new Date(point.date);
@@ -79,7 +79,7 @@ var Historic = {
 
 	},
 
-	decimate: function(sample, parameters) {
+	decimate: function (sample, parameters) {
 
 		var blocksz = this.getDecimateRange(parameters);
 		if (blocksz == 1) return sample;
@@ -119,7 +119,7 @@ var Historic = {
 		return new_sample;
 	},
 
-	getDecimateRange: function(parameters) {
+	getDecimateRange: function (parameters) {
 
 		var rangeBetweenPoints;
 
@@ -148,7 +148,7 @@ var Historic = {
 			rangeBetweenPoints = 30;
 
 			// Last 7 days
-		}  else if (parameters.type === 'day' && parameters.number == 7) {
+		} else if (parameters.type === 'day' && parameters.number == 7) {
 			rangeBetweenPoints = 60;
 		}
 
@@ -156,15 +156,15 @@ var Historic = {
 
 	},
 
-	getLabels: function(graphData) {
+	getLabels: function (graphData) {
 
 		var labels = [];
 		var that = this;
 
-		graphData.forEach(function(point) {
+		graphData.forEach(function (point) {
 
 			point.t = new Date(point.t);
-			point.t.setHours(point.t.getHours()+1);
+			point.t.setHours(point.t.getHours() + 1);
 			var minutes = point.t.getMinutes();
 			minutes = that.addPaddingZeroesToMinutes(minutes);
 
@@ -175,7 +175,7 @@ var Historic = {
 
 	},
 
-	addPaddingZeroesToMinutes: function(minutes) {
+	addPaddingZeroesToMinutes: function (minutes) {
 
 		var str = "" + minutes;
 		var pad = "00";
@@ -184,7 +184,7 @@ var Historic = {
 		return minutes;
 	},
 
-	getResumeFromData: function(data) {
+	getResumeFromData: function (data) {
 
 		// Initialize variables
 		var resume = {};
@@ -198,15 +198,22 @@ var Historic = {
 		var hatefulUsersComplete = [];
 
 		// Get array with all hated users
-		data.forEach(function(point) {
+		data.forEach(function (point) {
 			hatedUsers.push(point.hated_user);
-			hatedUsersWithExamples[point.hated_user] = {text:point.hated_user_example_tweet_text,id:point.hated_user_example_tweet_id,user:point.hated_user_example_tweet_user};
+			hatedUsersWithExamples[point.hated_user] = {
+				text: point.hated_user_example_tweet_text,
+				id: point.hated_user_example_tweet_id,
+				user: point.hated_user_example_tweet_user
+			};
 		});
 
 		hatedUsers = this.sortByFrequency(hatedUsers);
-		hatedUsers = hatedUsers.slice(0,5);
-		hatedUsers.forEach(function(hatedUser) {
-			hatedUsersComplete.push({user:hatedUser, tweet:hatedUsersWithExamples[hatedUser]});
+		hatedUsers = hatedUsers.slice(0, 5);
+		hatedUsers.forEach(function (hatedUser) {
+			hatedUsersComplete.push({
+				user: hatedUser,
+				tweet: hatedUsersWithExamples[hatedUser]
+			});
 		});
 
 		resume.hatedUser = hatedUsersComplete.shift();
@@ -218,15 +225,22 @@ var Historic = {
 		}
 
 		// Get array with all hateful users
-		data.forEach(function(point) {
+		data.forEach(function (point) {
 			hatefulUsers.push(point.hateful_user);
-			hatefulUsersWithExamples[point.hateful_user] = {text:point.hateful_user_tweet_text,id:point.hateful_user_tweet_id,user:point.hateful_user};
+			hatefulUsersWithExamples[point.hateful_user] = {
+				text: point.hateful_user_tweet_text,
+				id: point.hateful_user_tweet_id,
+				user: point.hateful_user
+			};
 		});
 
 		hatefulUsers = this.sortByFrequency(hatefulUsers);
-		hatefulUsers = hatefulUsers.slice(0,5);
-		hatefulUsers.forEach(function(hatefulUser) {
-			hatefulUsersComplete.push({user:hatefulUser, tweet:hatefulUsersWithExamples[hatefulUser]});
+		hatefulUsers = hatefulUsers.slice(0, 5);
+		hatefulUsers.forEach(function (hatefulUser) {
+			hatefulUsersComplete.push({
+				user: hatefulUser,
+				tweet: hatefulUsersWithExamples[hatefulUser]
+			});
 		});
 
 		resume.hatefulUser = hatefulUsersComplete.shift();
@@ -240,35 +254,39 @@ var Historic = {
 		return resume;
 	},
 
-	sortByFrequency: function(array) {
+	sortByFrequency: function (array) {
 		var frequency = {};
 
-		array.forEach(function(value) { frequency[value] = 0; });
+		array.forEach(function (value) {
+			frequency[value] = 0;
+		});
 
-		var uniques = array.filter(function(value) {
+		var uniques = array.filter(function (value) {
 			return ++frequency[value] == 1;
 		});
 
-		return uniques.sort(function(a, b) {
+		return uniques.sort(function (a, b) {
 			return frequency[b] - frequency[a];
 		});
 	},
 
-	getAverageNumberFromArray: function(array) {
+	getAverageNumberFromArray: function (array) {
 
-		var average = Math.floor(array.reduce(function(p,c,i,a){return p + (c/a.length)},0));
+		var average = Math.floor(array.reduce(function (p, c, i, a) {
+			return p + (c / a.length)
+		}, 0));
 		return average;
 
 	},
 
-	createAveragesFromHistoricNumberTweets: function(results) {
+	createAveragesFromHistoricNumberTweets: function (results) {
 
 		var averages = [];
 		var averagesAux = [];
 
 		if (!results) return averages;
 
-		results.forEach(function(result) {
+		results.forEach(function (result) {
 
 			var hour = result.date.getHours();
 			var minute = result.date.getMinutes();
@@ -282,14 +300,103 @@ var Historic = {
 			averagesAux[index].push(result.number_tweets);
 		});
 
-		Object.keys(averagesAux).forEach(function(key, index) {
+		Object.keys(averagesAux).forEach(function (key, index) {
 			averages[key] = Historic.getAverageNumberFromArray(averagesAux[key]);
 		});
 
 		return averages;
+	},
+
+	// Functions called by OdiometroBot
+	getAverageNumTweetsFromHistoricData: function (historicData) {
+
+		var total = 0;
+		historicData.forEach(function (row) {
+			total += row.number_tweets;
+		});
+
+		return parseInt(total / historicData.length);
+	},
+
+	getMaxNumTweetsFromHistoricData: function (historicData) {
+
+		var max = 0;
+		historicData.forEach(function (row) {
+
+			if (row.number_tweets > max)
+				max = row.number_tweets;
+		});
+
+		return max;
+	},
+
+	getMostHatefulUserAndTweetFromHistoricData: function (historicData) {
+
+		var users = [];
+		historicData.forEach(function (row) {
+			users.push(row.hateful_user);
+		});
+
+		var tweetId = null;
+		var user = this.getMostRepeatedElementFromArray(users);
+		historicData.forEach(function (row) {
+			if (row.hateful_user === user) {
+				tweetId = row.hateful_user_tweet_id;
+			}
+		});
+
+		var data = {
+			user: user,
+			id_str: tweetId
+		}
+
+		return data;
+	},
+
+	getMostHatedUserAndTweetFromHistoricData: function (historicData) {
+
+		var users = [];
+		historicData.forEach(function (row) {
+			users.push(row.hated_user);
+		});
+
+		var tweetId = null;
+		var user = this.getMostRepeatedElementFromArray(users);
+		historicData.forEach(function (row) {
+			if (row.hated_user === user) {
+				tweetId = row.hated_user_example_tweet_id;
+				hatefulUser = row.hated_user_example_tweet_user;
+			}
+		});
+
+		var data = {
+			user: user,
+			id_str: tweetId
+		}
+
+		return data;
+	},
+
+	getMostRepeatedElementFromArray: function (array) {
+		if (array.length == 0)
+			return null;
+		var modeMap = {};
+		var maxEl = array[0],
+			maxCount = 1;
+		for (var i = 0; i < array.length; i++) {
+			var el = array[i];
+			if (modeMap[el] == null)
+				modeMap[el] = 1;
+			else
+				modeMap[el]++;
+			if (modeMap[el] > maxCount) {
+				maxEl = el;
+				maxCount = modeMap[el];
+			}
+		}
+		return maxEl;
 	}
 };
 
 
 module.exports = Historic;
-

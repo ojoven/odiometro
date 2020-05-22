@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<title>Odiómetro | El espejo de nuestro odio</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="shortcut icon" href="/favicon.png" />
+
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link type="text/css" rel="stylesheet" href="css/resume.css" />
+	<script src="https://use.fontawesome.com/12c273beb8.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Bahiana|Special+Elite" rel="stylesheet">
+
+	<!-- META FACEBOOK -->
+	<meta property="og:title" content="Odiómetro | El espejo de nuestro odio" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://odiometro.es/" />
+	<meta property="og:image" content="https://odiometro.es/img/odiometro_logo_big.jpg" />
+	<meta property="og:description"
+		content="¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación, del humor para transmitir y discutir nuestras ideas?" />
+
+	<!-- META TWITTER -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Odiómetro | El espejo de nuestro odio">
+	<meta name="twitter:description"
+		content="¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación, del humor para transmitir y discutir nuestras ideas?">
+	<meta name="twitter:image" content="https://odiometro.es/img/odiometro_logo_big.jpg">
+	<meta name="twitter:creator" content="@ojoven">
+
+	<style>
+
+
+	</style>
+
+</head>
+
+<body class="page-resume">
+
+	<div class="container">
+
+		<h1><i class="left"></i>ODIO en Twitter - Últimas 24 horas<i class="right"></i></h1>
+
+		<div class="num-tweets graph-block">
+
+			<div class="block-title">📈 Media tuits/odio minuto</div>
+			<div class="num">
+				<%= averageNum %>
+			</div>
+
+		</div>
+
+		<div class="num-tweets graph-block">
+
+			<div class="block-title">🔥 Maximo tuits/odio minuto</div>
+			<div class="num">
+				<%= maxNum %>
+			</div>
+
+		</div>
+
+		<div class="hate-user graph-block">
+
+			<div class="block-title">😠 Usuario que más odio ha propagado</div>
+			<div class="user">
+				<img src="<%= mostHatefulUser.image_url %>" alt="">
+				<h2 class="name">@<%= mostHatefulUser.screen_name %></h2>
+			</div>
+
+		</div>
+
+		<div class="hate-user graph-block">
+
+			<div class="block-title">🤕 Usuario que más odio ha recibido</div>
+			<div class="user">
+				<img src="<%= mostHatedUser.image_url %>" alt="">
+				<h2 class="name"><%= mostHatedUser.screen_name %></h2>
+			</div>
+
+		</div>
+
+		<div class="disclaimer">* Leer el tuit fijado en el perfil de @odiometro para más información</div>
+
+	</div>
+
+
+</body>
+
+</html>
