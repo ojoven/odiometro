@@ -13,11 +13,11 @@ var OdiometroBot = {
 		this.twitter = twitter;
 	},
 
-	postDailyResumeTweets: function () {
+	postResumeTweet: function (hours, lastTweet) {
 
 		var that = this;
 
-		var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * 24);
+		var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * hours);
 		var dateEnd = database.currentDateTimeInMySQLFormat();
 
 		database.getHistoricData(dateStart, dateEnd, function (historicData) {
@@ -32,13 +32,13 @@ var OdiometroBot = {
 			console.log(hatefulUser);
 			console.log(hatedUser);
 
-			var templateResumeFirst = '🔪 Odio en Twitter *ÚLTIMAS 24 HORAS*\n\n' +
+			var templateResumeFirst = '🔪 Odio en Twitter *' + OdiometroBot.getLastMessageFromHours(hours) + '*\n\n' +
 				'📈 Media: ' + average + ' tuits/odio minuto\n' +
 				'🔥 Máxima: ' + max + ' tuits/odio minuto\n\n' +
 				'👇👇👇 (continúa)';
 
-			var templateResumeSecond = '😠 El usuario que más odio ha propagado es @' + hatefulUser.user + ', con este tuit: https://twitter.com/' + hatefulUser.user + '/status/' + hatefulUser.id_str;
-			var templateResumeThird = '🤕 El usuario que más odio ha recibido es ' + hatedUser.user + ', con tuits como este: https://twitter.com/' + hatedUser.hatefulUser + '/status/' + hatedUser.id_str;
+			var templateResumeSecond = '😠 Quien más odio ha propagado es @' + hatefulUser.user + ', con este tuit: https://twitter.com/' + hatefulUser.user + '/status/' + hatefulUser.id_str;
+			var templateResumeThird = '🤕 Quien más odio ha recibido es ' + hatedUser.user + ', con tuits como este: https://twitter.com/' + hatedUser.hatefulUser + '/status/' + hatedUser.id_str;
 			var templateResumeLast = '👉 Recuerda: mira nuestro tuit fijado para saber más sobre el proyecto Odiómetro y su objetivo.\n\n' +
 				'👉 Síguenos para recibir el resumen diario.\n\n👉 Entra en https://odiometro.es para ver el odio en tiempo real y el histórico actualizado.';
 
@@ -48,27 +48,51 @@ var OdiometroBot = {
 			console.log(templateResumeLast);
 
 			var exec = require('child_process').exec;
-			var cmd = 'phantomjs ' + that.pathToPhantomJs;
+			var url = global.urlBase + '/resume?hours=' + hours;
+			var cmd = global.phantomJsBin + ' ' + that.pathToPhantomJs + ' ' + url + ' ' + that.pathToMediaFile;
+
+			console.log(cmd);
 
 			exec(cmd, function (error, stdout, stderr) {
 
-				that.twitter.postTweetWithMedia(that.pathToMediaFile, templateResumeFirst, function () {
+				console.log('Screenshot taken!');
+
+
+				that.twitter.postTweetWithMedia(that.pathToMediaFile, templateResumeFirst, function (firstTweet) {
 					that.twitter.postTweetAsReplyTo(templateResumeSecond, firstTweet.id_str, function (secondTweet) {
 						that.twitter.postTweetAsReplyTo(templateResumeThird, secondTweet.id_str, function (thirdTweet) {
-							that.twitter.postTweetAsReplyTo(templateResumeLast, thirdTweet.id_str, function (lastTweet) {
-								console.log('finished!');
-							});
+
+							if (lastTweet) {
+								that.twitter.postTweetAsReplyTo(templateResumeLast, thirdTweet.id_str, function (lastTweet) {
+									console.log('Tweets sent! With last tweet');
+								});
+							} else {
+								console.log('Tweets sent! Without last tweet');
+							}
 						});
 					});
 				});
 
-				// command output is in stdout
-				console.log('executed!');
 			});
 
 		});
 
 	},
+
+	getLastMessageFromHours: function (hours) {
+
+		var last = '';
+
+		if (hours == 1) {
+			last = 'ÚLTIMA HORA';
+		} else if (hours > 72) {
+			last = 'ÚLTIMOS ' + parseInt(hours / 24) + ' DÍAS';
+		} else {
+			last = 'ÚLTIMAS ' + hours + ' HORAS';
+		}
+
+		return last;
+	}
 
 };
 

@@ -174,11 +174,12 @@ database.getMostHatedUserExampleTweet = function (user, callback) {
 database.getMostHatefulUserAndTweet = function (callback) {
 
 	var timeInMinutes = 2;
-	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
+	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(2);
 	var that = this;
 
 	// FIRST WE SEARCH FOR THE HATEFUL USER ON RETWEETS, AS IT'S ON THEM WHERE THE INFLUENCE HAPPENS
 	var query = 'SELECT `retweeted_user` AS `user`, `retweeted_id` AS `id_str`, `retweeted_text` AS `text`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE retweeted_text LIKE \'%@%\' AND published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
+	console.log(query);
 	that.connection.query(query, function (error, results, fields) {
 
 		if (results) {

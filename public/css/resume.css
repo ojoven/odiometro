@@ -175,10 +175,10 @@ input { -webkit-appearance: none; border-radius: 0; }
 .page-resume h1 i { display: inline-block; background: url(../img/knife.png) no-repeat center center; background-size: contain; width: 40px; height: 40px; position: relative; top: 4px; }
 .page-resume h1 i.left { left: -10px; transform-origin: bottom left; }
 .page-resume h1 i.right { left: 10px; background-image: url(../img/knife-reverse.png); transform-origin: bottom right; }
-.page-resume .container { width: 650px; max-width: 90%; margin: 50px auto; padding: 20px 30px; }
+.page-resume .container { width: 680px; max-width: 90%; margin: 50px auto; padding: 20px 30px; }
 .page-resume .disclaimer { display: block; text-align: right; margin-right: 10px; font-size: 12px; color: #ffffff; }
 
-.graph-block { width: 46%; margin-right: 20px; display: inline-block; margin-bottom: 20px; background: #ffffff; border-radius: 10px; padding: 15px; }
+.graph-block { width: 47%; margin-right: 20px; display: inline-block; margin-bottom: 20px; background: #ffffff; border-radius: 10px; padding: 15px; }
 .graph-block:nth-child(odd) { margin-right: 0; }
 .graph-block .block-title { color: #444; }
 

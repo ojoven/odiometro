@@ -14,9 +14,11 @@
   "author": "Mikel Torres Ugarte",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "ejs": "^1.0.0",
     "express": "^4.8.2",
     "gravatar": "~1.0.6",
+    "memory-cache": "^0.2.0",
     "socket.io": "1.0.6",
     "vue": "^2.3.4"
   }

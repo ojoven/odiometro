@@ -364,6 +364,7 @@ var Historic = {
 		var user = this.getMostRepeatedElementFromArray(users);
 		historicData.forEach(function (row) {
 			if (row.hated_user === user) {
+				console.log(row);
 				tweetId = row.hated_user_example_tweet_id;
 				hatefulUser = row.hated_user_example_tweet_user;
 			}
@@ -371,7 +372,8 @@ var Historic = {
 
 		var data = {
 			user: user,
-			id_str: tweetId
+			id_str: tweetId,
+			hatefulUser: hatefulUser
 		}
 
 		return data;

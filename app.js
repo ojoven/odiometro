@@ -10,9 +10,12 @@ var args = process.argv.slice(2);
 var defaultLang = 'es';
 global.lang = (args && typeof args[0] !== "undefined" && acceptedLangs.indexOf(args[0]) !== -1) ? args[0] : defaultLang;
 
-// Path
+// Path and ENV
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
+require('dotenv').config();
+global.urlBase = process.env.URL_BASE;
+global.phantomJsBin = process.env.PHANTOMJS;
 
 // Initialize express
 var express = require('express'),
@@ -50,27 +53,27 @@ io.on('connection', function (socket) {
 
 	// Immediately send the number of tweets/retweets last minute
 	socket.on('retrieve_number_tweets', function () {
-		emitNumberTweets();
+		emitNumberTweets(socket);
 	});
 
 	// Immediately send the last tweet
 	socket.on('retrieve_last_tweet', function () {
-		emitLastTweet();
+		emitLastTweet(socket);
 	});
 
 	// Immediately send the most hated user (and the first tweet)
 	socket.on('retrieve_most_hated_user', function () {
-		emitMostHatedUserAndTweet();
+		emitMostHatedUserAndTweet(socket);
 	});
 
 	// Immediately send the most hated user (and the first tweet)
 	socket.on('retrieve_most_hateful_user', function () {
-		emitMostHatefulUserAndTweet();
+		emitMostHatefulUserAndTweet(socket);
 	});
 
 	// Immediately send the historic
 	socket.on('retrieve_historic', function (parameters) {
-		emitHistoric(parameters);
+		emitHistoric(parameters, socket);
 	});
 
 });
@@ -92,7 +95,7 @@ twitterStream.on('tweet', function (tweet) {
 		} else {
 
 			// Or it is a tweet
-			console.log(tweet.text);
+			//console.log(tweet.text);
 			database.saveTweet(tweet);
 			tweetText = tweet.text;
 
@@ -129,45 +132,46 @@ twitterStream.on('tweet', function (tweet) {
 |--------------------------------------------------------------------------
 */
 // Last tweet
-function emitLastTweet() {
+function emitLastTweet(socket) {
 
 	database.getLastTweetFromDatabase(function (tweet) {
-		io.sockets.emit('tweet', tweet);
+		socket.emit('tweet', tweet);
 	});
 }
 
 // Number Tweets
-function emitNumberTweets() {
+function emitNumberTweets(socket) {
 
 	database.getNumberOfTweetsInLastMinute(function (number_tweets) {
 		numberTweets = number_tweets;
 		var data = {
 			number_tweets: number_tweets
 		};
-		io.sockets.emit('number_tweets', data);
+		socket.emit('number_tweets', data);
 	});
 }
 
 // Most hated user
-function emitMostHatedUserAndTweet() {
+function emitMostHatedUserAndTweet(socket) {
+
 
 	database.getMostHatedUser(function (user) {
 
 		if (user) {
 			mostHatedUser = user.user;
-			io.sockets.emit('most_hated_user', user);
+			socket.emit('most_hated_user', user);
 
 			database.getMostHatedUserExampleTweet(mostHatedUser, function (tweet) {
 				if (tweet) {
 					mostHatedUsersLastTweet = tweet.tweet;
-					io.sockets.emit('most_hated_user_tweet', tweet);
+					socket.emit('most_hated_user_tweet', tweet);
 				}
 			});
 
 			database.getUserImage(mostHatedUser, function (userImage) {
 
 				if (userImage) {
-					io.sockets.emit('most_hated_user_image', userImage);
+					socket.emit('most_hated_user_image', userImage);
 				} else {
 					twitter.get('users/show', {
 						screen_name: mostHatedUser
@@ -176,7 +180,7 @@ function emitMostHatedUserAndTweet() {
 						if (imageUrl) {
 							imageUrl = imageUrl.replace('_normal', '');
 							database.saveUserImage(mostHatedUser, imageUrl);
-							io.sockets.emit('most_hated_user_image', userImage);
+							socket.emit('most_hated_user_image', userImage);
 						}
 					})
 				}
@@ -187,7 +191,7 @@ function emitMostHatedUserAndTweet() {
 }
 
 // Most hateful user
-function emitMostHatefulUserAndTweet() {
+function emitMostHatefulUserAndTweet(socket) {
 
 	database.getMostHatefulUserAndTweet(function (tweet) {
 
@@ -198,13 +202,13 @@ function emitMostHatefulUserAndTweet() {
 				id_str: tweet.id_str,
 				screen_name: tweet.user
 			};
-			io.sockets.emit('most_hateful_user', mostHatefulUser);
-			io.sockets.emit('most_hateful_user_tweet', mostHatefulUserTweet);
+			socket.emit('most_hateful_user', mostHatefulUser);
+			socket.emit('most_hateful_user_tweet', mostHatefulUserTweet);
 
 			database.getUserImage(mostHatefulUser, function (userImage) {
 
 				if (userImage) {
-					io.sockets.emit('most_hateful_user_image', userImage);
+					socket.emit('most_hateful_user_image', userImage);
 				} else {
 					twitter.get('users/show', {
 						screen_name: mostHatefulUser
@@ -213,7 +217,7 @@ function emitMostHatefulUserAndTweet() {
 						if (imageUrl) {
 							imageUrl = imageUrl.replace('_normal', '');
 							database.saveUserImage(mostHatefulUser, imageUrl);
-							io.sockets.emit('most_hateful_user_image', userImage);
+							socket.emit('most_hateful_user_image', userImage);
 						}
 					})
 				}
@@ -223,14 +227,14 @@ function emitMostHatefulUserAndTweet() {
 }
 
 // Historic data
-function emitHistoric(parameters) {
+function emitHistoric(parameters, socket) {
 
 	var date = Historic.getDatesFromParameters(parameters);
 
 	database.getHistoricData(date.start, date.end, function (historicData) {
 
 		var data = Historic.parseHistoricData(parameters, historicData, averages);
-		io.sockets.emit('historic', data);
+		socket.emit('historic', data);
 	});
 
 }
@@ -244,14 +248,14 @@ function emitHistoric(parameters) {
 // Number Tweets
 var frequencyOfUpdateNumberTweets = 500;
 setInterval(function () {
-	emitNumberTweets();
+	emitNumberTweets(io.sockets);
 }, frequencyOfUpdateNumberTweets);
 
 // Most Hated and Hateful Users
 var frequencyMostHatedHatefulUser = 10000;
 setInterval(function () {
-	emitMostHatedUserAndTweet();
-	emitMostHatefulUserAndTweet();
+	emitMostHatedUserAndTweet(io.sockets);
+	emitMostHatefulUserAndTweet(io.sockets);
 }, frequencyMostHatedHatefulUser);
 
 // Save historic data
@@ -328,15 +332,17 @@ setInterval(function () {
 */
 app.get('/resume', function (req, res) {
 
-	var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * 24);
+	var hours = req.query.hours !== undefined ? req.query.hours : 24;;
+
+	var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * hours);
 	var dateEnd = database.currentDateTimeInMySQLFormat();
 
 	database.getHistoricData(dateStart, dateEnd, function (historicData) {
 
 		var average = Historic.getAverageNumTweetsFromHistoricData(historicData);
 		var max = Historic.getMaxNumTweetsFromHistoricData(historicData);
-		var hatefulUser = Historic.getMostHatefulUserAndTweet(historicData);
-		var hatedUser = Historic.getMostHatedUserAndTweet(historicData);
+		var hatefulUser = Historic.getMostHatefulUserAndTweetFromHistoricData(historicData);
+		var hatedUser = Historic.getMostHatedUserAndTweetFromHistoricData(historicData);
 
 		console.log(average);
 		console.log(max);
@@ -348,6 +354,7 @@ app.get('/resume', function (req, res) {
 			database.getUserImage(hatedUser.user, function (hatedUserImage) {
 
 				res.render('resume', {
+					hours: hours,
 					averageNum: average,
 					maxNum: max,
 					mostHatefulUser: {
@@ -365,5 +372,30 @@ app.get('/resume', function (req, res) {
 		});
 
 	});
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| LAUNCH RESUME TWEET
+|--------------------------------------------------------------------------
+*/
+app.get('/tweet', function (req, res) {
+
+	// Initialize Twitter
+	var twitter = require("./app/lib/twitter.js");
+	var OdiometroBot = require("./app/models/OdiometroBot.js");
+
+	if (req.query.key != process.env.KEY) {
+		res.send('You shall not pass!');
+		return false;
+	}
+
+	var hours = req.query.hours !== undefined ? req.query.hours : 24;
+	var lastTweet = req.query.lastTweet === undefined ? false : true;
+
+	OdiometroBot.initialize(twitter);
+	OdiometroBot.postResumeTweet(hours, lastTweet);
+	res.send('Tweet sent!');
 
 });

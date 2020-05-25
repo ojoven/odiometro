@@ -1,2 +1,4 @@
 /** SOCKET **/
-var socket = io();
+var socket = io('ws://localhost:8001', {
+	transports: ['websocket']
+});

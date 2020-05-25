@@ -2,8 +2,8 @@
 
 // Get the url of the tweet to render via console argument
 var system = require('system');
-var url = 'http://localhost:8001/resume';
-var filePath = '/var/www/html/odiometro/public/img/resume/resume.png';
+var url = system.args[1];
+var filePath = system.args[2];
 var extension = 'png';
 
 var page = require('webpage').create();

@@ -3,12 +3,10 @@ ODIÓMETRO
 
 Ya disponible en https://odiometro.es
 
-Este es un proyecto que pretende medir el nivel de odio que se genera en Twitter en tiempo real.
-
-Midiendo una serie de keywords estableceremos unas métricas en tiempo real.
+Este es un proyecto que ayuda a medir el nivel de odio que se genera en Twitter en tiempo real.
 
 El objetivo de este proyecto es hacernos conscientes del nivel de debate que se produce en España,
-y el amplio uso de insultos, descalificaciones, etc. que se producen en Twitter.
+y el amplio uso de insultos, descalificaciones, etc. que se producen en Twitter. También recoge tweets de otros países hispanoparlantes.
 
 La web hace uso de las siguientes tecnologías:
 * NodeJS / Express
@@ -27,7 +25,7 @@ Instalación
 
 ```git clone git@github.com:ojoven/odiometro.git```
 
-2. Desde la raíz del proyecto (instalará express y socket)
+2. Desde la raíz del proyecto (instalará express, socket y otras librerías)
 
 ```npm install```
 
