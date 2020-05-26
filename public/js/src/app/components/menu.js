@@ -6,6 +6,7 @@ Vue.component('menu-options', {
 			<li><a href="#" @click="setActive('User')" :class="{ active: showUser }"><i class="fa fa-user"></i></a></li>
 			<li><a href="#" @click="setActive('Historic')" :class="{ active: showHistoric }"><i class="fa fa-bar-chart"></i></a></li>
 			<li><a href="#" @click="setActive('Info')" :class="{ active: showInfo }"><i class="fa fa-info"></i></a></li>
+			<li><a href="https://twitter.com/odiometrobot" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i></a></li>
 		</ul>
   `,
 
@@ -21,7 +22,7 @@ Vue.component('menu-options', {
 
 	methods: {
 
-		setActive: function(view) {
+		setActive: function (view) {
 			lib.updateViewParameters(this, view);
 			bus.$emit('change-view', view);
 		}

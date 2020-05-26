@@ -14,7 +14,8 @@
 	color: $blackTundora;
 	text-decoration: none;
 
-	&:hover, &:focus {
+	&:hover,
+	&:focus {
 		text-decoration: underline;
 	}
 }
@@ -44,6 +45,7 @@
 	max-width: 100%;
 	overflow: hidden;
 	margin: 30px auto;
+
 	canvas {
 		margin: 0 auto;
 	}

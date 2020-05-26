@@ -179,7 +179,11 @@ footer a { color: #fff; }
   #user-container .tweets { padding: 0 10px; font-size: 10px; } }
 #info { margin: 50px auto; width: 600px; max-width: 90%; position: relative; z-index: 99; }
 #info p, #info li { font-size: 15px; margin: 10px; color: #444; line-height: 1.2; }
-#info a { color: #8A0707; font-weight: bold; }
+#info a:not(.button) { color: #8A0707; font-weight: bold; }
+
+#follow { width: 100%; margin-top: 20px; }
+#follow a { border-radius: 10px; padding: 7px 15px; margin-bottom: 10px; background: #8A0707; color: #ffffff; text-decoration: none; }
+#follow a svg { width: 14px; height: 14px; fill: #ffffff; position: relative; top: 2px; }
 
 @media (max-width: 767px) { #info { margin-top: 20px; }
   #info p, #info li { font-size: 13px; } }
