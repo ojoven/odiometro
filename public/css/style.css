@@ -240,6 +240,7 @@ input { -webkit-appearance: none; border-radius: 0; }
 /** COMPONENTS **/
 #blood { display: block; width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
 
+@media (prefers-reduced-motion: reduce) { #blood { display: none; } }
 .btn { -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; -webkit-transition: all 0.2s ease; transition: all 0.2s ease; background: #8A0707; color: #ffffff; display: inline-block; font-size: 18px; line-height: 1.2; padding: 6px 8px; text-decoration: none; text-align: center; margin: 20px auto; position: relative; }
 
 input { padding: 10px 20px; font-size: 14px; border: 2px solid #cccccc; width: 100%; margin: 0 0 10px; }
