@@ -98,8 +98,6 @@ var Historic = {
 		// Process each chunk, and downsample
 		for (var chunk in chunks) {
 
-			console.log(chunk);
-
 			var val = [];
 			var hu1 = [];
 			var hu2 = [];
@@ -109,25 +107,38 @@ var Historic = {
 				val.push(chunks[chunk][i]["y"]);
 				hu1.push(chunks[chunk][i]["hu1"]);
 				hu2.push(chunks[chunk][i]["hu2"]);
-				hu1_tweet.push(chunks[chunk][i]["hu1_tweet"]);
-				hu2_tweet.push(chunks[chunk][i]["hu2_tweet"]);
 			}
 
 			var average = this.getAverageNumberFromArray(val);
 			hu1 = this.sortByFrequency(hu1)[0];
 			hu2 = this.sortByFrequency(hu2)[0];
+			hu1_tweet = this.getTweetFromHu(hu1, 'hu1', chunks, chunk);
+			hu2_tweet = this.getTweetFromHu(hu2, 'hu2', chunks, chunk);
 
 			new_sample.push({
 				t: chunks[chunk][0]["t"],
 				y: average,
 				hu1: hu1,
 				hu2: hu2,
-				hu1_tweet: hu1_tweet[0],
-				hu2_tweet: hu2_tweet[0]
+				hu1_tweet: hu1_tweet,
+				hu2_tweet: hu2_tweet
 			});
+
+			console.log(new_sample);
 		}
 
 		return new_sample;
+	},
+
+	getTweetFromHu: function (hu, field, chunks, chunk) {
+
+		for (var i in chunks[chunk]) {
+			if (chunks[chunk][i][field] === hu) {
+				return chunks[chunk][i][field + '_tweet'];
+			}
+		}
+
+		return null;
 	},
 
 	getDecimateRange: function (parameters) {

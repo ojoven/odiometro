@@ -213,7 +213,8 @@ footer a { color: #fff; }
 .table-container td { padding: 8px; }
 .table-container td a { color: #000; text-decoration: none; }
 .table-container td a:hover, .table-container td a:focus { text-decoration: underline; }
-.table-container td a.tweet-link { font-size: 12px; display: inline-block; margin-left: 10px; }
+.table-container td a.tweet-link { font-size: 12px; display: inline-block; margin-left: 10px; color: #999; }
+.table-container td a.tweet-link .fa { font-size: 10px; margin-left: 3px; }
 .table-container .num { max-width: 90px; }
 .table-container table { margin: 0 auto; }
 

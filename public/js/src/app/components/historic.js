@@ -45,7 +45,7 @@ Vue.component('historic', {
 									{{ dataRow.userHateful }}
 								</a>
 								<a class="tweet-link" :href="dataRow.userHatefulTweet" target="_blank" rel="noopener noreferrer">
-									tuit
+									tuit<i class="fa fa-external-link"></i>
 								</a>
 							</td>
 							<td>
@@ -53,7 +53,7 @@ Vue.component('historic', {
 									{{ dataRow.userHated }}
 								</a>
 								<a class="tweet-link" :href="dataRow.userHatedTweet" target="_blank" rel="noopener noreferrer">
-									tuit
+									tuit<i class="fa fa-external-link"></i>
 								</a>
 							</td>
 						</tr>

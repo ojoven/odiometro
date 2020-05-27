@@ -21,7 +21,7 @@ twitterObject.postTweet = function (tweet, callback) {
 	})
 }
 
-twitterObject.postTweetWithMedia = function (pathMediaFile, tweet, callback) {
+twitterObject.postTweetWithMedia = function (pathMediaFile, tweet, altText, callback) {
 
 	var b64content = fs.readFileSync(pathMediaFile, {
 		encoding: 'base64'
@@ -33,7 +33,6 @@ twitterObject.postTweetWithMedia = function (pathMediaFile, tweet, callback) {
 		// now we can assign alt text to the media, for use by screen readers and
 		// other text-based presentations and interpreters
 		var mediaIdStr = data.media_id_string
-		var altText = "Resumen visual del odio en Twitter. Los datos son los mismos que se pueden leer en este y los siguientes tuits."
 		var meta_params = {
 			media_id: mediaIdStr,
 			alt_text: {
