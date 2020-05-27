@@ -40,8 +40,22 @@ Vue.component('historic', {
 							<td>{{ dataRow.time }}</td>
 							<td class="num">{{ dataRow.numTweets }}</td>
 							<td class="num">{{ dataRow.numTweetsAverage }}</td>
-							<td>{{ dataRow.userHateful }}</td>
-							<td>{{ dataRow.userHated }}</td>
+							<td>
+								<a :href="'https://twitter.com/' + dataRow.userHateful" target="_blank" rel="noopener noreferrer">
+									{{ dataRow.userHateful }}
+								</a>
+								<a class="tweet-link" :href="dataRow.userHatefulTweet" target="_blank" rel="noopener noreferrer">
+									tuit
+								</a>
+							</td>
+							<td>
+								<a :href="'https://twitter.com/' + dataRow.userHated" target="_blank" rel="noopener noreferrer">
+									{{ dataRow.userHated }}
+								</a>
+								<a class="tweet-link" :href="dataRow.userHatedTweet" target="_blank" rel="noopener noreferrer">
+									tuit
+								</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -299,7 +313,9 @@ Vue.component('historic', {
 				dataRow.numTweets = data.graphData[i].y;
 				dataRow.numTweetsAverage = data.averageData[i].y;
 				dataRow.userHated = data.graphData[i].hu1;
+				dataRow.userHatedTweet = data.graphData[i].hu1_tweet;
 				dataRow.userHateful = '@' + data.graphData[i].hu2;
+				dataRow.userHatefulTweet = data.graphData[i].hu2_tweet;
 				console.log(dataRow);
 
 				that.dataInTableFormat.push(dataRow);

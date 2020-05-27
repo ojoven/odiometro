@@ -27,6 +27,7 @@ var Historic = {
 		data.resume = this.getResumeFromData(historicData);
 		data.graphData = this.parseHistoricDataForGraph(historicData);
 		data.graphData = this.decimate(data.graphData, parameters);
+		console.log(data.graphData);
 		data.labels = this.getLabels(data.graphData);
 		data.averageData = this.getAverageDataset(data.graphData, averages);
 
@@ -70,7 +71,9 @@ var Historic = {
 			parsedPoint.t = new Date(point.date);
 			parsedPoint.y = point.number_tweets;
 			parsedPoint.hu1 = point.hated_user;
+			parsedPoint.hu1_tweet = 'https://twitter.com/' + point.hated_user_example_tweet_user + '/status/' + point.hated_user_example_tweet_id;
 			parsedPoint.hu2 = point.hateful_user;
+			parsedPoint.hu2_tweet = 'https://twitter.com/' + point.hateful_user + '/status/' + point.hateful_user_tweet_id;
 			parsedData.push(parsedPoint);
 
 		});
@@ -95,13 +98,19 @@ var Historic = {
 		// Process each chunk, and downsample
 		for (var chunk in chunks) {
 
+			console.log(chunk);
+
 			var val = [];
 			var hu1 = [];
 			var hu2 = [];
+			var hu1_tweet = [];
+			var hu2_tweet = [];
 			for (var i in chunks[chunk]) {
 				val.push(chunks[chunk][i]["y"]);
 				hu1.push(chunks[chunk][i]["hu1"]);
 				hu2.push(chunks[chunk][i]["hu2"]);
+				hu1_tweet.push(chunks[chunk][i]["hu1_tweet"]);
+				hu2_tweet.push(chunks[chunk][i]["hu2_tweet"]);
 			}
 
 			var average = this.getAverageNumberFromArray(val);
@@ -112,7 +121,9 @@ var Historic = {
 				t: chunks[chunk][0]["t"],
 				y: average,
 				hu1: hu1,
-				hu2: hu2
+				hu2: hu2,
+				hu1_tweet: hu1_tweet[0],
+				hu2_tweet: hu2_tweet[0]
 			});
 		}
 

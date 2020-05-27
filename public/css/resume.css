@@ -150,7 +150,11 @@ footer a { color: #fff; }
 .table-container { margin: 30px auto 170px; }
 .table-container th { background: #f0f0f0; padding: 15px; }
 .table-container td { padding: 8px; }
+.table-container td a { color: #000; text-decoration: none; }
+.table-container td a:hover, .table-container td a:focus { text-decoration: underline; }
+.table-container td a.tweet-link { font-size: 12px; display: inline-block; margin-left: 10px; }
 .table-container .num { max-width: 90px; }
+.table-container table { margin: 0 auto; }
 
 @media (max-width: 767px) { #historic { margin: 20px 0; }
   #historic .subtitle { text-align: center; font-size: 10px; }

@@ -111,11 +111,32 @@
 
 	td {
 		padding: 8px;
+
+		a {
+			color: $black;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+
+			&.tweet-link {
+				font-size: 12px;
+				display: inline-block;
+				margin-left: 10px;
+			}
+		}
 	}
 
 	.num {
 		max-width: 90px;
 	}
+
+	table {
+		margin: 0 auto;
+	}
+
 }
 
 @include mobile {
