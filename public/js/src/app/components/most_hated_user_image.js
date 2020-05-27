@@ -2,7 +2,7 @@ Vue.component('most-hated-user-image', {
 
 	template: `
 		<div>
-			<div id="most_hateful_user_image" class="image" v-bind:style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+			<div id="most_hated_user_image" class="image" v-bind:style="{ backgroundImage: 'url(' + imageUrl + ')' }">
 			</div>
 		</div>
   `,

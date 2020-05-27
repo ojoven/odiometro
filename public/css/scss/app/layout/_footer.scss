@@ -4,14 +4,14 @@
 
 // Footer
 footer {
-	position: absolute;
+	@extend .regular;
+	position: fixed;
 	bottom: 0;
 	text-align: center;
 	width: 100%;
 	background: $redFirebrick;
 	color: #fff;
 	padding: 9px;
-	@extend .regular;
 	font-size: 12px;
 	z-index: 99;
 
@@ -23,20 +23,14 @@ footer {
 // ==============================================
 // IPAD LANDSCAPE
 // ==============================================
-@include ipadLandscape {
-
-}
+@include ipadLandscape {}
 
 // ==============================================
 // IPAD PORTRAIT
 // ==============================================
-@include ipadPortrait {
-
-}
+@include ipadPortrait {}
 
 // ==============================================
 // MOBILE
 // ==============================================
-@include mobile {
-
-}
+@include mobile {}

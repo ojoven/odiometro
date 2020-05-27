@@ -6,6 +6,7 @@ Vue.component('historic', {
 			<span class="subtitle">
 			{{ $t("historic.show") }} <select id="view-dropdown" name="view-dropdown" @change="onViewDropdownChange">
 					<option value="graph">{{ $t("historic.type_graph.graph") }}</option>
+					<option value="table">{{ $t("historic.type_graph.table") }}</option>
 					<option value="hateful">{{ $t("historic.type_graph.hateful") }}</option>
 					<option value="hated">{{ $t("historic.type_graph.hated") }}</option>
 				</select> {{ $t("historic.for") }}
@@ -21,7 +22,29 @@ Vue.component('historic', {
 			</span>
 
 			<div class="stats-container" v-show="showHistoricGraph">
-				<canvas id="stats-canvas" width="800" height="300"></canvas>
+				<canvas id="stats-canvas" width="800" height="300" aria-label="Graph with historic data" aria-described-by="stats-canvas-srt"></canvas>
+			</div>
+
+			<div class="table-container" v-show="showTable" id="stats-canvas-srt">
+
+				<table>
+					<thead>
+						<th>Fecha/Hora</th>
+						<th class="num">Media tuits</th>
+						<th class="num">Media tuits / mensual</th>
+						<th>Usuario que más odio ha propagado</th>
+						<th>Usuario que más odio ha recibido</th>
+					</thead>
+					<tbody class="stats-table-body">
+						<tr v-for="dataRow in dataInTableFormat">
+							<td>{{ dataRow.time }}</td>
+							<td class="num">{{ dataRow.numTweets }}</td>
+							<td class="num">{{ dataRow.numTweetsAverage }}</td>
+							<td>{{ dataRow.userHateful }}</td>
+							<td>{{ dataRow.userHated }}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 
 			<div class="resume-container hated-container" v-show="showHatedResume">
@@ -61,8 +84,10 @@ Vue.component('historic', {
 			parameters: {},
 			graphData: {},
 			showHistoricGraph: true,
+			showTable: false,
 			showHatedResume: false,
 			showHatefulResume: false,
+			dataInTableFormat: [],
 			resume: {
 				hatedUser: {
 					user: '',
@@ -109,14 +134,22 @@ Vue.component('historic', {
 
 			if (activeOption == 'graph') {
 				this.showHistoricGraph = true;
+				this.showTable = false;
+				this.showHatedResume = false;
+				this.showHatefulResume = false;
+			} else if (activeOption == 'table') {
+				this.showHistoricGraph = false;
+				this.showTable = true;
 				this.showHatedResume = false;
 				this.showHatefulResume = false;
 			} else if (activeOption == 'hated') {
 				this.showHistoricGraph = false;
+				this.showTable = false;
 				this.showHatedResume = true;
 				this.showHatefulResume = false;
 			} else { // hateful
 				this.showHistoricGraph = false;
+				this.showTable = false;
 				this.showHatedResume = false;
 				this.showHatefulResume = true;
 			}
@@ -132,6 +165,8 @@ Vue.component('historic', {
 		},
 
 		updateHistoric: function (data) {
+
+			this.updateHistoricAccessibleData(data);
 
 			// If previously created, we destroy it before creating a new one
 			if (this.historicStatsChart) {
@@ -251,6 +286,26 @@ Vue.component('historic', {
 
 			return pointColors;
 		},
+
+		updateHistoricAccessibleData: function (data) {
+			var that = this;
+
+			that.dataInTableFormat = [];
+
+			for (var i = 0; i < data.averageData.length; i++) {
+
+				var dataRow = {};
+				dataRow.time = new Date(data.averageData[i].t).toISOString().slice(0, 16).replace('T', ' ');
+				dataRow.numTweets = data.graphData[i].y;
+				dataRow.numTweetsAverage = data.averageData[i].y;
+				dataRow.userHated = data.graphData[i].hu1;
+				dataRow.userHateful = '@' + data.graphData[i].hu2;
+				console.log(dataRow);
+
+				that.dataInTableFormat.push(dataRow);
+			}
+
+		}
 
 
 	}

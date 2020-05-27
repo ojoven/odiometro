@@ -38,6 +38,7 @@ const messages = {
 			show: 'Mostrar',
 			type_graph: {
 				graph: 'gráfico',
+				table: 'tabla',
 				hateful: 'usuario más odiador',
 				hated: 'usuario más odiado'
 			},
@@ -114,6 +115,7 @@ const messages = {
 			show: 'Show',
 			type_graph: {
 				graph: 'graph',
+				table: 'table',
 				hateful: 'most hateful user',
 				hated: 'most hated user'
 			},
