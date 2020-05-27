@@ -1,7 +1,7 @@
 Vue.component('blood-canvas', {
 
 	template: `
-		<canvas id="blood"></canvas>
+		<canvas id="blood" role="presentation" aria-hidden="true"></canvas>
   `,
 
 	data() {
@@ -19,14 +19,14 @@ Vue.component('blood-canvas', {
 		}
 	},
 
-	mounted: function() {
+	mounted: function () {
 
 		this.initialize();
 		this.initializeMouseEvents();
 
-		socket.on('tweet', function(tweet) {
+		socket.on('tweet', function (tweet) {
 			var that = this;
-			setTimeout(function() {
+			setTimeout(function () {
 				if (that.items.length < 100) {
 					that.randomSplatter();
 				} else {
@@ -38,7 +38,7 @@ Vue.component('blood-canvas', {
 
 	methods: {
 
-		initialize: function() {
+		initialize: function () {
 
 			this.canvas = document.getElementById('blood');
 			this.ctx = this.canvas.getContext('2d');
@@ -66,12 +66,12 @@ Vue.component('blood-canvas', {
 			this.canvas.width = this.shadow.width = window.innerWidth * 2;
 			this.canvas.height = this.shadow.height = window.innerHeight * 2;
 
-			this.canvas.style.width = this.canvas.width/2 + "px";
-			this.canvas.style.height = this.canvas.height/2 + "px";
+			this.canvas.style.width = this.canvas.width / 2 + "px";
+			this.canvas.style.height = this.canvas.height / 2 + "px";
 			this.sctx.fillStyle = this.ctx.fillStyle = '#8A0707';
 		},
 
-		drawloop: function() {
+		drawloop: function () {
 
 			if (this.focused) {
 				requestAnimationFrame(this.drawloop);
@@ -80,7 +80,7 @@ Vue.component('blood-canvas', {
 			this.drawsplat(this.items)
 		},
 
-		splat: function(x, y, arr) {
+		splat: function (x, y, arr) {
 
 			for (var i = 0; i < 30; i++) {
 				var s = Math.random() * Math.PI;
@@ -98,7 +98,7 @@ Vue.component('blood-canvas', {
 
 		},
 
-		drawsplat: function(arr) {
+		drawsplat: function (arr) {
 
 			var i = arr.length;
 			while (i--) {
@@ -122,7 +122,7 @@ Vue.component('blood-canvas', {
 			this.ctx.drawImage(this.shadow, 0, 0);
 		},
 
-		circle: function(x, y, s, c) {
+		circle: function (x, y, s, c) {
 
 			c.beginPath();
 			c.arc(x, y, s * 5, 0, 2 * Math.PI, false);
@@ -131,7 +131,7 @@ Vue.component('blood-canvas', {
 
 		},
 
-		randomSplatter: function() {
+		randomSplatter: function () {
 
 			var min = 0;
 			var width = this.canvas.width;
@@ -144,23 +144,23 @@ Vue.component('blood-canvas', {
 			this.splat(x, y, this.items);
 		},
 
-		fireMouseEvents: function(query, eventNames) {
+		fireMouseEvents: function (query, eventNames) {
 			var element = document.querySelector(query);
-			if(element && eventNames && eventNames.length){
-				for(var index in eventNames){
+			if (element && eventNames && eventNames.length) {
+				for (var index in eventNames) {
 					var eventName = eventNames[index];
-					if(element.fireEvent ){
-						element.fireEvent( 'on' + eventName );
+					if (element.fireEvent) {
+						element.fireEvent('on' + eventName);
 					} else {
-						var eventObject = document.createEvent( 'MouseEvents' );
-						eventObject.initEvent( eventName, true, false );
+						var eventObject = document.createEvent('MouseEvents');
+						eventObject.initEvent(eventName, true, false);
 						element.dispatchEvent(eventObject);
 					}
 				}
 			}
 		},
 
-		initializeMouseEvents: function() {
+		initializeMouseEvents: function () {
 
 			var that = this;
 
@@ -199,8 +199,8 @@ Vue.component('blood-canvas', {
 			};
 
 			var that = this;
-			setTimeout(function() {
-				that.fireMouseEvents("canvas[id='blood']",['mouseover','mousedown','mouseup','click']);
+			setTimeout(function () {
+				that.fireMouseEvents("canvas[id='blood']", ['mouseover', 'mousedown', 'mouseup', 'click']);
 			}, 100);
 
 		}
