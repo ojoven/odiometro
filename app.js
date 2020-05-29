@@ -85,6 +85,14 @@ twitterStream.on('tweet', function (tweet) {
 	try {
 		var tweetText;
 
+		if (Tweet.isItARetweet(tweet)) {
+			tweetText = tweet.retweeted_status.text;
+		} else {
+			tweetText = tweet.text;
+		}
+
+		console.log(tweetText);
+
 		// FILTER: If it's not a hate tweet, we ignore it
 		if (!Tweet.isItAHateTweet(tweet, track)) return;
 
@@ -93,9 +101,6 @@ twitterStream.on('tweet', function (tweet) {
 			database.saveRetweet(tweet);
 			tweetText = tweet.retweeted_status.text;
 		} else {
-
-			console.log(JSON.stringify(tweet));
-			console.log('\n\n');
 
 			// Or it is a tweet
 			database.saveTweet(tweet);

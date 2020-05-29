@@ -25,13 +25,16 @@ Tweet.getHateLevelTweet = function (tweet, track) {
 	var wordsWithWeights = track.getWordsWithWeights();
 	wordsWithWeights.forEach(function (word) {
 		if (tweetTextLowercase.includes(word.word)) {
-			console.log(word.word, word.weight);
 			totalHateTweet = totalHateTweet + parseFloat(word.weight);
 		}
 	});
 
 	// Convert 0.5 or whatever to 1 if it includes previous "eres un..."
-	var directedHateExpresions = ['eres un', 'eres una', 'eres', 'sois', 'sois unas', 'sois unos', 'pedazo', 'pedazo de']
+	var directedHateExpresions = ['eres un', 'eres una', 'eres', 'sois', 'sois unas',
+		'sois unos', 'pedazo', 'pedazo de', 'maldito', 'maldita', 'puto', 'puta', 'perro',
+		'el muy', 'la muy', 'los muy', 'las muy'
+	];
+
 	wordsWithWeights.forEach(function (word) {
 
 		directedHateExpresions.forEach(function (directedHateExpresion) {
@@ -41,9 +44,24 @@ Tweet.getHateLevelTweet = function (tweet, track) {
 		});
 	});
 
+	// Filter tweets that include words, expressions and emojis that may denote comical attitude or referring to themself (soy gilipollas)
+	var comicalExpressions = ['jaja', 'haha', 'jeje', 'hehe', 'jiji', 'lol', 'de puta madre', 'xd', 'equisde'];
+	var selfRelatedExpressions = ['soy', 'estoy', 'me pasa'];
+	var specificDeactivators = ['querella criminal', 'han retrasado', 'hemos retrasado', 'he retrasado', 'habeis retrasado', 'has retrasado', 'ha retrasado'];
+
+	var filterExpressions = comicalExpressions.concat(selfRelatedExpressions, specificDeactivators);
+
+	filterExpressions.forEach(function (filterExpression) {
+		if (tweetTextLowercase.includes(filterExpression)) {
+			totalHateTweet = totalHateTweet - 1;
+		}
+	});
+
 	var t1 = new Date().getTime()
-	console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
-	return totalHateTweet
+	console.log("Time to parse the tweet: " + (t1 - t0) + " milliseconds.")
+	console.log('Hate level: ' + totalHateTweet);
+
+	return totalHateTweet;
 }
 
 Tweet.isItAReply = function (tweet) {

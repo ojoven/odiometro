@@ -151,8 +151,8 @@
 		"weight": 0.5
 	},
 	{
-		"word": "impresentable",
-		"weight": 0.8
+		"word": "",
+		"weight": ""
 	},
 	{
 		"word": "vomitivo",
@@ -207,8 +207,16 @@
 		"weight": 1
 	},
 	{
+		"word": "vete a la mierda",
+		"weight": 1
+	},
+	{
 		"word": "hdlgp",
 		"weight": 1
+	},
+	{
+		"word": "hdp",
+		"weight": 0.2
 	},
 	{
 		"word": "mierda",
@@ -235,6 +243,10 @@
 		"weight": 0.5
 	},
 	{
+		"word": "asesina",
+		"weight": 0.5
+	},
+	{
 		"word": "golpista",
 		"weight": 0.5
 	},
@@ -243,11 +255,23 @@
 		"weight": 0.5
 	},
 	{
+		"word": "facha",
+		"weight": 0.5
+	},
+	{
 		"word": "ni puta idea",
 		"weight": 0.5
 	},
 	{
 		"word": "me cago en",
+		"weight": 0.5
+	},
+	{
+		"word": "indeseable",
+		"weight": 0.5
+	},
+	{
+		"word": "asquerosa",
 		"weight": 0.5
 	},
 	{
@@ -283,7 +307,235 @@
 		"weight": 0.5
 	},
 	{
+		"word": "rastrera",
+		"weight": 0.5
+	},
+	{
 		"word": "rastrero",
+		"weight": 0.5
+	},
+	{
+		"word": "repugnante",
+		"weight": 1
+	},
+	{
+		"word": "mamarracho",
+		"weight": 1
+	},
+	{
+		"word": "mamarracha",
+		"weight": 1
+	},
+	{
+		"word": "sinverguenza",
+		"weight": 1
+	},
+	{
+		"word": "subnormal",
+		"weight": 1
+	},
+	{
+		"word": "bocachancla",
+		"weight": 1
+	},
+	{
+		"word": "lameculos",
+		"weight": 1
+	},
+	{
+		"word": "parguela",
+		"weight": 0.8
+	},
+	{
+		"word": "crápula",
+		"weight": 0.5
+	},
+	{
+		"word": "piojoso",
+		"weight": 1
+	},
+	{
+		"word": "piojosa",
+		"weight": 1
+	},
+	{
+		"word": "hasta los cojones",
+		"weight": 1
+	},
+	{
+		"word": "macarra",
+		"weight": 1
+	},
+	{
+		"word": "impresentable",
+		"weight": 1
+	},
+	{
+		"word": "ruin",
+		"weight": 1
+	},
+	{
+		"word": "cucaracha",
+		"weight": 0.2
+	},
+	{
+		"word": "malfollada",
+		"weight": 0.8
+	},
+	{
+		"word": "mal follada",
+		"weight": 0.8
+	},
+	{
+		"word": "escoria",
+		"weight": 1
+	},
+	{
+		"word": "criminal",
+		"weight": 1
+	},
+	{
+		"word": "anormal",
+		"weight": 1
+	},
+	{
+		"word": "merluzo",
+		"weight": 1
+	},
+	{
+		"word": "zopenco",
+		"weight": 1
+	},
+	{
+		"word": "descerebrado",
+		"weight": 1
+	},
+	{
+		"word": "de los cojones",
+		"weight": 0.8
+	},
+	{
+		"word": "retrasado",
+		"weight": 1
+	},
+	{
+		"word": "sabandija",
+		"weight": 1
+	},
+	{
+		"word": "lerdo",
+		"weight": 1
+	},
+	{
+		"word": "lerda",
+		"weight": 1
+	},
+	{
+		"word": "mongolo",
+		"weight": 1
+	},
+	{
+		"word": "mongola",
+		"weight": 1
+	},
+	{
+		"word": "cretino",
+		"weight": 1
+	},
+	{
+		"word": "ojalá te mueras",
+		"weight": 1
+	},
+	{
+		"word": "rata",
+		"weight": 0.5
+	},
+	{
+		"word": "muérete",
+		"weight": 1
+	},
+	{
+		"word": "separrata",
+		"weight": 1
+	},
+	{
+		"word": "nazi",
+		"weight": 0.5
+	},
+	{
+		"word": "izmierda",
+		"weight": 1
+	},
+	{
+		"word": "baboso",
+		"weight": 1
+	},
+	{
+		"word": "ni puta idea",
+		"weight": 0.5
+	},
+	{
+		"word": "desgraciado",
+		"weight": 0.8
+	},
+	{
+		"word": "mezquino",
+		"weight": 1
+	},
+	{
+		"word": "mezquina",
+		"weight": 1
+	},
+	{
+		"word": "desgraciada",
+		"weight": 0.8
+	},
+	{
+		"word": "inepto",
+		"weight": 0.8
+	},
+	{
+		"word": "mentiroso",
+		"weight": 0.5
+	},
+	{
+		"word": "mentirosa",
+		"weight": 0.5
+	},
+	{
+		"word": "farsante",
+		"weight": 0.5
+	},
+	{
+		"word": "cobarde",
+		"weight": 0.5
+	},
+	{
+		"word": "hipócrita",
+		"weight": 0.5
+	},
+	{
+		"word": "falso",
+		"weight": 0.2
+	},
+	{
+		"word": "que te calles",
+		"weight": 1
+	},
+	{
+		"word": "callate",
+		"weight": 1
+	},
+	{
+		"word": "cerdo",
+		"weight": 0.5
+	},
+	{
+		"word": "cerda",
+		"weight": 0.5
+	},
+	{
+		"word": "puerco",
 		"weight": 0.5
 	}
 ]

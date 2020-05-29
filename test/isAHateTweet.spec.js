@@ -82,4 +82,22 @@ describe('is a hate tweet?', function () {
 		expect(Tweet.getHateLevelTweet(tweet, track)).to.be.greaterThan(1);
 	});
 
+	it('should return false if it includes jajaja', function () {
+
+		var tweet = {
+			text: 'Eres un poco gilipollas jajaja'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
+	});
+
+	it('should return true if it includes jajaja but still multiple hate expressions', function () {
+
+		var tweet = {
+			text: 'Eres un poco gilipollas malnacido jajaja'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), true);
+	});
+
 });
