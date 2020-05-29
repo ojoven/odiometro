@@ -173,7 +173,6 @@ Vue.component('blood-canvas', {
 				} else {
 					that.clicked = true;
 
-					console.log(that.options);
 					if (that.options.burst) {
 						setTimeout(function () {
 							that.clicked = false;

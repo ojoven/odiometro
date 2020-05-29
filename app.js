@@ -95,7 +95,7 @@ twitterStream.on('tweet', function (tweet) {
 		} else {
 
 			// Or it is a tweet
-			//console.log(tweet.text);
+			console.log(tweet.text);
 			database.saveTweet(tweet);
 			tweetText = tweet.text;
 

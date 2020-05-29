@@ -20,7 +20,11 @@ database.initialize = function () {
 database.saveTweet = function (tweet) {
 
 	var tweetText = this.escapeSingleQuotes(tweet.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	var tweetJson = this.escapeSingleQuotes(JSON.stringify(JSON.stringify(tweet)));
+	tweetJson = tweetJson.substring(1, tweetJson.length - 1);
+	var query = 'INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \'' + tweetJson + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
+	console.log(query);
+	this.connection.query(query, function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -32,8 +36,10 @@ database.saveTweet = function (tweet) {
 // RETWEETS
 database.saveRetweet = function (tweet) {
 
+	var tweetJson = this.escapeSingleQuotes(JSON.stringify(JSON.stringify(tweet)));
+	tweetJson = tweetJson.substring(1, tweetJson.length - 1);
 	var retweetText = this.escapeSingleQuotes(tweet.retweeted_status.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \'' + tweetJson + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -80,6 +86,9 @@ database.cleanOldData = function (timeInMinutes) {
 
 	// Get date for X minutes ago
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
+
+	this.connection.query('INSERT INTO tweets_store SELECT * FROM tweets WHERE published < \'' + dateMysql + '\'');
+	this.connection.query('INSERT INTO retweets_store SELECT * FROM retweets WHERE published < \'' + dateMysql + '\'');
 
 	// Clean old data from the different tables
 	this.connection.query('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
@@ -179,7 +188,6 @@ database.getMostHatefulUserAndTweet = function (callback) {
 
 	// FIRST WE SEARCH FOR THE HATEFUL USER ON RETWEETS, AS IT'S ON THEM WHERE THE INFLUENCE HAPPENS
 	var query = 'SELECT `retweeted_user` AS `user`, `retweeted_id` AS `id_str`, `retweeted_text` AS `text`, COUNT(`id`) AS `user_occurrence` FROM `retweets` WHERE retweeted_text LIKE \'%@%\' AND published > \'' + dateMysql + '\' GROUP BY `retweeted_user` ORDER BY `user_occurrence` DESC LIMIT 1';
-	console.log(query);
 	that.connection.query(query, function (error, results, fields) {
 
 		if (results) {
@@ -269,6 +277,12 @@ database.getDateTimeInMySQLFormatXMinutesAgo = function (timeInMinutes) {
 database.escapeSingleQuotes = function (string) {
 
 	string = string.split("'").join("\\\'");
+	return string;
+};
+
+database.escapeDoubleQuotes = function (string) {
+
+	string = string.split('"').join('\\\"');
 	return string;
 };
 

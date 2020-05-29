@@ -2,7 +2,7 @@ Vue.component('real-time-graph', {
 
 	template: `
 		<div id="real_time_graph">
-			<canvas id="real_time_canvas" width="400" height="100" 
+			<canvas id="real_time_canvas" width="400" height="100"
 			aria-label="Gráfico de número de tuits de odio por minuto que se actualiza en tiempo real"></canvas>
 		</div>
   `,
