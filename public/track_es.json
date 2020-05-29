@@ -1,15 +1,297 @@
-[
-  "gentuza", "mermao", "puto facha", "puta facha", "puta fascista", "puto fascista", "hijo de puta", "hija de puta", "hijadeputa", "hijoputa", "hijaputa",
-  "hijasdeputa", "hijodeputa", "hijosdeputa", "asco de gente", "ascazo de gente", "puta feminazi", "maldita feminazi", "das asco", "imbécil",
-  "gilipollas", "malnacido", "malnacida", "payaso", "payasa", "bastardo", "bastarda", "eres asqueroso", "eres asquerosa", "idiota",
-  "maricón", "niñato", "niñata", "eres muy tonto", "tú eres tonto", "tú eres tonta", "eres muy tonta", "sois basura", "eres basura",
-  "miserable", "cabron", "impresentable", "vomitivo", "vomitiva", "calaña", "indeseable",
-  "peperro", "alimaña", "estúpido", "cantamañanas", "tipejo", "tipeja", "gente repugnante", "persona repugnante",
-  "mamarracho", "mamarracha", "sinverguenza", "subnormal", "eres un mierda", "eres una mierda", "bocachancla", "lameculos",
-  "parguela", "cenutrio", "tolai", "malfollao", "malfollado", "mal follado", "mal follao", "malfollada", "malfolla", "de los cojones",
-  "panoli", "cagalindes", "eres retrasado", "eres retrasada", "sabandija", "lerdo", "retrasado mental", "mongolo", "mongola",
-  "cretino", "ojalá sufras", "ojalá mueras", "muérete", "separrata", "puto comunista", "puto nazi", "puta nazi", "izmierda", "puto negro", "puta negra",
-  "puto baboso", "tiene puta idea", "tienes puta idea", "tienen puta idea", "eres desgraciado", "eres desgraciada", "eres lerdo", "eres lerda",
-  "es lerdo", "es lerda", "inepto", "eres mentiroso", "eres mentirosa", "eres cobarde", "eres hipócrita", "eres impresentable", "eres falso",
-  "eres cerdo", "eres cerda", "vete tomar por culo", "hdlgp", "eres mierda", "sois mierda", "eres alimaña", "eres canalla", "menudo canalla", "menuda alimaña"
+[{
+		"word": "gentuza",
+		"weight": 1
+	},
+	{
+		"word": "mermao",
+		"weight": 1
+	},
+	{
+		"word": "facha",
+		"weight": 0.5
+	},
+	{
+		"word": "fascista",
+		"weight": 0.5
+	},
+	{
+		"word": "hijo de puta",
+		"weight": 1
+	},
+	{
+		"word": "hija de puta",
+		"weight": 1
+	},
+	{
+		"word": "hijadeputa",
+		"weight": 1
+	},
+	{
+		"word": "hijoputa",
+		"weight": 1
+	},
+	{
+		"word": "hijaputa",
+		"weight": 1
+	},
+	{
+		"word": "hijasdeputa",
+		"weight": 1
+	},
+	{
+		"word": "hijodeputa",
+		"weight": 1
+	},
+	{
+		"word": "hijosdeputa",
+		"weight": 1
+	},
+	{
+		"word": "asco de gente",
+		"weight": 1
+	},
+	{
+		"word": "ascazo de gente",
+		"weight": 1
+	},
+	{
+		"word": "feminazi",
+		"weight": 0.5
+	},
+	{
+		"word": "dais asco",
+		"weight": 1
+	},
+	{
+		"word": "das asco",
+		"weight": 1
+	},
+	{
+		"word": "imbécil",
+		"weight": 1
+	},
+	{
+		"word": "gilipollas",
+		"weight": 1
+	},
+	{
+		"word": "malnacido",
+		"weight": 1
+	},
+	{
+		"word": "mal nacido",
+		"weight": 1
+	},
+	{
+		"word": "mal nacida",
+		"weight": 1
+	},
+	{
+		"word": "malnacida",
+		"weight": 1
+	},
+	{
+		"word": "payaso",
+		"weight": 0.8
+	},
+	{
+		"word": "payasa",
+		"weight": 0.8
+	},
+	{
+		"word": "bastardo",
+		"weight": 1
+	},
+	{
+		"word": "bastarda",
+		"weight": 1
+	},
+	{
+		"word": "capullo",
+		"weight": 0.5
+	},
+	{
+		"word": "idiota",
+		"weight": 0.5
+	},
+	{
+		"word": "maricón",
+		"weight": 0.5
+	},
+	{
+		"word": "niñato",
+		"weight": 0.8
+	},
+	{
+		"word": "niñata",
+		"weight": 0.8
+	},
+	{
+		"word": "tonto",
+		"weight": 0.5
+	},
+	{
+		"word": "tonta",
+		"weight": 0.5
+	},
+	{
+		"word": "zorra",
+		"weight": 0.2
+	},
+	{
+		"word": "basura",
+		"weight": 0.5
+	},
+	{
+		"word": "miserable",
+		"weight": 1
+	},
+	{
+		"word": "cabron",
+		"weight": 0.5
+	},
+	{
+		"word": "impresentable",
+		"weight": 0.8
+	},
+	{
+		"word": "vomitivo",
+		"weight": 1
+	},
+	{
+		"word": "vomitiva",
+		"weight": 1
+	},
+	{
+		"word": "calaña",
+		"weight": 1
+	},
+	{
+		"word": "indeseable",
+		"weight": 1
+	},
+	{
+		"word": "cateto",
+		"weight": 0.5
+	},
+	{
+		"word": "estúpido",
+		"weight": 0.5
+	},
+	{
+		"word": "estúpida",
+		"weight": 0.5
+	},
+	{
+		"word": "cantamañanas",
+		"weight": 0.5
+	},
+	{
+		"word": "tipejo",
+		"weight": 1
+	},
+	{
+		"word": "tipeja",
+		"weight": 1
+	},
+	{
+		"word": "cenutrio",
+		"weight": 0.5
+	},
+	{
+		"word": "tolai",
+		"weight": 0.8
+	},
+	{
+		"word": "vete tomar por culo",
+		"weight": 1
+	},
+	{
+		"word": "hdlgp",
+		"weight": 1
+	},
+	{
+		"word": "mierda",
+		"weight": 0.5
+	},
+	{
+		"word": "canalla",
+		"weight": 0.5
+	},
+	{
+		"word": "alimaña",
+		"weight": 0.5
+	},
+	{
+		"word": "parásito",
+		"weight": 1
+	},
+	{
+		"word": "cómplice",
+		"weight": 1
+	},
+	{
+		"word": "asesino",
+		"weight": 0.5
+	},
+	{
+		"word": "golpista",
+		"weight": 0.5
+	},
+	{
+		"word": "etarra",
+		"weight": 0.5
+	},
+	{
+		"word": "facha",
+		"weight": 0.5
+	},
+	{
+		"word": "ni puta idea",
+		"weight": 0.5
+	},
+	{
+		"word": "me cago en",
+		"weight": 0.5
+	},
+	{
+		"word": "indeseable",
+		"weight": 0.5
+	},
+	{
+		"word": "asqueroso",
+		"weight": 0.5
+	},
+	{
+		"word": "cerdo",
+		"weight": 0.5
+	},
+	{
+		"word": "cerda",
+		"weight": 0.5
+	},
+	{
+		"word": "cobarde",
+		"weight": 0.5
+	},
+	{
+		"word": "terrorista",
+		"weight": 0.5
+	},
+	{
+		"word": "golpe de estado",
+		"weight": 0.5
+	},
+	{
+		"word": "traidor",
+		"weight": 0.5
+	},
+	{
+		"word": "golpista",
+		"weight": 0.5
+	},
+	{
+		"word": "rastrero",
+		"weight": 0.5
+	}
 ]

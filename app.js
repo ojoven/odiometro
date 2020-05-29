@@ -30,8 +30,9 @@ require('./routes')(app, io);
 // Libs
 var database = require("./app/lib/database.js");
 var twitter = require("./app/lib/twitter.js");
+var track = require("./app/lib/track.js");
+var trackWords = track.getWords();
 var twitterStream = require("./app/lib/twitterStream.js")(twitter);
-var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -82,6 +83,8 @@ io.on('connection', function (socket) {
 twitterStream.on('tweet', function (tweet) {
 
 	try {
+		console.log(tweet.text);
+		var t0 = new Date().getTime()
 
 		var tweetText;
 
@@ -95,12 +98,11 @@ twitterStream.on('tweet', function (tweet) {
 		} else {
 
 			// Or it is a tweet
-			//console.log(tweet.text);
 			database.saveTweet(tweet);
 			tweetText = tweet.text;
 
 			// Is it a tweet to be shown?
-			if (Tweet.isItATweetToBeShown(tweet, track)) {
+			if (Tweet.isItATweetToBeShown(tweet, trackWords)) {
 
 				var tweetParsed = {};
 				tweetParsed.id_str = tweet.id_str;
@@ -119,6 +121,9 @@ twitterStream.on('tweet', function (tweet) {
 		if (Tweet.isTweetForMostHatedUser(tweet, mostHatedUser)) {
 			mostHatedUsersLastTweet = tweet.text;
 		}
+
+		var t1 = new Date().getTime()
+		console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
 
 	} catch (err) {
 		console.log(err);
