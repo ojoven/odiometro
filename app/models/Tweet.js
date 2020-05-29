@@ -1,30 +1,60 @@
 /** TWEET **/
 
-var Tweet = {};
+var Tweet = {
+
+	thresholdHateLevel: 1,
+
+};
 
 // Filters //
-Tweet.isItAHateTweet = function(tweet) {
+Tweet.isItAHateTweet = function (tweet, track) {
+
+	var hateLevel = this.getHateLevelTweet(tweet, track);
+
+	return hateLevel >= this.thresholdHateLevel;
+};
+
+Tweet.getHateLevelTweet = function (tweet, track) {
+
+	var t0 = new Date().getTime()
+	var totalHateTweet = 0;
 
 	var tweetTextLowercase = tweet.text.toLowerCase();
 
-	// Ignore tweets containing "jaja" and "jeje", as they'll probably
-	// will be humoristic, not hateful tweets
-	if (tweetTextLowercase.indexOf('jaja') !== -1 || tweetTextLowercase.indexOf('jeje') !== -1) return false;
+	// Check word weights
+	var wordsWithWeights = track.getWordsWithWeights();
+	wordsWithWeights.forEach(function (word) {
+		if (tweetTextLowercase.includes(word.word)) {
+			console.log(word.word, word.weight);
+			totalHateTweet = totalHateTweet + parseFloat(word.weight);
+		}
+	});
 
-	// Let's ignore tweets that include the first person of the verb to be
-	// We'll be ignoring tweets like "Soy idiota" "Estoy gilipollas"
-	if (tweetTextLowercase.indexOf('soy') !== -1 || tweetTextLowercase.indexOf('estoy') !== -1) return false;
+	// Convert 0.5 or whatever to 1 if it includes previous "eres un..."
+	var directedHateExpresions = ['eres un', 'eres una', 'eres', 'sois', 'sois unas', 'sois unos', 'pedazo', 'pedazo de']
+	wordsWithWeights.forEach(function (word) {
 
-	return true;
-};
+		directedHateExpresions.forEach(function (directedHateExpresion) {
+			if (tweetTextLowercase.includes(directedHateExpresion + ' ' + word.word)) {
+				totalHateTweet = totalHateTweet + 1 - parseFloat(word.weight);
+			}
+		});
+	});
 
-Tweet.isItARetweet = function(tweet) {
+	var t1 = new Date().getTime()
+	console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+	return totalHateTweet
+}
 
+Tweet.isItAReply = function (tweet) {
 	return (tweet.retweeted_status !== undefined);
-
 };
 
-Tweet.isItATweetToBeShown = function(tweet, track) {
+Tweet.isItARetweet = function (tweet) {
+	return (tweet.retweeted_status !== undefined);
+};
+
+Tweet.isItATweetToBeShown = function (tweet, track) {
 
 	var tweetText = tweet.text.toLowerCase();
 
@@ -45,14 +75,14 @@ Tweet.isItATweetToBeShown = function(tweet, track) {
 };
 
 // GET USERS
-Tweet.getUsernamesInTweet = function(tweetText) {
+Tweet.getUsernamesInTweet = function (tweetText) {
 
 	var userNamesInTweet = tweetText.match(/@\w+/g);
 	return userNamesInTweet;
 
 };
 
-Tweet.isTweetForMostHatedUser = function(tweet, user) {
+Tweet.isTweetForMostHatedUser = function (tweet, user) {
 
 	if (!user) return false;
 
@@ -64,17 +94,16 @@ Tweet.isTweetForMostHatedUser = function(tweet, user) {
 	return false;
 };
 
-Tweet.postTweet = function(tweetText, callback) {
+Tweet.postTweet = function (tweetText, callback) {
 
 	twitter.post('statuses/update', {
 
 		status: tweetText
 
-	}, function(err, data, response) {
+	}, function (err, data, response) {
 
-			callback(data);
+		callback(data);
 	});
 };
 
 module.exports = Tweet;
-

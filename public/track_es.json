@@ -203,7 +203,7 @@
 		"weight": 0.8
 	},
 	{
-		"word": "vete tomar por culo",
+		"word": "vete a tomar por culo",
 		"weight": 1
 	},
 	{
@@ -243,19 +243,11 @@
 		"weight": 0.5
 	},
 	{
-		"word": "facha",
-		"weight": 0.5
-	},
-	{
 		"word": "ni puta idea",
 		"weight": 0.5
 	},
 	{
 		"word": "me cago en",
-		"weight": 0.5
-	},
-	{
-		"word": "indeseable",
 		"weight": 0.5
 	},
 	{

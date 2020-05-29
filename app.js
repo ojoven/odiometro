@@ -83,19 +83,19 @@ io.on('connection', function (socket) {
 twitterStream.on('tweet', function (tweet) {
 
 	try {
-		console.log(tweet.text);
-		var t0 = new Date().getTime()
-
 		var tweetText;
 
 		// FILTER: If it's not a hate tweet, we ignore it
-		if (!Tweet.isItAHateTweet(tweet)) return;
+		if (!Tweet.isItAHateTweet(tweet, track)) return;
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
 			database.saveRetweet(tweet);
 			tweetText = tweet.retweeted_status.text;
 		} else {
+
+			console.log(JSON.stringify(tweet));
+			console.log('\n\n');
 
 			// Or it is a tweet
 			database.saveTweet(tweet);
@@ -121,9 +121,6 @@ twitterStream.on('tweet', function (tweet) {
 		if (Tweet.isTweetForMostHatedUser(tweet, mostHatedUser)) {
 			mostHatedUsersLastTweet = tweet.text;
 		}
-
-		var t1 = new Date().getTime()
-		console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
 
 	} catch (err) {
 		console.log(err);
