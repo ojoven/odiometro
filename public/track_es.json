@@ -7,10 +7,6 @@
 		"weight": 1
 	},
 	{
-		"word": "facha",
-		"weight": 0.5
-	},
-	{
 		"word": "fascista",
 		"weight": 0.5
 	},
@@ -151,10 +147,6 @@
 		"weight": 0.5
 	},
 	{
-		"word": "",
-		"weight": ""
-	},
-	{
 		"word": "vomitivo",
 		"weight": 1
 	},
@@ -164,10 +156,6 @@
 	},
 	{
 		"word": "calaña",
-		"weight": 1
-	},
-	{
-		"word": "indeseable",
 		"weight": 1
 	},
 	{
@@ -247,19 +235,11 @@
 		"weight": 0.5
 	},
 	{
-		"word": "golpista",
-		"weight": 0.5
-	},
-	{
 		"word": "etarra",
 		"weight": 0.5
 	},
 	{
 		"word": "facha",
-		"weight": 0.5
-	},
-	{
-		"word": "ni puta idea",
 		"weight": 0.5
 	},
 	{
@@ -276,18 +256,6 @@
 	},
 	{
 		"word": "asqueroso",
-		"weight": 0.5
-	},
-	{
-		"word": "cerdo",
-		"weight": 0.5
-	},
-	{
-		"word": "cerda",
-		"weight": 0.5
-	},
-	{
-		"word": "cobarde",
 		"weight": 0.5
 	},
 	{
@@ -392,7 +360,7 @@
 	},
 	{
 		"word": "criminal",
-		"weight": 1
+		"weight": 0.5
 	},
 	{
 		"word": "anormal",

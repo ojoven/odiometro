@@ -10,6 +10,17 @@ describe('is a hate tweet?', function () {
 	global.appRoot = path.resolve(__dirname + '/../');
 	global.lang = 'es';
 
+	it('should return all different words from track.json', function () {
+
+		var words = track.getWords();
+		var existingWords = [];
+		words.forEach(function (word) {
+			expect(existingWords).not.to.include(word);
+			existingWords.push(word);
+		})
+
+	});
+
 	it('should return true if it includes only bad words facha and fascista', function () {
 
 		var tweet = {
@@ -98,6 +109,15 @@ describe('is a hate tweet?', function () {
 		};
 
 		assert.equal(Tweet.isItAHateTweet(tweet, track), true);
+	});
+
+	it('should return false if phrase is jajaja, hoy estoy gilipollas, qué tonto soy xd', function () {
+
+		var tweet = {
+			text: 'jajaja, hoy estoy gilipollas, qué tonto soy xd'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
 	});
 
 });
