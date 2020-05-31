@@ -3,15 +3,7 @@
 		"weight": 1
 	},
 	{
-		"word": "mermao",
-		"weight": 1
-	},
-	{
-		"word": "fascista",
-		"weight": 0.5
-	},
-	{
-		"word": "hijo de puta",
+		"word": "pudrete",
 		"weight": 1
 	},
 	{
@@ -51,10 +43,6 @@
 		"weight": 1
 	},
 	{
-		"word": "feminazi",
-		"weight": 0.5
-	},
-	{
 		"word": "dais asco",
 		"weight": 1
 	},
@@ -87,14 +75,6 @@
 		"weight": 1
 	},
 	{
-		"word": "payaso",
-		"weight": 0.8
-	},
-	{
-		"word": "payasa",
-		"weight": 0.8
-	},
-	{
 		"word": "bastardo",
 		"weight": 1
 	},
@@ -103,48 +83,8 @@
 		"weight": 1
 	},
 	{
-		"word": "capullo",
-		"weight": 0.5
-	},
-	{
-		"word": "idiota",
-		"weight": 0.5
-	},
-	{
-		"word": "maricón",
-		"weight": 0.5
-	},
-	{
-		"word": "niñato",
-		"weight": 0.8
-	},
-	{
-		"word": "niñata",
-		"weight": 0.8
-	},
-	{
-		"word": "tonto",
-		"weight": 0.5
-	},
-	{
-		"word": "tonta",
-		"weight": 0.5
-	},
-	{
-		"word": "zorra",
-		"weight": 0.2
-	},
-	{
-		"word": "basura",
-		"weight": 0.5
-	},
-	{
 		"word": "miserable",
 		"weight": 1
-	},
-	{
-		"word": "cabron",
-		"weight": 0.5
 	},
 	{
 		"word": "vomitivo",
@@ -159,36 +99,12 @@
 		"weight": 1
 	},
 	{
-		"word": "cateto",
-		"weight": 0.5
-	},
-	{
-		"word": "estúpido",
-		"weight": 0.5
-	},
-	{
-		"word": "estúpida",
-		"weight": 0.5
-	},
-	{
-		"word": "cantamañanas",
-		"weight": 0.5
-	},
-	{
 		"word": "tipejo",
 		"weight": 1
 	},
 	{
 		"word": "tipeja",
 		"weight": 1
-	},
-	{
-		"word": "cenutrio",
-		"weight": 0.5
-	},
-	{
-		"word": "tolai",
-		"weight": 0.8
 	},
 	{
 		"word": "vete a tomar por culo",
@@ -203,84 +119,12 @@
 		"weight": 1
 	},
 	{
-		"word": "hdp",
-		"weight": 0.2
-	},
-	{
-		"word": "mierda",
-		"weight": 0.5
-	},
-	{
-		"word": "canalla",
-		"weight": 0.5
-	},
-	{
-		"word": "alimaña",
-		"weight": 0.5
-	},
-	{
 		"word": "parásito",
 		"weight": 1
 	},
 	{
 		"word": "cómplice",
 		"weight": 1
-	},
-	{
-		"word": "asesino",
-		"weight": 0.5
-	},
-	{
-		"word": "asesina",
-		"weight": 0.5
-	},
-	{
-		"word": "etarra",
-		"weight": 0.5
-	},
-	{
-		"word": "facha",
-		"weight": 0.5
-	},
-	{
-		"word": "me cago en",
-		"weight": 0.5
-	},
-	{
-		"word": "indeseable",
-		"weight": 0.5
-	},
-	{
-		"word": "asquerosa",
-		"weight": 0.5
-	},
-	{
-		"word": "asqueroso",
-		"weight": 0.5
-	},
-	{
-		"word": "terrorista",
-		"weight": 0.5
-	},
-	{
-		"word": "golpe de estado",
-		"weight": 0.5
-	},
-	{
-		"word": "traidor",
-		"weight": 0.5
-	},
-	{
-		"word": "golpista",
-		"weight": 0.5
-	},
-	{
-		"word": "rastrera",
-		"weight": 0.5
-	},
-	{
-		"word": "rastrero",
-		"weight": 0.5
 	},
 	{
 		"word": "repugnante",
@@ -311,14 +155,6 @@
 		"weight": 1
 	},
 	{
-		"word": "parguela",
-		"weight": 0.8
-	},
-	{
-		"word": "crápula",
-		"weight": 0.5
-	},
-	{
 		"word": "piojoso",
 		"weight": 1
 	},
@@ -343,24 +179,8 @@
 		"weight": 1
 	},
 	{
-		"word": "cucaracha",
-		"weight": 0.2
-	},
-	{
-		"word": "malfollada",
-		"weight": 0.8
-	},
-	{
-		"word": "mal follada",
-		"weight": 0.8
-	},
-	{
 		"word": "escoria",
 		"weight": 1
-	},
-	{
-		"word": "criminal",
-		"weight": 0.5
 	},
 	{
 		"word": "anormal",
@@ -377,10 +197,6 @@
 	{
 		"word": "descerebrado",
 		"weight": 1
-	},
-	{
-		"word": "de los cojones",
-		"weight": 0.8
 	},
 	{
 		"word": "retrasado",
@@ -415,20 +231,12 @@
 		"weight": 1
 	},
 	{
-		"word": "rata",
-		"weight": 0.5
-	},
-	{
 		"word": "muérete",
 		"weight": 1
 	},
 	{
 		"word": "separrata",
 		"weight": 1
-	},
-	{
-		"word": "nazi",
-		"weight": 0.5
 	},
 	{
 		"word": "izmierda",
@@ -439,14 +247,6 @@
 		"weight": 1
 	},
 	{
-		"word": "ni puta idea",
-		"weight": 0.5
-	},
-	{
-		"word": "desgraciado",
-		"weight": 0.8
-	},
-	{
 		"word": "mezquino",
 		"weight": 1
 	},
@@ -455,12 +255,232 @@
 		"weight": 1
 	},
 	{
+		"word": "que te calles",
+		"weight": 1
+	},
+	{
+		"word": "callate",
+		"weight": 1
+	},
+	{
+		"word": "sanguijuela",
+		"weight": 1
+	},
+	{
+		"word": "paleto",
+		"weight": 1
+	},
+	{
+		"word": "jilipollas",
+		"weight": 1
+	},
+	{
+		"word": "tu puta madre",
+		"weight": 1
+	},
+	{
+		"word": "mermao",
+		"weight": 1
+	},
+	{
+		"word": "payaso",
+		"weight": 0.8
+	},
+	{
+		"word": "payasa",
+		"weight": 0.8
+	},
+	{
+		"word": "niñato",
+		"weight": 0.8
+	},
+	{
+		"word": "niñata",
+		"weight": 0.8
+	},
+	{
+		"word": "tolai",
+		"weight": 0.8
+	},
+	{
+		"word": "parguela",
+		"weight": 0.8
+	},
+	{
+		"word": "malfollada",
+		"weight": 0.8
+	},
+	{
+		"word": "mal follada",
+		"weight": 0.8
+	},
+	{
+		"word": "de los cojones",
+		"weight": 0.8
+	},
+	{
+		"word": "desgraciado",
+		"weight": 0.8
+	},
+	{
 		"word": "desgraciada",
 		"weight": 0.8
 	},
 	{
 		"word": "inepto",
 		"weight": 0.8
+	},
+	{
+		"word": "facha",
+		"weight": 0.5
+	},
+	{
+		"word": "fascista",
+		"weight": 0.5
+	},
+	{
+		"word": "feminazi",
+		"weight": 0.5
+	},
+	{
+		"word": "capullo",
+		"weight": 0.5
+	},
+	{
+		"word": "idiota",
+		"weight": 0.5
+	},
+	{
+		"word": "maricón",
+		"weight": 0.5
+	},
+	{
+		"word": "tonto",
+		"weight": 0.5
+	},
+	{
+		"word": "tonta",
+		"weight": 0.5
+	},
+	{
+		"word": "basura",
+		"weight": 0.5
+	},
+	{
+		"word": "cabron",
+		"weight": 0.5
+	},
+	{
+		"word": "cateto",
+		"weight": 0.5
+	},
+	{
+		"word": "cateta",
+		"weight": 0.5
+	},
+	{
+		"word": "estúpido",
+		"weight": 0.5
+	},
+	{
+		"word": "estúpida",
+		"weight": 0.5
+	},
+	{
+		"word": "cantamañanas",
+		"weight": 0.5
+	},
+	{
+		"word": "cenutrio",
+		"weight": 0.5
+	},
+	{
+		"word": "mierda",
+		"weight": 0.5
+	},
+	{
+		"word": "canalla",
+		"weight": 0.5
+	},
+	{
+		"word": "alimaña",
+		"weight": 0.5
+	},
+	{
+		"word": "asesino",
+		"weight": 0.5
+	},
+	{
+		"word": "asesina",
+		"weight": 0.5
+	},
+	{
+		"word": "golpista",
+		"weight": 0.5
+	},
+	{
+		"word": "etarra",
+		"weight": 0.5
+	},
+	{
+		"word": "ni puta idea",
+		"weight": 0.5
+	},
+	{
+		"word": "me cago en",
+		"weight": 0.5
+	},
+	{
+		"word": "indeseable",
+		"weight": 0.5
+	},
+	{
+		"word": "asquerosa",
+		"weight": 0.5
+	},
+	{
+		"word": "asqueroso",
+		"weight": 0.5
+	},
+	{
+		"word": "cobarde",
+		"weight": 0.5
+	},
+	{
+		"word": "terrorista",
+		"weight": 0.5
+	},
+	{
+		"word": "golpe de estado",
+		"weight": 0.5
+	},
+	{
+		"word": "traidor",
+		"weight": 0.5
+	},
+	{
+		"word": "rastrera",
+		"weight": 0.5
+	},
+	{
+		"word": "rastrero",
+		"weight": 0.5
+	},
+	{
+		"word": "crápula",
+		"weight": 0.5
+	},
+	{
+		"word": "criminal",
+		"weight": 0.5
+	},
+	{
+		"word": "rata",
+		"weight": 0.5
+	},
+	{
+		"word": "nazi",
+		"weight": 0.5
 	},
 	{
 		"word": "mentiroso",
@@ -475,24 +495,8 @@
 		"weight": 0.5
 	},
 	{
-		"word": "cobarde",
-		"weight": 0.5
-	},
-	{
 		"word": "hipócrita",
 		"weight": 0.5
-	},
-	{
-		"word": "falso",
-		"weight": 0.2
-	},
-	{
-		"word": "que te calles",
-		"weight": 1
-	},
-	{
-		"word": "callate",
-		"weight": 1
 	},
 	{
 		"word": "cerdo",
@@ -505,5 +509,29 @@
 	{
 		"word": "puerco",
 		"weight": 0.5
+	},
+	{
+		"word": "ignorante",
+		"weight": 0.5
+	},
+	{
+		"word": "de mierda",
+		"weight": 0.5
+	},
+	{
+		"word": "zorra",
+		"weight": 0.2
+	},
+	{
+		"word": "hdp",
+		"weight": 0.2
+	},
+	{
+		"word": "cucaracha",
+		"weight": 0.2
+	},
+	{
+		"word": "falso",
+		"weight": 0.2
 	}
 ]
