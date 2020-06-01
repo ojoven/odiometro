@@ -1,18 +1,19 @@
 /** TWITTER STREAM **/
 module.exports = function (twitter) {
 
-	var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
-	var twitterStream;
+	var track = require("../../app/lib/track.js");
+	var trackWords = track.getWords();
+	console.log(typeof trackWords, trackWords);
 
 	if (global.lang === 'es') {
 		twitterStream = twitter.stream('statuses/filter', {
-			track: track,
+			track: trackWords,
 			language: 'es',
 			place: 'Spain'
 		});
 	} else {
 		twitterStream = twitter.stream('statuses/filter', {
-			track: track,
+			track: trackWords,
 			language: 'en'
 		});
 	}

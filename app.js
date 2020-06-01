@@ -30,8 +30,9 @@ require('./routes')(app, io);
 // Libs
 var database = require("./app/lib/database.js");
 var twitter = require("./app/lib/twitter.js");
+var track = require("./app/lib/track.js");
+var trackWords = track.getWords();
 var twitterStream = require("./app/lib/twitterStream.js")(twitter);
-var track = require(global.appRoot + '/public/track_' + global.lang + '.json');
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -82,11 +83,19 @@ io.on('connection', function (socket) {
 twitterStream.on('tweet', function (tweet) {
 
 	try {
-
 		var tweetText;
 
+		if (Tweet.isItARetweet(tweet)) {
+			tweetText = tweet.retweeted_status.text;
+		} else {
+			tweetText = tweet.text;
+		}
+
+		console.log(tweetText);
+
 		// FILTER: If it's not a hate tweet, we ignore it
-		if (!Tweet.isItAHateTweet(tweet)) return;
+		var information = Tweet.extractInformationFromTweet(tweet, track);
+		if (!Tweet.isItAHateTweetFromInformation(information)) return;
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
@@ -95,20 +104,21 @@ twitterStream.on('tweet', function (tweet) {
 		} else {
 
 			// Or it is a tweet
-			console.log(tweet.text);
 			database.saveTweet(tweet);
 			tweetText = tweet.text;
 
 			// Is it a tweet to be shown?
-			if (Tweet.isItATweetToBeShown(tweet, track)) {
 
-				var tweetParsed = {};
-				tweetParsed.id_str = tweet.id_str;
-				tweetParsed.tweet = tweet.text;
-				tweetParsed.screen_name = tweet.user.screen_name;
+			var tweetParsed = {};
+			tweetParsed.id_str = tweet.id_str;
+			tweetParsed.tweet = tweet.text;
+			var words = information.words.map(function (value, index) {
+				return value.word;
+			});
+			tweetParsed.words = words;
+			tweetParsed.screen_name = tweet.user.screen_name;
 
-				io.sockets.emit('tweet', tweetParsed);
-			}
+			io.sockets.emit('tweet', tweetParsed);
 
 		}
 

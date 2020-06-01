@@ -20,11 +20,7 @@ database.initialize = function () {
 database.saveTweet = function (tweet) {
 
 	var tweetText = this.escapeSingleQuotes(tweet.text);
-	var tweetJson = this.escapeSingleQuotes(JSON.stringify(JSON.stringify(tweet)));
-	tweetJson = tweetJson.substring(1, tweetJson.length - 1);
-	var query = 'INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \'' + tweetJson + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
-	console.log(query);
-	this.connection.query(query, function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \'' + 'json' + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -39,7 +35,7 @@ database.saveRetweet = function (tweet) {
 	var tweetJson = this.escapeSingleQuotes(JSON.stringify(JSON.stringify(tweet)));
 	tweetJson = tweetJson.substring(1, tweetJson.length - 1);
 	var retweetText = this.escapeSingleQuotes(tweet.retweeted_status.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \'' + tweetJson + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
+	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \'' + 'json' + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
 		if (error) {
 			console.log(error);
 			throw error;
