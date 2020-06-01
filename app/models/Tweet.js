@@ -79,7 +79,9 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	// Filter tweets that include words, expressions and emojis that may denote comical attitude or referring to themself (soy gilipollas)
 	var comicalExpressions = ['jaja', 'haha', 'jeje', 'hehe', 'jiji', 'lol', 'de puta madre', 'xd', 'equisde'];
 	var selfRelatedExpressions = ['soy', 'estoy', 'me pasa'];
-	var specificDeactivators = ['querella criminal', 'han retrasado', 'hemos retrasado', 'he retrasado', 'habeis retrasado', 'has retrasado', 'ha retrasado'];
+	var specificDeactivators = ['querella criminal', 'ratatouille',
+		'han retrasado', 'hemos retrasado', 'he retrasado', 'habeis retrasado', 'has retrasado', 'ha retrasado'
+	];
 
 	var filterExpressions = comicalExpressions.concat(selfRelatedExpressions, specificDeactivators);
 

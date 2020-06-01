@@ -149,4 +149,13 @@ describe('is a hate tweet?', function () {
 		assert.equal(Tweet.isItAHateTweet(tweet, track), true);
 	});
 
+	it('should return false if demócrata (it includes the word rata inside it)', function () {
+
+		var tweet = {
+			text: 'hay que ser demócrata en la vida'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
+	});
+
 });
