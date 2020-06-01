@@ -34,6 +34,8 @@ var twitter = require("./app/lib/twitter.js");
 // Logging
 console.log('Odiometro is running on http://localhost:' + port);
 
-database.getMostHatefulUserAndTweet(function (tweet) {
-	console.log(tweet);
-});
+twitter.get('statuses/update', {
+	status: tweet
+}, function (err, data, response) {
+	callback(data)
+})

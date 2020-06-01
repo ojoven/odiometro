@@ -10,14 +10,20 @@ var Tweet = {
 Tweet.isItAHateTweet = function (tweet, track) {
 
 	var hateLevel = this.getHateLevelTweet(tweet, track);
-
 	return hateLevel >= this.thresholdHateLevel;
 };
 
-Tweet.getHateLevelTweet = function (tweet, track) {
+Tweet.isItAHateTweetFromInformation = function (information) {
 
-	var t0 = new Date().getTime()
-	var totalHateTweet = 0;
+	var hateLevel = this.getHateLevelTweetFromInformation(information);
+	return hateLevel >= this.thresholdHateLevel;
+}
+
+Tweet.extractInformationFromTweet = function (tweet, track) {
+
+	var words = [];
+	var filters = [];
+	var type = 'status';
 
 	var tweetTextLowercase = tweet.text.toLowerCase();
 
@@ -25,8 +31,22 @@ Tweet.getHateLevelTweet = function (tweet, track) {
 	var wordsWithWeights = track.getWordsWithWeights();
 	wordsWithWeights.forEach(function (word) {
 		if (tweetTextLowercase.includes(word.word)) {
-			totalHateTweet = totalHateTweet + parseFloat(word.weight);
+			words.push(word);
 		}
+	});
+
+	// Let's filter words that are substrings of others
+	words.forEach(function (word1) {
+		words.forEach(function (word2) {
+			if (word1.word.includes(word2.word) && word1.word !== word2.word) {
+
+				words = words.filter(function (w) {
+					return w.word !== word2.word
+				});
+
+			}
+
+		});
 	});
 
 	// Convert 0.5 or whatever to 1 if it includes previous "eres un..."
@@ -38,8 +58,20 @@ Tweet.getHateLevelTweet = function (tweet, track) {
 	wordsWithWeights.forEach(function (word) {
 
 		directedHateExpresions.forEach(function (directedHateExpresion) {
-			if (tweetTextLowercase.includes(directedHateExpresion + ' ' + word.word)) {
-				totalHateTweet = totalHateTweet + 1 - parseFloat(word.weight);
+			var directedHateExpressionWithWord = directedHateExpresion + ' ' + word.word;
+			if (tweetTextLowercase.includes(directedHateExpressionWithWord)) {
+
+				// Remove word from words (it's now on incrementals)
+				words = words.filter(function (w) {
+					return w.word !== word.word
+				});
+
+				// Add incremental
+				words.push({
+					word: directedHateExpressionWithWord,
+					weight: 1
+				});
+
 			}
 		});
 	});
@@ -53,43 +85,64 @@ Tweet.getHateLevelTweet = function (tweet, track) {
 
 	filterExpressions.forEach(function (filterExpression) {
 		if (tweetTextLowercase.includes(filterExpression)) {
-			totalHateTweet = totalHateTweet - 1;
+			filters.push(filterExpression);
 		}
 	});
 
-	var t1 = new Date().getTime()
-	console.log("Time to parse the tweet: " + (t1 - t0) + " milliseconds.")
+	// TYPE
+	if (tweet.in_reply_to_status_id) {
+		type = 'reply';
+	}
+
+	var information = {
+		words: words,
+		filters: filters,
+		type: type
+	}
+
+	return information;
+}
+
+Tweet.getHateLevelTweet = function (tweet, track) {
+
+	var totalHateTweet = 0;
+
+	var information = this.extractInformationFromTweet(tweet, track);
+	var totalHateTweet = this.getHateLevelTweetFromInformation(information);
+
 	console.log('Hate level: ' + totalHateTweet);
 
 	return totalHateTweet;
 }
 
+Tweet.getHateLevelTweetFromInformation = function (information) {
+
+	var totalHateTweet = 0;
+
+	information.words.forEach(function (word) {
+		totalHateTweet += word.weight;
+	});
+
+	information.filters.forEach(function () {
+		totalHateTweet -= 1;
+	});
+
+	if (information.type === 'mention' ||
+		information.type === 'reply' ||
+		information.type === 'quote') {
+
+		totalHateTweet = totalHateTweet + 0.2;
+	}
+
+	return totalHateTweet;
+}
+
 Tweet.isItAReply = function (tweet) {
-	return (tweet.retweeted_status !== undefined);
+	return (tweet.in_reply_to_status_id !== null);
 };
 
 Tweet.isItARetweet = function (tweet) {
 	return (tweet.retweeted_status !== undefined);
-};
-
-Tweet.isItATweetToBeShown = function (tweet, track) {
-
-	var tweetText = tweet.text.toLowerCase();
-
-	for (var i in track) {
-		var keywords = track[i].split(' ');
-		var allKeywordsMatch = true;
-		for (var j in keywords) {
-			if (tweetText.indexOf(keywords[j].toLowerCase()) === -1) {
-				allKeywordsMatch = false;
-			}
-		}
-		if (allKeywordsMatch) {
-			return true;
-		}
-	}
-
-	return false;
 };
 
 // GET USERS

@@ -120,4 +120,33 @@ describe('is a hate tweet?', function () {
 		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
 	});
 
+	it('should return true if reply to a user using malfollada', function () {
+
+		var tweet = {
+			text: 'vaya con la malfollada',
+			in_reply_to_status_id: 292929292
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), true);
+	});
+
+	it('should return false if reply to a user using ONLY feminazi', function () {
+
+		var tweet = {
+			text: 'vaya con la feminazi',
+			in_reply_to_status_id: 292929292
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
+	});
+
+	it('should return true if puta feminazi', function () {
+
+		var tweet = {
+			text: 'vaya con la puta feminazi'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), true);
+	});
+
 });

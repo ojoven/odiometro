@@ -283,6 +283,14 @@
 		"weight": 1
 	},
 	{
+		"word": "puto gordo",
+		"weight": 1
+	},
+	{
+		"word": "puta gorda",
+		"weight": 1
+	},
+	{
 		"word": "payaso",
 		"weight": 0.8
 	},
@@ -340,7 +348,7 @@
 	},
 	{
 		"word": "feminazi",
-		"weight": 0.5
+		"weight": 0.2
 	},
 	{
 		"word": "capullo",

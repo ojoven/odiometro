@@ -94,7 +94,8 @@ twitterStream.on('tweet', function (tweet) {
 		console.log(tweetText);
 
 		// FILTER: If it's not a hate tweet, we ignore it
-		if (!Tweet.isItAHateTweet(tweet, track)) return;
+		var information = Tweet.extractInformationFromTweet(tweet, track);
+		if (!Tweet.isItAHateTweetFromInformation(information)) return;
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
@@ -107,15 +108,17 @@ twitterStream.on('tweet', function (tweet) {
 			tweetText = tweet.text;
 
 			// Is it a tweet to be shown?
-			if (Tweet.isItATweetToBeShown(tweet, trackWords)) {
 
-				var tweetParsed = {};
-				tweetParsed.id_str = tweet.id_str;
-				tweetParsed.tweet = tweet.text;
-				tweetParsed.screen_name = tweet.user.screen_name;
+			var tweetParsed = {};
+			tweetParsed.id_str = tweet.id_str;
+			tweetParsed.tweet = tweet.text;
+			var words = information.words.map(function (value, index) {
+				return value.word;
+			});
+			tweetParsed.words = words;
+			tweetParsed.screen_name = tweet.user.screen_name;
 
-				io.sockets.emit('tweet', tweetParsed);
-			}
+			io.sockets.emit('tweet', tweetParsed);
 
 		}
 
