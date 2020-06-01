@@ -17,7 +17,6 @@ describe('hate info tweet', function () {
 		};
 
 		var info = Tweet.extractInformationFromTweet(tweet, track);
-		console.log(info);
 
 		assert.equal(info.words[0].word, 'eres una zorra');
 		assert.equal(info.words[0].weight, 1);
@@ -42,7 +41,6 @@ describe('hate info tweet', function () {
 		};
 
 		var info = Tweet.extractInformationFromTweet(tweet, track);
-		console.log(info);
 
 		assert.equal(info.words.length, 3);
 	});

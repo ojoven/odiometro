@@ -34,8 +34,8 @@ var twitter = require("./app/lib/twitter.js");
 // Logging
 console.log('Odiometro is running on http://localhost:' + port);
 
-twitter.get('statuses/update', {
-	status: tweet
+twitter.get('statuses/lookup', {
+	id: "1267468398080000002,1267490841997737986"
 }, function (err, data, response) {
-	callback(data)
+	console.log(data)
 })

@@ -52,7 +52,7 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	// Convert 0.5 or whatever to 1 if it includes previous "eres un..."
 	var directedHateExpresions = ['eres un', 'eres una', 'eres', 'sois', 'sois unas',
 		'sois unos', 'pedazo', 'pedazo de', 'maldito', 'maldita', 'puto', 'puta', 'perro',
-		'el muy', 'la muy', 'los muy', 'las muy'
+		'el muy', 'la muy', 'los muy', 'las muy', 'de lo más', 'el más', 'la más'
 	];
 
 	wordsWithWeights.forEach(function (word) {
@@ -143,6 +143,10 @@ Tweet.isItAReply = function (tweet) {
 	return (tweet.in_reply_to_status_id !== null);
 };
 
+Tweet.isItAQuote = function (tweet) {
+	return tweet.is_quote_status;
+};
+
 Tweet.isItARetweet = function (tweet) {
 	return (tweet.retweeted_status !== undefined);
 };
@@ -178,5 +182,32 @@ Tweet.postTweet = function (tweetText, callback) {
 		callback(data);
 	});
 };
+
+Tweet.parseTweetForStore = function (tweet) {
+
+	tweetStore = {
+		id_str: tweet.id_str,
+		text: tweet.text,
+
+		in_reply_to_status_id_str: tweet.in_reply_to_status_id_str,
+		in_reply_to_user_id_str: tweet.in_reply_to_user_id_str,
+		in_reply_to_user_screen_name: tweet.in_reply_to_user_id_str ? tweet.in_reply_to_screen_name : null,
+
+		quoted_status_id_str: tweet.is_quote_status ? tweet.quoted_status_id_str : null,
+		quoted_status_user_id_str: tweet.is_quote_status ? tweet.quoted_status.user.id_str : null,
+		quoted_status_user_screen_name: tweet.is_quote_status ? tweet.quoted_status.user.screen_name : null,
+
+		user_id_str: tweet.user.id_str,
+		user_screen_name: tweet.user.screen_name,
+		user_followers_count: tweet.user.followers_count,
+		user_friends_count: tweet.user.friends_count,
+		user_statuses_count: tweet.user.statuses_count,
+		user_profile_image_url_https: tweet.user.profile_image_url_https,
+
+		created_at: tweet.created_at
+	}
+
+	return tweetStore;
+}
 
 module.exports = Tweet;

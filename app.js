@@ -85,6 +85,12 @@ twitterStream.on('tweet', function (tweet) {
 	try {
 		var tweetText;
 
+		if (Tweet.isItAQuote(tweet)) {
+			console.log(JSON.stringify(tweet));
+		}
+
+		return;
+
 		if (Tweet.isItARetweet(tweet)) {
 			tweetText = tweet.retweeted_status.text;
 		} else {
@@ -317,7 +323,7 @@ setInterval(function () {
 }, frequencyOfCleaningTweets);
 
 // Run functions when server starts
-database.cleanOldData(timeBeforeTweetsAreCleaned);
+//database.cleanOldData(timeBeforeTweetsAreCleaned);
 
 // GET AVERAGES
 var averages = [];

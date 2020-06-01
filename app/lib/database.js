@@ -93,6 +93,12 @@ database.cleanOldData = function (timeInMinutes) {
 
 };
 
+database.saveTweetStore = function (tweet) {
+
+	var tweetStore = Tweet.parseTweetForStore(tweet);
+}
+
+
 /** USERS **/
 database.saveUsers = function (users) {
 

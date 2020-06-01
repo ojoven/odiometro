@@ -66,4 +66,13 @@ twitterObject.postTweetAsReplyTo = function (tweet, id_str, callback) {
 	})
 }
 
+twitterObject.getTweet = function (id_str, callback) {
+
+	twitterObject.get('statuses/show/:id', {
+		id: id_str
+	}, function (err, data, response) {
+		callback(data)
+	})
+}
+
 module.exports = twitterObject;
