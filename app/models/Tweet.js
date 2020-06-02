@@ -210,4 +210,35 @@ Tweet.parseTweetForStore = function (tweet) {
 	return tweetStore;
 }
 
+Tweet.isValidLocation = function (tweet, nonValidLocations) {
+
+	var isValidLocation = true;
+	var userLocation = tweet.user.location ? tweet.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
+	var retweetedUserLocation = tweet.retweeted_status ? tweet.retweeted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
+	var quotedUserLocation = tweet.quoted_status ? tweet.quoted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
+
+	nonValidLocations.forEach(function (location) {
+
+		location = location.toLowerCase();
+
+		// If user's location
+		if (userLocation && userLocation.includes(location)) {
+			isValidLocation = false;
+		}
+
+		// If retweeted user's location
+		if (retweetedUserLocation && retweetedUserLocation.includes(location)) {
+			isValidLocation = false;
+		}
+
+		// If quoted user's location
+		if (quotedUserLocation && quotedUserLocation.includes(location)) {
+			isValidLocation = false;
+		}
+	});
+
+	return isValidLocation;
+
+}
+
 module.exports = Tweet;

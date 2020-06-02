@@ -13,6 +13,7 @@ describe('tweet store', function () {
 
 		var twitter = require("../app/lib/twitter.js");
 
+
 		twitter.getTweet("1264954172312559617", function (tweet) {
 
 			var tweetStore = Tweet.parseTweetForStore(tweet);
@@ -27,14 +28,16 @@ describe('tweet store', function () {
 
 	});
 
-	it('should parse the tweet correctly if a reply', function () {
+	it.skip('should parse the tweet correctly if a reply', function () {
 
 		var twitter = require("../app/lib/twitter.js");
 
 		twitter.getTweet("1264962183756218368", function (tweet) {
 
+			console.log(tweet);
+
 			var tweetStore = Tweet.parseTweetForStore(tweet);
-			console.log(tweetStore);
+			//console.log(tweetStore);
 			assert.equal(tweetStore.in_reply_to_status_id_str, "1264954172312559617");
 			assert.equal(tweetStore.in_reply_to_user_id_str, "29231749");
 			assert.equal(tweetStore.in_reply_to_user_screen_name, "ojoven");

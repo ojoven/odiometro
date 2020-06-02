@@ -85,23 +85,16 @@ twitterStream.on('tweet', function (tweet) {
 	try {
 		var tweetText;
 
-		if (Tweet.isItAQuote(tweet)) {
-			console.log(JSON.stringify(tweet));
-		}
-
-		return;
-
 		if (Tweet.isItARetweet(tweet)) {
 			tweetText = tweet.retweeted_status.text;
 		} else {
 			tweetText = tweet.text;
 		}
 
-		console.log(tweetText);
-
 		// FILTER: If it's not a hate tweet, we ignore it
 		var information = Tweet.extractInformationFromTweet(tweet, track);
 		if (!Tweet.isItAHateTweetFromInformation(information)) return;
+		if (!Tweet.isValidLocation(tweet)) return;
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
@@ -319,7 +312,7 @@ setInterval(function () {
 var frequencyOfCleaningTweets = 60000; // 1 minute in miliseconds
 var timeBeforeTweetsAreCleaned = 10; // 10 minutes
 setInterval(function () {
-	database.cleanOldData(timeBeforeTweetsAreCleaned);
+	//database.cleanOldData(timeBeforeTweetsAreCleaned);
 }, frequencyOfCleaningTweets);
 
 // Run functions when server starts

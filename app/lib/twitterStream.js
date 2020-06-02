@@ -8,8 +8,7 @@ module.exports = function (twitter) {
 	if (global.lang === 'es') {
 		twitterStream = twitter.stream('statuses/filter', {
 			track: trackWords,
-			language: 'es',
-			place: 'Spain'
+			language: 'es'
 		});
 	} else {
 		twitterStream = twitter.stream('statuses/filter', {
