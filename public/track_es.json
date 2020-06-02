@@ -3,6 +3,10 @@
 		"weight": 1
 	},
 	{
+		"word": "tu puta madre",
+		"weight": 1
+	},
+	{
 		"word": "pudrete",
 		"weight": 1
 	},
@@ -35,6 +39,22 @@
 		"weight": 1
 	},
 	{
+		"word": "hijo de la gran puta",
+		"weight": 1
+	},
+	{
+		"word": "hija de la gran puta",
+		"weight": 1
+	},
+	{
+		"word": "hijo de la grandísima puta",
+		"weight": 1
+	},
+	{
+		"word": "hija de la grandísima puta",
+		"weight": 1
+	},
+	{
 		"word": "asco de gente",
 		"weight": 1
 	},
@@ -48,6 +68,18 @@
 	},
 	{
 		"word": "das asco",
+		"weight": 1
+	},
+	{
+		"word": "qué asco das",
+		"weight": 1
+	},
+	{
+		"word": "qué asco dais",
+		"weight": 1
+	},
+	{
+		"word": "qué asco dan",
 		"weight": 1
 	},
 	{
@@ -151,10 +183,6 @@
 		"weight": 1
 	},
 	{
-		"word": "lameculos",
-		"weight": 1
-	},
-	{
 		"word": "piojoso",
 		"weight": 1
 	},
@@ -223,11 +251,23 @@
 		"weight": 1
 	},
 	{
+		"word": "monguer",
+		"weight": 1
+	},
+	{
 		"word": "cretino",
 		"weight": 1
 	},
 	{
+		"word": "cretina",
+		"weight": 1
+	},
+	{
 		"word": "ojalá te mueras",
+		"weight": 1
+	},
+	{
+		"word": "ojalá sufras",
 		"weight": 1
 	},
 	{
@@ -275,7 +315,11 @@
 		"weight": 1
 	},
 	{
-		"word": "tu puta madre",
+		"word": "lazi",
+		"weight": 1
+	},
+	{
+		"word": "catalufo",
 		"weight": 1
 	},
 	{
@@ -283,11 +327,131 @@
 		"weight": 1
 	},
 	{
-		"word": "puto gordo",
+		"word": "analfabeto",
 		"weight": 1
 	},
 	{
-		"word": "puta gorda",
+		"word": "analfabeta",
+		"weight": 1
+	},
+	{
+		"word": "lameculos",
+		"weight": 1
+	},
+	{
+		"word": "comepollas",
+		"weight": 1
+	},
+	{
+		"word": "palurdo",
+		"weight": 1
+	},
+	{
+		"word": "palurda",
+		"weight": 1
+	},
+	{
+		"word": "que te den por culo",
+		"weight": 1
+	},
+	{
+		"word": "que te den por el culo",
+		"weight": 1
+	},
+	{
+		"word": "apestas",
+		"weight": 1
+	},
+	{
+		"word": "apestáis",
+		"weight": 1
+	},
+	{
+		"word": "ñordo",
+		"weight": 1
+	},
+	{
+		"word": "voxmitivo",
+		"weight": 1
+	},
+	{
+		"word": "perroflauta",
+		"weight": 1
+	},
+	{
+		"word": "caradura",
+		"weight": 1
+	},
+	{
+		"word": "psicópata",
+		"weight": 1
+	},
+	{
+		"word": "infame",
+		"weight": 1
+	},
+	{
+		"word": "inmundo",
+		"weight": 1
+	},
+	{
+		"word": "inmunda",
+		"weight": 1
+	},
+	{
+		"word": "sátrapa",
+		"weight": 1
+	},
+	{
+		"word": "indecente",
+		"weight": 1
+	},
+	{
+		"word": "embustero",
+		"weight": 1
+	},
+	{
+		"word": "embustera",
+		"weight": 1
+	},
+	{
+		"word": "matón",
+		"weight": 1
+	},
+	{
+		"word": "déspota",
+		"weight": 1
+	},
+	{
+		"word": "desverguenza",
+		"weight": 1
+	},
+	{
+		"word": "desvergonzado",
+		"weight": 1
+	},
+	{
+		"word": "desvergonzada",
+		"weight": 1
+	},
+	{
+		"word": "indigente mental",
+		"weight": 1
+	},
+	{
+		"word": "indigente intelectual",
+		"weight": 1
+	},
+	{
+		"word": "depravado",
+		"weight": 1
+	},
+	{
+		"word": "felón",
+		"weight": 1
+	},
+	{
+		"word": "chusma",
 		"weight": 1
 	},
 	{
@@ -339,16 +503,16 @@
 		"weight": 0.8
 	},
 	{
+		"word": "soplapolleces",
+		"weight": 0.8
+	},
+	{
 		"word": "facha",
 		"weight": 0.5
 	},
 	{
 		"word": "fascista",
 		"weight": 0.5
-	},
-	{
-		"word": "feminazi",
-		"weight": 0.2
 	},
 	{
 		"word": "capullo",
@@ -483,7 +647,7 @@
 		"weight": 0.5
 	},
 	{
-		"word": " rata",
+		"word": "rata",
 		"weight": 0.5
 	},
 	{
@@ -527,6 +691,86 @@
 		"weight": 0.5
 	},
 	{
+		"word": "cornudo",
+		"weight": 0.5
+	},
+	{
+		"word": "cornuda",
+		"weight": 0.5
+	},
+	{
+		"word": "que te follen",
+		"weight": 0.5
+	},
+	{
+		"word": "podemita",
+		"weight": 0.5
+	},
+	{
+		"word": "sociata",
+		"weight": 0.5
+	},
+	{
+		"word": "golfo",
+		"weight": 0.5
+	},
+	{
+		"word": "golfa",
+		"weight": 0.5
+	},
+	{
+		"word": "suicida",
+		"weight": 0.5
+	},
+	{
+		"word": "corrupto",
+		"weight": 0.5
+	},
+	{
+		"word": "indigno",
+		"weight": 0.5
+	},
+	{
+		"word": "delincuente",
+		"weight": 0.5
+	},
+	{
+		"word": "peste",
+		"weight": 0.5
+	},
+	{
+		"word": "cínico",
+		"weight": 0.5
+	},
+	{
+		"word": "cínica",
+		"weight": 0.5
+	},
+	{
+		"word": "execrable",
+		"weight": 0.5
+	},
+	{
+		"word": "perverso",
+		"weight": 0.5
+	},
+	{
+		"word": "depravada",
+		"weight": 0.5
+	},
+	{
+		"word": "necio",
+		"weight": 0.5
+	},
+	{
+		"word": "necia",
+		"weight": 0.5
+	},
+	{
+		"word": "adefesio",
+		"weight": 0.5
+	},
+	{
 		"word": "zorra",
 		"weight": 0.2
 	},
@@ -540,6 +784,10 @@
 	},
 	{
 		"word": "falso",
+		"weight": 0.2
+	},
+	{
+		"word": "feminazi",
 		"weight": 0.2
 	}
 ]

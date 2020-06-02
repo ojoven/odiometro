@@ -22,8 +22,7 @@ module.exports = function (app, io) {
 
 	app.get('/', cache(3600), function (req, res) {
 
-		res.render('index');
-		// Render views/index.html
+		res.render(global.botConfig.index);
 	});
 
 };

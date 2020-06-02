@@ -29,10 +29,6 @@ Vue.component('tweet-show', {
 			this.updateHeaderStabs();
 		}.bind(this));
 
-		// Retrieve the tracked queries (so we can highlight them in the tweets)
-		axios.get('/track_' + this.$locale + '.json').then(function (response) {
-			store.track = response.data;
-		});
 	},
 
 	methods: {

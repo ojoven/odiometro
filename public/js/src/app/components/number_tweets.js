@@ -3,7 +3,7 @@ Vue.component('number-tweets', {
 	template: `
 		<div id="number_tweets" class="number_tweets" role="status" aria-live="off">
 			<span class="num">{{ number_tweets }}</span>
-			<span class="suffix">{{$t("tweets_minute")}}</span>
+			<span class="suffix">{{$t('tweets_minute')}}</span>
 		</div>
   `,
 

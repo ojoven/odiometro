@@ -5,10 +5,9 @@
 */
 
 // Languages
-var acceptedLangs = ['es', 'en'];
 var args = process.argv.slice(2);
-var defaultLang = 'es';
-global.lang = (args && typeof args[0] !== "undefined" && acceptedLangs.indexOf(args[0]) !== -1) ? args[0] : defaultLang;
+var defaultBot = 'odiometro';
+var bot = (args && typeof args[0] !== "undefined") ? args[0] : defaultBot;
 
 // Path and ENV
 var path = require('path');
@@ -16,6 +15,7 @@ global.appRoot = path.resolve(__dirname);
 require('dotenv').config();
 global.urlBase = process.env.URL_BASE;
 global.phantomJsBin = process.env.PHANTOMJS;
+global.botConfig = require("./config/" + bot + ".json");
 
 // Initialize express
 var express = require('express'),
@@ -31,8 +31,10 @@ require('./routes')(app, io);
 var database = require("./app/lib/database.js");
 var twitter = require("./app/lib/twitter.js");
 var track = require("./app/lib/track.js");
-var trackWords = track.getWords();
 var twitterStream = require("./app/lib/twitterStream.js")(twitter);
+
+// Data
+var ignoreLocations = global.botConfig.ignore_locations;
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -83,18 +85,12 @@ io.on('connection', function (socket) {
 twitterStream.on('tweet', function (tweet) {
 
 	try {
-		var tweetText;
-
-		if (Tweet.isItARetweet(tweet)) {
-			tweetText = tweet.retweeted_status.text;
-		} else {
-			tweetText = tweet.text;
-		}
+		var tweetText = Tweet.getText(tweet);
 
 		// FILTER: If it's not a hate tweet, we ignore it
 		var information = Tweet.extractInformationFromTweet(tweet, track);
 		if (!Tweet.isItAHateTweetFromInformation(information)) return;
-		if (!Tweet.isValidLocation(tweet)) return;
+		if (!Tweet.isValidLocation(tweet, ignoreLocations)) return;
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {

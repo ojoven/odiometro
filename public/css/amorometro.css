@@ -1,0 +1,17 @@
+#header { background: #E43C33; }
+#header h1 { font-family: 'Chicle', cursive; text-transform: none; }
+
+footer { background: #E43C33; }
+
+.bold, .most_hated_user a, .resume-container .user-message .highlight-user, .btn, h1, h2, h3 { font-family: 'Chicle', cursive; }
+
+#menu li a.active, #menu li a:hover, #menu li a:focus { background: #E43C33; }
+
+#number_tweets .num { font-family: 'Chicle', cursive; }
+
+.most_hated_user a { color: #E43C33; letter-spacing: 1px; }
+
+#follow a { background: #E43C33; }
+
+#header h1 i { display: inline-block; background: url(../img/heart.png) no-repeat center center; background-size: contain; width: 40px; height: 40px; position: relative; top: 6px; }
+#header h1 i.right { background: url(../img/heart.png) no-repeat center center; background-size: contain; }

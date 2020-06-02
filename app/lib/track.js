@@ -10,7 +10,7 @@ var track = {
 	},
 
 	getWordsWithWeights: function () {
-		var trackComplete = require(global.appRoot + '/public/track_' + global.lang + '.json');
+		var trackComplete = global.botConfig.track;
 		return trackComplete;
 	}
 }

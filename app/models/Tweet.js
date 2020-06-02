@@ -50,16 +50,13 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	});
 
 	// Convert 0.5 or whatever to 1 if it includes previous "eres un..."
-	var directedHateExpresions = ['eres un', 'eres una', 'eres', 'sois', 'sois unas',
-		'sois unos', 'pedazo', 'pedazo de', 'maldito', 'maldita', 'puto', 'puta', 'perro',
-		'el muy', 'la muy', 'los muy', 'las muy', 'de lo más', 'el más', 'la más'
-	];
+	var hatePrefixes = global.botConfig.hate_prefixes;
 
 	wordsWithWeights.forEach(function (word) {
 
-		directedHateExpresions.forEach(function (directedHateExpresion) {
-			var directedHateExpressionWithWord = directedHateExpresion + ' ' + word.word;
-			if (tweetTextLowercase.includes(directedHateExpressionWithWord)) {
+		hatePrefixes.forEach(function (hatePrefix) {
+			var hatePrefixWithWord = hatePrefix + ' ' + word.word;
+			if (tweetTextLowercase.includes(hatePrefixWithWord)) {
 
 				// Remove word from words (it's now on incrementals)
 				words = words.filter(function (w) {
@@ -68,7 +65,7 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 
 				// Add incremental
 				words.push({
-					word: directedHateExpressionWithWord,
+					word: hatePrefixWithWord,
 					weight: 1
 				});
 
@@ -77,11 +74,9 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	});
 
 	// Filter tweets that include words, expressions and emojis that may denote comical attitude or referring to themself (soy gilipollas)
-	var comicalExpressions = ['jaja', 'haha', 'jeje', 'hehe', 'jiji', 'lol', 'de puta madre', 'xd', 'equisde'];
-	var selfRelatedExpressions = ['soy', 'estoy', 'me pasa'];
-	var specificDeactivators = ['querella criminal', 'ratatouille',
-		'han retrasado', 'hemos retrasado', 'he retrasado', 'habeis retrasado', 'has retrasado', 'ha retrasado'
-	];
+	var comicalExpressions = global.botConfig.ignore_expressions.comical;
+	var selfRelatedExpressions = global.botConfig.ignore_expressions.self;
+	var specificDeactivators = global.botConfig.ignore_expressions.specific;
 
 	var filterExpressions = comicalExpressions.concat(selfRelatedExpressions, specificDeactivators);
 
@@ -94,6 +89,8 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	// TYPE
 	if (tweet.in_reply_to_status_id) {
 		type = 'reply';
+	} else if (tweet.quoted_status) {
+		type = 'quote';
 	}
 
 	var information = {
@@ -210,14 +207,14 @@ Tweet.parseTweetForStore = function (tweet) {
 	return tweetStore;
 }
 
-Tweet.isValidLocation = function (tweet, nonValidLocations) {
+Tweet.isValidLocation = function (tweet, ignoreLocations) {
 
 	var isValidLocation = true;
 	var userLocation = tweet.user.location ? tweet.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
-	var retweetedUserLocation = tweet.retweeted_status ? tweet.retweeted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
-	var quotedUserLocation = tweet.quoted_status ? tweet.quoted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
+	var retweetedUserLocation = tweet.retweeted_status && tweet.retweeted_status.user.location ? tweet.retweeted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
+	var quotedUserLocation = tweet.quoted_status && tweet.quoted_status.user.location ? tweet.quoted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
 
-	nonValidLocations.forEach(function (location) {
+	ignoreLocations.forEach(function (location) {
 
 		location = location.toLowerCase();
 
@@ -239,6 +236,15 @@ Tweet.isValidLocation = function (tweet, nonValidLocations) {
 
 	return isValidLocation;
 
+}
+
+Tweet.getText = function (tweet) {
+
+	if (Tweet.isItARetweet(tweet)) {
+		tweetText = tweet.retweeted_status.truncated ? tweet.retweeted_status.extended_tweet.text : tweet.retweeted_status.text;
+	} else {
+		tweetText = tweet.truncated ? tweet.extended_tweet.text : tweet.text;
+	}
 }
 
 module.exports = Tweet;

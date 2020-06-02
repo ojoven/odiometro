@@ -4,16 +4,18 @@ var expect = require('chai').expect;
 describe('is a tweet from location?', function () {
 
 	var Tweet = require("../app/models/Tweet.js");
-	var nonValidLocations = require("../config/non-valid-locations.json");
 
 	var path = require('path');
 	global.appRoot = path.resolve(__dirname + '/../');
 	global.lang = 'es';
+	global.botConfig = require("../config/odiometro.json");
+
+	var ignoreLocations = global.botConfig.ignore_locations;
 
 	it('should return all different words from track.json', function () {
 
 		var existingLocations = [];
-		nonValidLocations.forEach(function (location) {
+		ignoreLocations.forEach(function (location) {
 			expect(existingLocations).not.to.include(location);
 			existingLocations.push(location);
 		})
@@ -28,7 +30,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), false);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), false);
 	});
 
 	it('should return not valid location if users location includes Mexico (no tilde)', function () {
@@ -39,7 +41,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), false);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), false);
 	});
 
 	it('should return not valid location if users location includes mexico (no tilde, lowercase)', function () {
@@ -50,7 +52,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), false);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), false);
 	});
 
 	it('should return valid location if Madrid, España', function () {
@@ -61,7 +63,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), true);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), true);
 	});
 
 	it('should return valid location if location null', function () {
@@ -72,7 +74,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), true);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), true);
 	});
 
 	it('should return not valid location if retweeted tweets user location is México', function () {
@@ -88,7 +90,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), false);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), false);
 	});
 
 	it('should return not valid location if quoted tweets user location is México', function () {
@@ -104,7 +106,7 @@ describe('is a tweet from location?', function () {
 			}
 		};
 
-		assert.equal(Tweet.isValidLocation(tweet, nonValidLocations), false);
+		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations), false);
 	});
 
 });
