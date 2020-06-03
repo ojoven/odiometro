@@ -1,13 +1,13 @@
 #header { background: #E43C33; }
-#header h1 { font-family: 'Chicle', cursive; text-transform: none; }
+#header h1 { font-family: 'Chewy'; }
 
 footer { background: #E43C33; }
 
-.bold, .most_hated_user a, .resume-container .user-message .highlight-user, .btn, h1, h2, h3 { font-family: 'Chicle', cursive; }
+.bold, .most_hated_user a, .resume-container .user-message .highlight-user, .btn, h1, h2, h3 { font-family: 'Chewy', cursive; }
 
 #menu li a.active, #menu li a:hover, #menu li a:focus { background: #E43C33; }
 
-#number_tweets .num { font-family: 'Chicle', cursive; }
+#number_tweets .num { font-family: 'Chewy', cursive; }
 
 .most_hated_user a { color: #E43C33; letter-spacing: 1px; }
 

@@ -15,13 +15,14 @@ global.appRoot = path.resolve(__dirname);
 require('dotenv').config();
 global.urlBase = process.env.URL_BASE;
 global.phantomJsBin = process.env.PHANTOMJS;
+global.botName = bot;
 global.botConfig = require("./config/" + bot + ".json");
 
 // Initialize express
 var express = require('express'),
 	app = express();
 
-var port = process.env.PORT || 8001;
+var port = process.env.PORT || global.botConfig.port;
 
 var io = require('socket.io').listen(app.listen(port));
 require('./config')(app, io);

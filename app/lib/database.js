@@ -1,5 +1,5 @@
 /** DATABASE **/
-var dbConfig = require(global.appRoot + '/config/database.json');
+var dbConfig = require(global.appRoot + '/config/database_' + global.botName + '.json');
 var mysql = require('mysql');
 
 var database = {

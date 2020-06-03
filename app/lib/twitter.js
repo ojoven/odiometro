@@ -1,6 +1,6 @@
 /** TWITTER **/
 // Twitter streaming
-var twitterConfig = require(global.appRoot + '/config/twitter.json');
+var twitterConfig = require(global.appRoot + '/config/twitter_' + global.botName + '.json');
 var fs = require('fs');
 
 var Twit = require('twit');

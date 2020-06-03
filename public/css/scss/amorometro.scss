@@ -3,14 +3,13 @@
 // ==============================================
 // Custom styles just for amorometro website
 
-$red: #E43C33;
+$red: #db332d;
 
 #header {
 	background: $red;
 
 	h1 {
-		font-family: 'Chicle', cursive;
-		text-transform: none;
+		font-family: 'Chewy';
 	}
 }
 
@@ -25,7 +24,8 @@ footer {
 h1,
 h2,
 h3 {
-	font-family: 'Chicle', cursive;
+	font-family: 'Chewy',
+		cursive;
 }
 
 #menu li a {
@@ -39,7 +39,8 @@ h3 {
 }
 
 #number_tweets .num {
-	font-family: 'Chicle', cursive;
+	font-family: 'Chewy',
+		cursive;
 }
 
 .most_hated_user a {
