@@ -1,31 +1,31 @@
 {
-  "name": "Odiometro",
-  "version": "0.9.0",
-  "description": "Measure hate tweets in real time on Twitter",
-  "main": "app.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "keywords": [
-    "node",
-    "chat",
-    "system"
-  ],
-  "author": "Mikel Torres Ugarte",
-  "license": "MIT",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "ejs": "^1.0.0",
-    "express": "^4.8.2",
-    "gravatar": "~1.0.6",
-    "memory-cache": "^0.2.0",
-    "mysql": "^2.17.1",
-    "socket.io": "1.0.6",
-    "twit": "^2.2.11",
-    "vue": "^2.3.4"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^7.2.0"
-  }
+	"name": "Odiometro",
+	"version": "0.9.0",
+	"description": "Measure hate tweets in real time on Twitter",
+	"main": "app.js",
+	"scripts": {
+		"test": "mocha"
+	},
+	"keywords": [
+		"node",
+		"chat",
+		"system"
+	],
+	"author": "Mikel Torres Ugarte",
+	"license": "MIT",
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"ejs": ">=2.5.5",
+		"express": "^4.8.2",
+		"gravatar": "~1.0.6",
+		"memory-cache": "^0.2.0",
+		"mysql": "^2.17.1",
+		"socket.io": "1.0.6",
+		"twit": "^2.2.11",
+		"vue": "^2.3.4"
+	},
+	"devDependencies": {
+		"chai": "^4.2.0",
+		"mocha": "^7.2.0"
+	}
 }
