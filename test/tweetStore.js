@@ -15,6 +15,7 @@ describe('tweet store', function () {
 
 		twitter.getTweet("1264954172312559617", function (tweet) {
 
+			tweet.words = [];
 			var tweetStore = Tweet.parseTweetForStore(tweet);
 			assert.equal(tweetStore.in_reply_to_status_id_str, null);
 			assert.equal(tweetStore.in_reply_to_user_id_str, null);
@@ -34,7 +35,7 @@ describe('tweet store', function () {
 		twitter.getTweet("1264962183756218368", function (tweet) {
 
 			console.log(tweet);
-
+			tweet.words = [];
 			var tweetStore = Tweet.parseTweetForStore(tweet);
 			//console.log(tweetStore);
 			assert.equal(tweetStore.in_reply_to_status_id_str, "1264954172312559617");

@@ -38,6 +38,7 @@ var twitterStream = require("./app/lib/twitterStream.js")(twitter);
 var ignoreLocations = global.botConfig.ignore_locations;
 var ignoreAccounts = global.botConfig.ignore_accounts;
 var ignoreForeignExpressions = global.botConfig.ignore_foreign_expressions;
+var ignoreUserDescriptions = global.botConfig.ignore_user_descriptions;
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -93,16 +94,20 @@ twitterStream.on('tweet', function (tweet) {
 		// FILTER: If it's not a hate tweet, we ignore it
 		var information = Tweet.extractInformationFromTweet(tweet, track);
 		if (!Tweet.isItAHateTweetFromInformation(information)) return;
-		if (!Tweet.isValidLocation(tweet, ignoreLocations, ignoreAccounts, ignoreForeign)) return;
+		if (!Tweet.isValidLocation(tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions, ignoreUserDescriptions)) return;
+
+		console.log(tweet.user.description);
 
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
+			console.log(tweet.retweeted_status.user.description);
 			database.saveRetweet(tweet);
 			database.saveRetweetStore(tweet);
 			tweetText = tweet.retweeted_status.text;
 		} else {
 
 			// Or it is a tweet
+			tweet.information = information;
 			database.saveTweet(tweet);
 			database.saveTweetStore(tweet);
 			tweetText = tweet.text;

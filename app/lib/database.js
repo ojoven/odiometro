@@ -109,6 +109,7 @@ database.saveTweetStore = function (tweet) {
 	var query = 'INSERT INTO ' + dbConfig.database + '.tweets_store VALUES(null, ' +
 		'\'' + tweetStore.id_str + '\', ' +
 		'\'' + this.escapeSingleQuotes(tweetStore.text) + '\', ' +
+		'\'' + tweetStore.words + '\', ' +
 		in_reply_to_status_id_str + ', ' +
 		in_reply_to_user_id_str + ', ' +
 		in_reply_to_user_screen_name + ', ' +

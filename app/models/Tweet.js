@@ -182,9 +182,14 @@ Tweet.postTweet = function (tweetText, callback) {
 
 Tweet.parseTweetForStore = function (tweet) {
 
+	var words = tweet.information.words.map(function (wordObject) {
+		return wordObject.word;
+	});
+
 	tweetStore = {
 		id_str: tweet.id_str,
 		text: tweet.text,
+		words: words.join(','),
 
 		in_reply_to_status_id_str: tweet.in_reply_to_status_id_str,
 		in_reply_to_user_id_str: tweet.in_reply_to_user_id_str,
@@ -219,7 +224,7 @@ Tweet.parseRetweetForStore = function (retweet) {
 	return retweetStore;
 }
 
-Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions) {
+Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions, ignoreUserDescriptions) {
 
 	var isValidLocation = true;
 
@@ -246,19 +251,27 @@ Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignore
 		if (quotedUserLocation && quotedUserLocation.includes(location)) {
 			isValidLocation = false;
 		}
+
+		// If location in user's bio
+		if (tweet.user.description && tweet.user.description.includes(location) ||
+			(tweet.retweeted_status && tweet.retweeted_status.user.description && tweet.retweeted_status.user.description.includes(location)) ||
+			(tweet.quoted_status && tweet.quoted_status.user.description && tweet.quoted_status.user.description.includes(location))
+		) {
+			isValidLocation = false;
+		}
 	});
 
 	// We check too, if replying, mentioning or quoting an account to ignore
-	console.log(tweet);
 	var tweetTextLowercase = tweet.text.toLowerCase();
 	ignoreAccounts.forEach(function (ignoreAccount) {
-		if (tweetTextLowercase.includes(ignoreAccount) ||
-			tweet.user.screen_name === ignoreAccount) {
+		var ignoreAccountLowerCase = ignoreAccount.toLowerCase();
+		if (tweetTextLowercase.includes(ignoreAccountLowerCase) ||
+			(tweet.user.screen_name.toLowerCase() === ignoreAccountLowerCase)) {
 			isValidLocation = false;
 		}
 
-		if (tweet.quoted_status && tweet.quoted_status.user.screen_name === ignoreAccount) isValidLocation = false;
-		if (tweet.retweeted_status && tweet.retweeted_status.user.screen_name === ignoreAccount) isValidLocation = false;
+		if (tweet.quoted_status && tweet.quoted_status.user.screen_name.toLowerCase() === ignoreAccountLowerCase) isValidLocation = false;
+		if (tweet.retweeted_status && tweet.retweeted_status.user.screen_name.toLowerCase() === ignoreAccountLowerCase) isValidLocation = false;
 	});
 
 	// We check too, if a foreign expression has been used
@@ -266,6 +279,18 @@ Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignore
 		if (tweetTextLowercase.includes(ignoreForeignExpression)) {
 			isValidLocation = false;
 		}
+	});
+
+	// We check too, if a foreign expression has been used
+	ignoreUserDescriptions.forEach(function (ignoreUserDescription) {
+
+		if (tweet.user.description && tweet.user.description.includes(ignoreUserDescription) ||
+			(tweet.retweeted_status && tweet.retweeted_status.user.description && tweet.retweeted_status.user.description.includes(ignoreUserDescription)) ||
+			(tweet.quoted_status && tweet.quoted_status.user.description && tweet.quoted_status.user.description.includes(ignoreUserDescription))
+		) {
+			isValidLocation = false;
+		}
+
 	});
 
 	return isValidLocation;
