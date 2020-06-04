@@ -199,7 +199,7 @@ Tweet.parseTweetForStore = function (tweet) {
 		user_followers_count: tweet.user.followers_count,
 		user_friends_count: tweet.user.friends_count,
 		user_statuses_count: tweet.user.statuses_count,
-		user_profile_image_url_https: tweet.user.profile_image_url_https,
+		user_profile_image_url_https: tweet.user.profile_image_url_https.replace('https://pbs.twimg.com/profile_images/', '').replace('_normal', ''),
 
 		created_at: tweet.created_at
 	}
@@ -207,9 +207,23 @@ Tweet.parseTweetForStore = function (tweet) {
 	return tweetStore;
 }
 
-Tweet.isValidLocation = function (tweet, ignoreLocations) {
+Tweet.parseRetweetForStore = function (retweet) {
+
+	retweetStore = {
+		id_str: retweet.id_str,
+		user_id_str: retweet.user.id_str,
+		user_screen_name: retweet.user.screen_name,
+		retweeted_status_id_str: retweet.retweeted_status.id_str
+	}
+
+	return retweetStore;
+}
+
+Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions) {
 
 	var isValidLocation = true;
+
+	// First we check user sending or retweeting location in bio
 	var userLocation = tweet.user.location ? tweet.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
 	var retweetedUserLocation = tweet.retweeted_status && tweet.retweeted_status.user.location ? tweet.retweeted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
 	var quotedUserLocation = tweet.quoted_status && tweet.quoted_status.user.location ? tweet.quoted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
@@ -230,6 +244,26 @@ Tweet.isValidLocation = function (tweet, ignoreLocations) {
 
 		// If quoted user's location
 		if (quotedUserLocation && quotedUserLocation.includes(location)) {
+			isValidLocation = false;
+		}
+	});
+
+	// We check too, if replying, mentioning or quoting an account to ignore
+	console.log(tweet);
+	var tweetTextLowercase = tweet.text.toLowerCase();
+	ignoreAccounts.forEach(function (ignoreAccount) {
+		if (tweetTextLowercase.includes(ignoreAccount) ||
+			tweet.user.screen_name === ignoreAccount) {
+			isValidLocation = false;
+		}
+
+		if (tweet.quoted_status && tweet.quoted_status.user.screen_name === ignoreAccount) isValidLocation = false;
+		if (tweet.retweeted_status && tweet.retweeted_status.user.screen_name === ignoreAccount) isValidLocation = false;
+	});
+
+	// We check too, if a foreign expression has been used
+	ignoreForeignExpressions.forEach(function (ignoreForeignExpression) {
+		if (tweetTextLowercase.includes(ignoreForeignExpression)) {
 			isValidLocation = false;
 		}
 	});

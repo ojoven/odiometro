@@ -1,6 +1,7 @@
 /** DATABASE **/
 var dbConfig = require(global.appRoot + '/config/database_' + global.botName + '.json');
 var mysql = require('mysql');
+var Tweet = require("../models/Tweet.js");
 
 var database = {
 	connection: mysql.createConnection({
@@ -96,8 +97,51 @@ database.cleanOldData = function (timeInMinutes) {
 database.saveTweetStore = function (tweet) {
 
 	var tweetStore = Tweet.parseTweetForStore(tweet);
+
+	var in_reply_to_status_id_str = tweetStore.in_reply_to_status_id_str ? '\'' + tweetStore.in_reply_to_status_id_str + '\'' : null;
+	var in_reply_to_user_id_str = tweetStore.in_reply_to_user_id_str ? '\'' + tweetStore.in_reply_to_user_id_str + '\'' : null;
+	var in_reply_to_user_screen_name = tweetStore.in_reply_to_user_screen_name ? '\'' + tweetStore.in_reply_to_user_screen_name + '\'' : null;
+
+	var quoted_status_id_str = tweetStore.quoted_status_id_str ? '\'' + tweetStore.quoted_status_id_str + '\'' : null;
+	var quoted_status_user_id_str = tweetStore.quoted_status_user_id_str ? '\'' + tweetStore.quoted_status_user_id_str + '\'' : null;
+	var quoted_status_user_screen_name = tweetStore.quoted_status_user_screen_name ? '\'' + tweetStore.quoted_status_user_screen_name + '\'' : null;
+
+	var query = 'INSERT INTO ' + dbConfig.database + '.tweets_store VALUES(null, ' +
+		'\'' + tweetStore.id_str + '\', ' +
+		'\'' + this.escapeSingleQuotes(tweetStore.text) + '\', ' +
+		in_reply_to_status_id_str + ', ' +
+		in_reply_to_user_id_str + ', ' +
+		in_reply_to_user_screen_name + ', ' +
+		quoted_status_id_str + ', ' +
+		quoted_status_user_id_str + ', ' +
+		quoted_status_user_screen_name + ', ' +
+		'\'' + tweetStore.user_id_str + '\', ' +
+		'\'' + tweetStore.user_screen_name + '\', ' +
+		tweetStore.user_followers_count + ', ' +
+		tweetStore.user_friends_count + ', ' +
+		tweetStore.user_statuses_count + ', ' +
+		'\'' + tweetStore.user_profile_image_url_https + '\', ' +
+		'\'' + tweetStore.created_at + '\', ' +
+		'\'' + database.currentDateTimeInMySQLFormat() + '\'' +
+		')';
+
+	this.connection.query(query);
 }
 
+database.saveRetweetStore = function (retweet) {
+
+	var retweetStore = Tweet.parseRetweetForStore(retweet);
+
+	var query = 'INSERT INTO ' + dbConfig.database + '.retweets_store VALUES(null, ' +
+		'\'' + retweetStore.id_str + '\', ' +
+		'\'' + retweetStore.user_id_str + '\', ' +
+		'\'' + retweetStore.user_screen_name + '\', ' +
+		'\'' + retweetStore.retweeted_status_id_str + '\', ' +
+		'\'' + database.currentDateTimeInMySQLFormat() + '\'' +
+		')';
+
+	this.connection.query(query);
+}
 
 /** USERS **/
 database.saveUsers = function (users) {
