@@ -8,13 +8,14 @@ Hay varias maneras de contribuir al proyecto Odiómetro.
 3. Añadir mejoras de código al proyecto.
 4. Crear una versión específica del odiómetro para tu país.
 
+Veamos uno a uno:
 
-1. SUGERENCIAS E IDEAS
+SUGERENCIAS E IDEAS
 ============================
 Puedes hacérnoslas llegar a nuestro Twitter (https://twitter.com/odiometrobot) o escribirnos en las issues de GitHub.
 Ten en cuenta que este es un proyecto que se desarrolla en tiempo libre y que muchas funcionalidades acarrearían mucho tiempo de desarrollo.
 
-2. DAR A CONOCER EL PROYECTO
+DAR A CONOCER EL PROYECTO
 ============================
 Igualmente pudes contribuir compartiendo el Odiómetro en tus redes:
 * Twitter
@@ -24,7 +25,7 @@ Igualmente pudes contribuir compartiendo el Odiómetro en tus redes:
 
 O si escribes en algún medio, puedes escribir sobre el Odiómetro. Hay mucha información y anécdotas que pueden ser de interés para tus lectores y lectoras.
 
-3. MEJORAS EN EL CÓDIGO
+MEJORAS EN EL CÓDIGO
 ============================
 El proyecto está desarrollado en NodeJS para el backend, con base de datos MySQL, y en Vue para el frontend.
 Hay mucho espacio para la optimización, sobre todo a nivel de estructuración de código y legibilidad.
@@ -33,7 +34,7 @@ Al no ser un proyecto muy grande y al disponer de poco tiempo, hemos decidido as
 
 La app tiene unos pocos tests, están principalmente enfocados a los algoritmos de identificación, no tanto al funcionamiento general de la app.
 
-4. TU PROPIO ODIÓMETRO
+TU PROPIO ODIÓMETRO
 ============================
 Varias personas nos han escrito preguntándonos si podrían crear una versión del Odiómetro para su país.
 El proyecto no estaba preparado porque recogía el odio de todos los países de habla hispana, pero centrándonos en algunos casos en listas de palabras que quizás se utilizaban más en España.

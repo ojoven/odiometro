@@ -5,7 +5,7 @@ const messages = {
 		title: '¿Qué es el Odiómetro?',
 		body: '<p>El odiómetro es una aplicación que rastrea en Twitter insultos, descalificaciones, etc. las contabiliza y las muestra.</p>' +
 			'<p>Su objetivo es servir de espejo para <b>hacernos conscientes de la cantidad de odio que vertemos en las redes</b> y plantear una alternativa. ¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación y del humor para transmitir y discutir nuestras ideas?</p>' +
-			'<p>Es éste un proyecto Open Source que no pretende ser una herramienta exhaustiva de identificación del odio, si quieres crear tu versión del odiómetro en tu país o contribuir puedes hacer una pull request <a target="_blank" href="https://github.com/ojoven/odiometro">en nuestro repositorio en GitHub</a> o hacerme alguna sugerencia vía Twitter en <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a></p>'
+			'<p>Es éste un proyecto Open Source que no pretende ser una herramienta exhaustiva de identificación del odio. Puedes <strong>crear una versión del odiómetro para tu país</strong> o contribuir de diferentes maneras tal y como te indicamos <a target="_blank" href="https://github.com/ojoven/odiometro/blob/master/CONTRIBUTING.md">en nuestro repositorio en GitHub</a>.</p><p>También puedes hacerme alguna sugerencia vía Twitter en <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a></p>'
 	},
 
 	// USERS
