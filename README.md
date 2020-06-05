@@ -37,13 +37,34 @@ Instalación
 
 ```mysql -u [username] -p [dbname] < db/odiometro.sql```
 
+4.2 Configura los datos de tu DB en /config/database_odiometro.json o si estás creando el odiómetro en tu país database_odiometro.pais.json
+
+```mysql -u [username] -p [dbname] < db/odiometro.sql```
+
+5. Corre el grunt desde /public
+
+```grunt```
+
+6. Lanza la app
+
+```node app.js```
+
+7. Si has creado tu propia versión de país (o de otro estilo tipo amorómetro)
+
+```node app.js [nombredebot]```
+
+
+IMPORTANTE
+-------------------------------
+Tendrás que crear una app en Twitter y rellenar los datos de consumer key y secret, y access_token y secret en twitter_odiometro.json o twitter_odiometro.pais.json.
+
+No sé bien cómo funciona la API de Twitter ahora, ya que estuvieron implementando bastantes restricciones que igual no afectan a apps antiguas pero sí a las nuevas. Si tienes algún problema o sabes cómo va, no dudes en escribir en las Issues.
 
 
 Notas adicionales de desarrollo
 -------------------------------
 
-* Desde `/public` tendrás que correr ```grunt``` para que los archivos SCSS compilen en CSS, se unifiquen los JS y el HTML.
-* Los componentes Vue se encuentran en `js/src/app/components`
+* Los componentes Vue del frontend se encuentran en `js/src/app/components`
 * Otros archivos interesantes son:
     * bus.js -> Lo utilizamos como bus de eventos para emitir / recibir eventos
     * lib.js -> Una instancia Vue que nos sirve como librería de funciones (para funcionalidades compartidas entre componentes)

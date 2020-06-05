@@ -1,0 +1,26 @@
+{
+	"language": "es",
+
+	"index": "index",
+	"port": 8001,
+	"saveTweets": true,
+
+	"ignore_locations": ["Narnia"],
+	"ignore_accounts": ["odiometrobot"],
+	"ignore_foreign_expressions": ["quinqui"],
+	"ignore_user_descriptions": ["Odiometro"],
+
+	"ignore_expressions": {
+		"comical": ["jaja"],
+		"self": ["soy"],
+		"specific": ["ratatouille"]
+	},
+
+	"hate_prefixes": ["pedazo de"],
+
+	"track": [{
+			"word": "gentuza",
+			"weight": 1
+		}
+	]
+}

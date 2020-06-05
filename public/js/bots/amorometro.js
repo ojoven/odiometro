@@ -1,15 +1,5 @@
 const messages = {
 
-	// GENERAL
-	odiometro: 'Amorómetro',
-	head: {
-		title: 'Amorómetro | El espejo de nuestro amor',
-		description: 'No está todo perdido, todavía existe el amor en Twitter.',
-		url: 'https://amorometro.es',
-		ga: 'UA-101774348-2'
-	},
-	footer: 'El Amorómetro es el hermano que replica al <a target="_blank" href="https://twitter.com/ojoven">Odiómetro</a> y le muestra que todavía hay mucho amor en Twitter. Hecho con ❤ por <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a>',
-
 	// ABOUT
 	about: {
 		title: '¿Qué es el Amorómetro?',

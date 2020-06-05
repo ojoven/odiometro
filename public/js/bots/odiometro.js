@@ -1,21 +1,11 @@
 const messages = {
 
-	// GENERAL
-	odiometro: 'Odiómetro',
-	head: {
-		title: 'Odiómetro | El espejo de nuestro odio',
-		description: '¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación, del humor para transmitir y discutir nuestras ideas?',
-		url: 'https://odiometro.es',
-		ga: 'UA-101774348-1'
-	},
-	footer: 'El Odiómetro es una iniciativa para hacernos conscientes de la alta cantidad de odio que vertemos en nuestros mensajes y respuestas de Twitter. Hecho con ❤ por <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a>',
-
 	// ABOUT
 	about: {
 		title: '¿Qué es el Odiómetro?',
 		body: '<p>El odiómetro es una aplicación que rastrea en Twitter insultos, descalificaciones, etc. las contabiliza y las muestra.</p>' +
 			'<p>Su objetivo es servir de espejo para <b>hacernos conscientes de la cantidad de odio que vertemos en las redes</b> y plantear una alternativa. ¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación y del humor para transmitir y discutir nuestras ideas?</p>' +
-			'<p>Es éste un proyecto Open Source que no pretende ser una herramienta exhaustiva de identificación del odio, si quieres contribuir puedes hacer una pull request <a target="_blank" href="https://github.com/ojoven/odiometro">en nuestro repositorio en GitHub</a> o hacerme alguna sugerencia vía Twitter en <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a></p>'
+			'<p>Es éste un proyecto Open Source que no pretende ser una herramienta exhaustiva de identificación del odio, si quieres crear tu versión del odiómetro en tu país o contribuir puedes hacer una pull request <a target="_blank" href="https://github.com/ojoven/odiometro">en nuestro repositorio en GitHub</a> o hacerme alguna sugerencia vía Twitter en <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a></p>'
 	},
 
 	// USERS

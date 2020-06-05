@@ -1,9 +1,48 @@
 {
+	"language": "es",
+
+	"index": "index",
+	"port": 8001,
+	"saveTweets": true,
+
 	"ignore_locations": ["Mexico", "Medellin", "Lima", "Peru", "Egipto", "Caracas", "El Salvador", "Costa Rica", "Chile", "Ecuador", "Colombia",
 		"Uruguay", "Montevideo", "Buenos Aires", "Maracay", "Monterrey", "Panama", "Acapulco", "Guayaquil", "Jalisco",
 		"Carabobo", "Capital Federal", "Bogota", "Tucuman", "Ciudad Autonoma", "Coyoacan", "Mendoza", "Guatemala",
 		"Valparaiso", "Andes", "Distrito Federal", "Puerto Rico", "Bolivia", "CDMX", "Rosario", "República Bolivariana",
-		"Vzla"
+		"Vzla", "Veracruz", "Paraguay"
+	],
+
+	"ignore_accounts": [
+		"HLGatell", "lopezobrador_", "jguaido", "NicolasMaduro", "AsambleaVE", "alferdez",
+		"JeanineAnez", "sebastianpinera", "IvanDuque", "petrogustavo", "ernestomaciast", "German_Vargas",
+		"ClaudiaLopez", "GustavoBolivar", "DanielSamperO", "IvanCepedaCast", "infopresidencia", "DCoronell",
+		"CeDemocratico", "angelamrobledo", "NoticiasCaracol", "fdbedout", "RevistaSemana",
+		"ReporteYa", "CaraotaDigital", "DolarToday", "TVVNoticias", "ElNacionalWeb", "VPITV",
+		"Presidencia_VE", "ibepacheco", "Leonardo_Padron", "carlaangola", "elcitizen",
+		"carlosvecchio", "alcaldeledezma", "laureanomar", "ntn24ve", "maibortpetit",
+		"AlbertoRavell", "Tamara_SUJU", "ElUniversal", "nelsonbocaranda", "JulioBorges", "LuisChataing",
+		"dcabellor", "jaarreaza", "vtvcanal8", "ConElMazoDando", "CancilleriaVE", "Mippcivzla", "PSUV",
+		"maperezpirela", "vladimirpadrino", "jorgeberry", "CorteSupremaJ",
+		"fernandeznorona", "epn", "@Danpadillaxm", "FelipeCalderon",
+		"Mexico", "CDMX", "VZLA", "Colombia", "Argentina", "Bolivia",
+		"MashiRafael", "CarnetDLaPatria", "teleSURtv", "PSUV", "vwinstonv", "RMarcoTorres",
+		"CarlosOrtegaCTV", "EAristeguieta", "GenPenaloza", "CFKArgentina", "MauricioMacri",
+		"FernandezAnibal", "danielscioli", "c5n", "telefe", "pagina12", "eldestapeweb", "kicillofok",
+		"gatosylvestre", "todonoticias", "lanacion", "clarincom", "horaciorlarreta", "juan_amorin",
+		"evoespueblo", "UniCiudadanaAR", "magariovero", "robdnavarro", "dilmabr",
+		"moreauleopoldo", "SergioMassa", "paulitachaves", "LillyTellez", "martibatres", "ricardoMonrealA",
+		"AlvaroUribeVel"
+	],
+
+	"ignore_foreign_expressions": [
+		"pendejo", "pelotudo", "boludo", "pendeja", "pelotuda", "boluda", "güey", "culiado",
+		"gringo", "gringa", "laburo", "hijueputa", "malparido", "malparida", "cachar", "vaina",
+		"amlo", "ledezma", "kirchner", "macri"
+	],
+
+	"ignore_user_descriptions": [
+		"psuv", "amlo", "bolivar", "venezolano", "venezolana", "argentino", "bonaerense",
+		"mexicano", "mexicana", "uribista", "macri", "mapuche", "peron"
 	],
 
 	"ignore_expressions": {
@@ -12,13 +51,15 @@
 		"specific": ["querella criminal", "ratatouille",
 			"han retrasado", "hemos retrasado", "he retrasado", "habeis retrasado", "has retrasado", "ha retrasado",
 			"escuadrón suicida", "se suicida",
-			"repelente de insectos"
+			"repelente de insectos",
+			"sientes inútil", "siento inútil", "siento un inútil", "sería inútil", "gasto inútil", "dato inútil", "a lo inútil", "es inútil", "casi inútil",
+			"novio", "novia"
 		]
 	},
 
 	"hate_prefixes": ["eres un", "eres una", "eres", "sois", "sois unas",
 		"sois unos", "pedazo", "pedazo de", "maldito", "maldita", "puto", "puta", "perro",
-		"el muy", "la muy", "los muy", "las muy", "de lo más", "el más", "la más", "pinta de"
+		"el muy", "la muy", "los muy", "las muy", "de lo más", "el más", "la más", "pinta de", "jodido", "jodida"
 	],
 
 	"track": [{
@@ -219,6 +260,10 @@
 		},
 		{
 			"word": "macarra",
+			"weight": 1
+		},
+		{
+			"word": "inútil",
 			"weight": 1
 		},
 		{
@@ -475,6 +520,18 @@
 		},
 		{
 			"word": "chusma",
+			"weight": 1
+		},
+		{
+			"word": "prepotente",
+			"weight": 1
+		},
+		{
+			"word": "suciolisto",
+			"weight": 1
+		},
+		{
+			"word": "putrefacto",
 			"weight": 1
 		},
 		{
@@ -791,6 +848,38 @@
 		},
 		{
 			"word": "adefesio",
+			"weight": 0.5
+		},
+		{
+			"word": "tarado",
+			"weight": 0.5
+		},
+		{
+			"word": "tarada",
+			"weight": 0.5
+		},
+		{
+			"word": "roñoso",
+			"weight": 0.5
+		},
+		{
+			"word": "roñosa",
+			"weight": 0.5
+		},
+		{
+			"word": "fantoche",
+			"weight": 0.5
+		},
+		{
+			"word": "estafador",
+			"weight": 0.5
+		},
+		{
+			"word": "pútrido",
+			"weight": 0.5
+		},
+		{
+			"word": "pútrida",
 			"weight": 0.5
 		},
 		{

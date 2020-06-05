@@ -1,0 +1,92 @@
+{
+	"language": "es",
+
+	"index": "amorometro/index",
+	"port": 8002,
+	"saveTweets": false,
+
+	"ignore_locations": [],
+	"ignore_accounts": [],
+
+	"ignore_expressions": {
+		"comical": ["mierda", "asco", "puta", "zorra", "mentiroso", "mentirosa"],
+		"self": [],
+		"specific": []
+	},
+
+	"hate_prefixes": [],
+
+	"track": [{
+			"word": "te quiero",
+			"weight": 1
+		},
+		{
+			"word": "te amo",
+			"weight": 1
+		},
+		{
+			"word": "mi amor",
+			"weight": 1
+		},
+		{
+			"word": "eres el mejor",
+			"weight": 1
+		},
+		{
+			"word": "eres la mejor",
+			"weight": 1
+		},
+		{
+			"word": "eres lo mejor",
+			"weight": 1
+		},
+		{
+			"word": "te adoro",
+			"weight": 1
+		},
+		{
+			"word": "la adoro",
+			"weight": 1
+		},
+		{
+			"word": "lo adoro",
+			"weight": 1
+		},
+		{
+			"word": "que bonita",
+			"weight": 1
+		},
+		{
+			"word": "que bonito",
+			"weight": 1
+		},
+		{
+			"word": "que bella",
+			"weight": 1
+		},
+		{
+			"word": "que bello",
+			"weight": 1
+		},
+		{
+			"word": "que monada",
+			"weight": 1
+		},
+		{
+			"word": "que hermosa",
+			"weight": 1
+		},
+		{
+			"word": "que hermoso",
+			"weight": 1
+		},
+		{
+			"word": "bellísima",
+			"weight": 1
+		},
+		{
+			"word": "bellísimo",
+			"weight": 1
+		}
+	]
+}

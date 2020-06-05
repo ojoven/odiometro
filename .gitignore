@@ -2,4 +2,6 @@
 node_modules
 public/node_modules
 public/.sass-cache
-config/*.json
+config/database_odiometro.json
+config/database_*.json
+config/twitter_*.json
