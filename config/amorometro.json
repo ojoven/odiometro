@@ -7,6 +7,8 @@
 
 	"ignore_locations": [],
 	"ignore_accounts": [],
+	"ignore_foreign_expressions": [],
+	"ignore_user_descriptions": [],
 
 	"ignore_expressions": {
 		"comical": ["mierda", "asco", "puta", "zorra", "mentiroso", "mentirosa"],

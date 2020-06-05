@@ -1,5 +1,8 @@
 const messages = {
 
+	// GENERAL
+	footer: 'El Odiómetro es una iniciativa para hacernos conscientes de la alta cantidad de odio que vertemos en nuestros mensajes y respuestas de Twitter. Hecho con ❤ por <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a>',
+
 	// ABOUT
 	about: {
 		title: '¿Qué es el Odiómetro?',

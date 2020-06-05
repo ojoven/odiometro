@@ -64,6 +64,19 @@ module.exports = function (grunt) {
 				tasks: ['includereplace']
 			}
 		},
+		includereplace: {
+			dev: {
+				options: {
+					srcDir: 'src/'
+				},
+				files: [{
+					src: '*.html',
+					dest: 'views/',
+					expand: true,
+					cwd: 'src/'
+				}, ]
+			}
+		},
 		jasmine: {
 			pivotal: {
 				src: 'js/src/app/**/*.js',
@@ -88,11 +101,12 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-compass');
+	grunt.loadNpmTasks('grunt-include-replace');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	grunt.loadNpmTasks('grunt-jasmine-node');
 
 	// Default, to be used on development environments
-	grunt.registerTask('default', ['compass:dev', 'concat', 'watch']); // First we compile and concat JS and then we watch
+	grunt.registerTask('default', ['includereplace', 'compass:dev', 'concat', 'watch']); // First we compile and concat JS and then we watch
 
 	// Post Commit, to be executed after commit
 	grunt.registerTask('deploy', ['concat', 'uglify', 'compass:prod']);

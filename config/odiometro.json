@@ -75,6 +75,10 @@
 			"weight": 1
 		},
 		{
+			"word": "que se pudran",
+			"weight": 1
+		},
+		{
 			"word": "hija de puta",
 			"weight": 1
 		},
@@ -535,6 +539,10 @@
 			"weight": 1
 		},
 		{
+			"word": "a la puta cárcel",
+			"weight": 1
+		},
+		{
 			"word": "payaso",
 			"weight": 0.8
 		},
@@ -727,7 +735,7 @@
 			"weight": 0.5
 		},
 		{
-			"word": "rata",
+			"word": " rata",
 			"weight": 0.5
 		},
 		{
@@ -880,6 +888,10 @@
 		},
 		{
 			"word": "pútrida",
+			"weight": 0.5
+		},
+		{
+			"word": "entre rejas",
 			"weight": 0.5
 		},
 		{

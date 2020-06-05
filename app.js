@@ -96,20 +96,17 @@ twitterStream.on('tweet', function (tweet) {
 		if (!Tweet.isItAHateTweetFromInformation(information)) return;
 		if (!Tweet.isValidLocation(tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions, ignoreUserDescriptions)) return;
 
-		console.log(tweet.user.description);
-
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
-			console.log(tweet.retweeted_status.user.description);
 			database.saveRetweet(tweet);
-			database.saveRetweetStore(tweet);
+			if (global.botConfig.saveTweets) database.saveRetweetStore(tweet);
 			tweetText = tweet.retweeted_status.text;
 		} else {
 
 			// Or it is a tweet
 			tweet.information = information;
 			database.saveTweet(tweet);
-			database.saveTweetStore(tweet);
+			if (global.botConfig.saveTweets) database.saveTweetStore(tweet);
 			tweetText = tweet.text;
 
 			// Is it a tweet to be shown?
