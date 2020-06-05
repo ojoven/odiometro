@@ -31,13 +31,15 @@
 		"gatosylvestre", "todonoticias", "lanacion", "clarincom", "horaciorlarreta", "juan_amorin",
 		"evoespueblo", "UniCiudadanaAR", "magariovero", "robdnavarro", "dilmabr",
 		"moreauleopoldo", "SergioMassa", "paulitachaves", "LillyTellez", "martibatres", "ricardoMonrealA",
-		"AlvaroUribeVel"
+		"AlvaroUribeVel", "EnriqueAlfaroR", "_VicenteSerrano", "mario_delgado",
+		"martibatres", "yeidckol", "tatclouthier", "GobiernoJalisco"
 	],
 
 	"ignore_foreign_expressions": [
+		"pinche", "pelón",
 		"pendejo", "pelotudo", "boludo", "pendeja", "pelotuda", "boluda", "güey", "culiado",
 		"gringo", "gringa", "laburo", "hijueputa", "malparido", "malparida", "cachar", "vaina",
-		"amlo", "ledezma", "kirchner", "macri"
+		"amlo", "ledezma", "kirchner", "macri", "jalisco"
 	],
 
 	"ignore_user_descriptions": [

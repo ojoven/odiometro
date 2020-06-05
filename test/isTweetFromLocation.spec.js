@@ -165,4 +165,17 @@ describe('is a tweet from location?', function () {
 		assert.equal(Tweet.isValidLocation(tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions, ignoreUserDescriptions), false);
 	});
 
+	it.skip('should return not valid location if is this tweet', function (done) {
+
+		var twitter = require("../app/lib/twitter.js");
+
+		twitter.getTweet("1268707475919953920", function (tweet) {
+			console.log(tweet);
+			assert.equal(Tweet.isValidLocation(tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions, ignoreUserDescriptions), false);
+			done();
+		});
+
+	});
+
+
 });

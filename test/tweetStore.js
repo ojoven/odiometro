@@ -9,7 +9,7 @@ describe('tweet store', function () {
 	global.appRoot = path.resolve(__dirname + '/../');
 	global.botName = 'odiometro';
 
-	it.skip('should parse the tweet correctly if a simple status', function () {
+	it.skip('should parse the tweet correctly if a simple status', function (done) {
 
 		var twitter = require("../app/lib/twitter.js");
 
@@ -24,11 +24,12 @@ describe('tweet store', function () {
 			assert.equal(tweetStore.quoted_status_id_str, null);
 			assert.equal(tweetStore.quoted_status_user_id_str, null);
 			assert.equal(tweetStore.quoted_status_user_screen_name, null);
+			done();
 		});
 
 	});
 
-	it.skip('should parse the tweet correctly if a reply', function () {
+	it.skip('should parse the tweet correctly if a reply', function (done) {
 
 		var twitter = require("../app/lib/twitter.js");
 
@@ -45,11 +46,13 @@ describe('tweet store', function () {
 			assert.equal(tweetStore.quoted_status_id_str, null);
 			assert.equal(tweetStore.quoted_status_user_id_str, null);
 			assert.equal(tweetStore.quoted_status_user_screen_name, null);
+
+			done();
 		});
 
 	});
 
-	it.skip('should parse the retweet correctly', function () {
+	it.skip('should parse the retweet correctly', function (done) {
 
 		var twitter = require("../app/lib/twitter.js");
 
@@ -61,6 +64,8 @@ describe('tweet store', function () {
 			assert.equal(retweetStore.user_id_str, '1256293626990284802');
 			assert.equal(retweetStore.user_screen_name, 'RQanom');
 			assert.equal(retweetStore.retweeted_status_id_str, '1268463927127617536');
+
+			done();
 		});
 
 	});

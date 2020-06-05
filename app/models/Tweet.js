@@ -253,9 +253,9 @@ Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignore
 		}
 
 		// If location in user's bio
-		if (tweet.user.description && tweet.user.description.includes(location) ||
-			(tweet.retweeted_status && tweet.retweeted_status.user.description && tweet.retweeted_status.user.description.includes(location)) ||
-			(tweet.quoted_status && tweet.quoted_status.user.description && tweet.quoted_status.user.description.includes(location))
+		if (tweet.user.description && tweet.user.description.toLowerCase().includes(location) ||
+			(tweet.retweeted_status && tweet.retweeted_status.user.description && tweet.retweeted_status.user.description.toLowerCase().includes(location)) ||
+			(tweet.quoted_status && tweet.quoted_status.user.description && tweet.quoted_status.user.description.toLowerCase().includes(location))
 		) {
 			isValidLocation = false;
 		}
@@ -284,9 +284,9 @@ Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignore
 	// We check too, if a foreign expression has been used
 	ignoreUserDescriptions.forEach(function (ignoreUserDescription) {
 
-		if (tweet.user.description && tweet.user.description.includes(ignoreUserDescription) ||
-			(tweet.retweeted_status && tweet.retweeted_status.user.description && tweet.retweeted_status.user.description.includes(ignoreUserDescription)) ||
-			(tweet.quoted_status && tweet.quoted_status.user.description && tweet.quoted_status.user.description.includes(ignoreUserDescription))
+		if (tweet.user.description && tweet.user.description.toLowerCase().includes(ignoreUserDescription) ||
+			(tweet.retweeted_status && tweet.retweeted_status.user.description && tweet.retweeted_status.user.description.toLowerCase().includes(ignoreUserDescription)) ||
+			(tweet.quoted_status && tweet.quoted_status.user.description && tweet.quoted_status.user.description.toLowerCase().includes(ignoreUserDescription))
 		) {
 			isValidLocation = false;
 		}
