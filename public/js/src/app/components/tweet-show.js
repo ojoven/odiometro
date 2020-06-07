@@ -2,7 +2,7 @@ Vue.component('tweet-show', {
 
 	template: `
 		<div id="tweets">
-			<a target="_blank" class="tweets" :href="'https://twitter.com/' + screen_name + '/status/' + id_str">
+			<a target="_blank" class="tweet" :href="'https://twitter.com/' + screen_name + '/status/' + id_str">
 				<span v-html="tweet"></span>
 			</a>
 		</div>

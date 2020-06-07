@@ -2,27 +2,33 @@ Vue.component('most-hated-user-tweets', {
 
 	template: `
 		<div>
-			<a id="most_hated_user_tweets" class="tweets" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">
-				<span v-html="tweet"></span>
+			<a v-for="tweet in tweets" id="most_hated_user_tweets" class="tweet" target="_blank" :href="'https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str">
+				<span v-html="tweet.text"></span>
 			</a>
 		</div>
   `,
 
 	data() {
 		return {
-			tweet: '',
+			tweets: [],
 			screen_name: '',
 			tweet_id: ''
 		}
 	},
 
-	created: function() {
+	created: function () {
 
 		// When we receive it, let's update the user
-		socket.on('most_hated_user_tweet', function(data) {
-			if (data) {
-				this.updateTweet(data.tweet);
-				this.updateLink(data.id_str, data.screen_name);
+		socket.on('most_hated_user_tweets', function (tweets) {
+			console.log('most hated', tweets);
+			if (tweets) {
+				var tweetsParsed = [];
+				tweets.forEach(function (tweet) {
+					var tweetParsed = tweet;
+					tweetParsed.text = lib.parseTweet(tweet.text, tweet.words.split(','));
+					tweetsParsed.push(tweetParsed);
+				});
+				this.updateTweets(tweetsParsed);
 			}
 		}.bind(this));
 
@@ -30,14 +36,10 @@ Vue.component('most-hated-user-tweets', {
 
 	methods: {
 
-		updateTweet: function(tweet) {
-			this.tweet = lib.parseTweet(tweet, store.track);
+		updateTweets: function (tweets) {
+			this.tweets = tweets;
 		},
 
-		updateLink: function(tweet_id, screen_name) {
-			this.tweet_id = tweet_id;
-			this.screen_name = screen_name;
-		}
 	}
 
 });

@@ -25,7 +25,8 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	var filters = [];
 	var type = 'status';
 
-	var tweetTextLowercase = tweet.text.toLowerCase();
+	var tweetTextLowercase = Tweet.getText(tweet).toLowerCase();
+	console.log(tweetTextLowercase.length);
 
 	// Check word weights
 	var wordsWithWeights = track.getWordsWithWeights();
@@ -48,6 +49,20 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 
 		});
 	});
+
+	// Remove the weight of users containing matching words
+	var users = tweetTextLowercase.match(/@\w+/g);
+	if (users) {
+		users.forEach(function (user) {
+			words.forEach(function (word) {
+				if (user.includes(word.word)) {
+					words = words.filter(function (w) {
+						return w.word !== word.word
+					});
+				}
+			});
+		});
+	}
 
 	// Convert 0.5 or whatever to 1 if it includes previous "eres un..."
 	var hatePrefixes = global.botConfig.hate_prefixes;
@@ -188,7 +203,7 @@ Tweet.parseTweetForStore = function (tweet) {
 
 	tweetStore = {
 		id_str: tweet.id_str,
-		text: tweet.text,
+		text: tweet.truncated ? tweet.extended_tweet.full_text : tweet.text,
 		words: words.join(','),
 
 		in_reply_to_status_id_str: tweet.in_reply_to_status_id_str,
@@ -300,10 +315,12 @@ Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignore
 Tweet.getText = function (tweet) {
 
 	if (Tweet.isItARetweet(tweet)) {
-		tweetText = tweet.retweeted_status.truncated ? tweet.retweeted_status.extended_tweet.text : tweet.retweeted_status.text;
+		tweetText = tweet.retweeted_status.truncated ? tweet.retweeted_status.extended_tweet.full_text : tweet.retweeted_status.text;
 	} else {
-		tweetText = tweet.truncated ? tweet.extended_tweet.text : tweet.text;
+		tweetText = tweet.truncated ? tweet.extended_tweet.full_text : tweet.text;
 	}
+
+	return tweetText;
 }
 
 module.exports = Tweet;

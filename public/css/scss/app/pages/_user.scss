@@ -35,16 +35,21 @@
 
 #user-container {
 
-	.tweets {
-		margin: 0 auto;
-		padding: 0 30px;
-		height: auto;
+	&::after {
+		content: ' ';
+		display: block;
+		clear: both;
+	}
+
+	.tweet {
+		margin: 0 auto 30px;
 	}
 
 	.hate-user {
 		float: left;
 		width: 50%;
 		text-align: center;
+		padding: 0 10px;
 
 		.image {
 			margin-top: 40px;
@@ -57,9 +62,10 @@
 			background-repeat: no-repeat;
 		}
 
-		.most_hateful_user {
-			border-right: 3px solid #ccc;
+		&.hated-user {
+			margin-bottom: 130px;
 		}
+
 	}
 }
 

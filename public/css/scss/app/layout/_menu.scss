@@ -4,14 +4,20 @@
 
 $menuSize: 40px;
 
+.footer-container {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
 #menu {
 
-	position: fixed;
-	bottom: 60px;
-	left: 0;
 	width: 100%;
 	text-align: center;
 	z-index: 2;
+	padding: 10px;
+	background: #fff;
 
 	li {
 		display: inline-block;
@@ -25,7 +31,9 @@ $menuSize: 40px;
 		margin: 5px;
 		border-radius: 50%;
 
-		&.active, &:hover, &:focus {
+		&.active,
+		&:hover,
+		&:focus {
 			background: $redFirebrick;
 		}
 
@@ -35,7 +43,9 @@ $menuSize: 40px;
 			top: 11px;
 			font-size: 17px;
 
-			&.fa-dashboard { top: 9px; }
+			&.fa-dashboard {
+				top: 9px;
+			}
 		}
 	}
 
@@ -44,20 +54,14 @@ $menuSize: 40px;
 // ==============================================
 // IPAD LANDSCAPE
 // ==============================================
-@include ipadLandscape {
-
-}
+@include ipadLandscape {}
 
 // ==============================================
 // IPAD PORTRAIT
 // ==============================================
-@include ipadPortrait {
-
-}
+@include ipadPortrait {}
 
 // ==============================================
 // MOBILE
 // ==============================================
-@include mobile {
-
-}
+@include mobile {}

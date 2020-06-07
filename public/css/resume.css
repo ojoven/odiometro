@@ -109,7 +109,7 @@ h2, h3, h4 { font-weight: normal; }
 .container { position: relative; max-width: 1180px; margin: 0 auto; text-align: center; }
 
 @media screen and (max-width: 1200px) { .container { max-width: 100%; padding: 0 1.5%; } }
-footer { position: fixed; bottom: 0; text-align: center; width: 100%; background: #8A0707; color: #fff; padding: 9px; font-size: 12px; z-index: 99; }
+footer { text-align: center; width: 100%; background: #8A0707; color: #fff; padding: 9px; font-size: 12px; z-index: 99; }
 footer a { color: #fff; }
 
 .grid.row50 > .container > * { width: 46%; float: left; }
@@ -123,7 +123,9 @@ footer a { color: #fff; }
 #header h1 i.right { left: 10px; background-image: url(../img/knife-reverse.png); transform-origin: bottom right; }
 #header h1 i.right.active { -webkit-animation-delay: 0; -webkit-animation-duration: 0.5s; -webkit-animation-name: stabRight; -webkit-animation-fill-mode: both; -webkit-animation-iteration-count: 1; -moz-animation-delay: 0; -moz-animation-duration: 0.5s; -moz-animation-name: stabRight; -moz-animation-fill-mode: both; -moz-animation-iteration-count: 1; -o-animation-delay: 0; -o-animation-duration: 0.5s; -o-animation-name: stabRight; -o-animation-fill-mode: both; -o-animation-iteration-count: 1; animation-delay: 0; animation-duration: 0.5s; animation-name: stabRight; animation-fill-mode: both; animation-iteration-count: 1; }
 
-#menu { position: fixed; bottom: 60px; left: 0; width: 100%; text-align: center; z-index: 2; }
+.footer-container { position: fixed; bottom: 0; left: 0; width: 100%; }
+
+#menu { width: 100%; text-align: center; z-index: 2; padding: 10px; background: #fff; }
 #menu li { display: inline-block; }
 #menu li a { width: 40px; height: 40px; background: #cccccc; display: inline-block; margin: 5px; border-radius: 50%; }
 #menu li a.active, #menu li a:hover, #menu li a:focus { background: #8A0707; }

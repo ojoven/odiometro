@@ -23,7 +23,7 @@
 		"AlbertoRavell", "Tamara_SUJU", "ElUniversal", "nelsonbocaranda", "JulioBorges", "LuisChataing",
 		"dcabellor", "jaarreaza", "vtvcanal8", "ConElMazoDando", "CancilleriaVE", "Mippcivzla", "PSUV",
 		"maperezpirela", "vladimirpadrino", "jorgeberry", "CorteSupremaJ",
-		"fernandeznorona", "epn", "@Danpadillaxm", "FelipeCalderon",
+		"fernandeznorona", "epn", "Danpadillaxm", "FelipeCalderon",
 		"Mexico", "CDMX", "VZLA", "Colombia", "Argentina", "Bolivia",
 		"MashiRafael", "CarnetDLaPatria", "teleSURtv", "PSUV", "vwinstonv", "RMarcoTorres",
 		"CarlosOrtegaCTV", "EAristeguieta", "GenPenaloza", "CFKArgentina", "MauricioMacri",
@@ -32,13 +32,16 @@
 		"evoespueblo", "UniCiudadanaAR", "magariovero", "robdnavarro", "dilmabr",
 		"moreauleopoldo", "SergioMassa", "paulitachaves", "LillyTellez", "martibatres", "ricardoMonrealA",
 		"AlvaroUribeVel", "EnriqueAlfaroR", "_VicenteSerrano", "mario_delgado",
-		"martibatres", "yeidckol", "tatclouthier", "GobiernoJalisco"
+		"martibatres", "yeidckol", "tatclouthier", "GobiernoJalisco",
+		"@Lenin", "FiscaliaEcuador", "PoliciaEcuador", "ottosonnenh", "ComunicacionEc", "oliverdog",
+		"diegoluna_", "mbachelet"
 	],
 
 	"ignore_foreign_expressions": [
 		"pinche", "pelón",
-		"pendejo", "pelotudo", "boludo", "pendeja", "pelotuda", "boluda", "güey", "culiado",
+		"pendejo", "pelotudo", "boludo", "pendeja", "pelotuda", "boluda", "güey", "culiado", "culiao", "culiada",
 		"gringo", "gringa", "laburo", "hijueputa", "malparido", "malparida", "cachar", "vaina",
+		"guacha", "guacho", "wacha", "wacho", "verga", "vos ", "sos un", "capo",
 		"amlo", "ledezma", "kirchner", "macri", "jalisco"
 	],
 
@@ -60,7 +63,7 @@
 	},
 
 	"hate_prefixes": ["eres un", "eres una", "eres", "sois", "sois unas",
-		"sois unos", "pedazo", "pedazo de", "maldito", "maldita", "puto", "puta", "perro",
+		"sois unos", "pedazo", "pedazo de", "trozo de", "maldito", "maldita", "puto", "puta", "perro",
 		"el muy", "la muy", "los muy", "las muy", "de lo más", "el más", "la más", "pinta de", "jodido", "jodida"
 	],
 
@@ -197,6 +200,14 @@
 			"weight": 1
 		},
 		{
+			"word": "nauseabundo",
+			"weight": 1
+		},
+		{
+			"word": "nauseabunda",
+			"weight": 1
+		},
+		{
 			"word": "calaña",
 			"weight": 1
 		},
@@ -209,7 +220,7 @@
 			"weight": 1
 		},
 		{
-			"word": "vete a tomar por culo",
+			"word": "a tomar por culo",
 			"weight": 1
 		},
 		{
@@ -542,6 +553,38 @@
 		},
 		{
 			"word": "a la puta cárcel",
+			"weight": 1
+		},
+		{
+			"word": "despreciable",
+			"weight": 1
+		},
+		{
+			"word": "ser infecto",
+			"weight": 1
+		},
+		{
+			"word": "pestilente",
+			"weight": 1
+		},
+		{
+			"word": "paniaguado",
+			"weight": 1
+		},
+		{
+			"word": "paniaguada",
+			"weight": 1
+		},
+		{
+			"word": "llorica",
+			"weight": 1
+		},
+		{
+			"word": "tontísimo",
+			"weight": 1
+		},
+		{
+			"word": "tontísima",
 			"weight": 1
 		},
 		{
@@ -894,6 +937,10 @@
 		},
 		{
 			"word": "entre rejas",
+			"weight": 0.5
+		},
+		{
+			"word": "fulana",
 			"weight": 0.5
 		},
 		{

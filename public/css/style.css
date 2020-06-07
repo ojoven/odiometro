@@ -9,7 +9,7 @@ h2, h3, h4 { font-weight: normal; }
 /** ABSTRACTS **/
 @font-face { font-family: "Montserrat Light"; src: url("fonts/Montserrat-Light.woff2") format("woff2"), url("fonts/Montserrat-Light.woff") format("woff"); font-weight: normal; font-style: normal; }
 @font-face { font-family: "Montserrat Regular"; src: url("fonts/Montserrat-Regular.woff2") format("woff2"), url("fonts/Montserrat-Regular.woff") format("woff"); font-weight: normal; font-style: normal; }
-.light, p, .tweets, #number_tweets .suffix, .most_hated_user > span, #info p, #info li, #historic, #historic select, .resume-container .user-message, .resume-container .example-container, .resume-container .others, input { font-family: 'Montserrat Light', sans-serif; }
+.light, p, .tweet, #number_tweets .suffix, .most_hated_user > span, #info p, #info li, #historic, #historic select, .resume-container .user-message, .resume-container .example-container, .resume-container .others, input { font-family: 'Montserrat Light', sans-serif; }
 
 .regular, body, footer, h4 { font-family: 'Monstserrat Regular', sans-serif; font-weight: 400; }
 
@@ -132,7 +132,7 @@ var { font-style: normal; }
 .container { position: relative; max-width: 1180px; margin: 0 auto; text-align: center; }
 
 @media screen and (max-width: 1200px) { .container { max-width: 100%; padding: 0 1.5%; } }
-footer { position: fixed; bottom: 0; text-align: center; width: 100%; background: #8A0707; color: #fff; padding: 9px; font-size: 12px; z-index: 99; }
+footer { text-align: center; width: 100%; background: #8A0707; color: #fff; padding: 9px; font-size: 12px; z-index: 99; }
 footer a { color: #fff; }
 
 .grid.row50 > .container > * { width: 46%; float: left; }
@@ -146,7 +146,9 @@ footer a { color: #fff; }
 #header h1 i.right { left: 10px; background-image: url(../img/knife-reverse.png); transform-origin: bottom right; }
 #header h1 i.right.active { -webkit-animation-delay: 0; -webkit-animation-duration: 0.5s; -webkit-animation-name: stabRight; -webkit-animation-fill-mode: both; -webkit-animation-iteration-count: 1; -moz-animation-delay: 0; -moz-animation-duration: 0.5s; -moz-animation-name: stabRight; -moz-animation-fill-mode: both; -moz-animation-iteration-count: 1; -o-animation-delay: 0; -o-animation-duration: 0.5s; -o-animation-name: stabRight; -o-animation-fill-mode: both; -o-animation-iteration-count: 1; animation-delay: 0; animation-duration: 0.5s; animation-name: stabRight; animation-fill-mode: both; animation-iteration-count: 1; }
 
-#menu { position: fixed; bottom: 60px; left: 0; width: 100%; text-align: center; z-index: 2; }
+.footer-container { position: fixed; bottom: 0; left: 0; width: 100%; }
+
+#menu { width: 100%; text-align: center; z-index: 2; padding: 10px; background: #fff; }
 #menu li { display: inline-block; }
 #menu li a { width: 40px; height: 40px; background: #cccccc; display: inline-block; margin: 5px; border-radius: 50%; }
 #menu li a.active, #menu li a:hover, #menu li a:focus { background: #8A0707; }
@@ -167,8 +169,10 @@ footer a { color: #fff; }
 .audios { display: none; }
 
 /** PAGES **/
-.tweets { display: block; margin: 20px auto; padding: 30px; line-height: 1.2; height: 80px; max-width: 600px; color: #444; text-decoration: none; }
-.tweets:hover, .tweets:focus { text-decoration: underline; }
+.tweet { transition: background 0.3s ease; display: block; margin: 20px auto; line-height: 1.2; height: 80px; max-width: 600px; color: #444; text-decoration: none; padding: 20px; height: auto; border-radius: 10px; position: relative; background: #f9f9f9; font-size: 14px; }
+.tweet b, .tweet strong { font-size: 16px; }
+.tweet:hover, .tweet:focus { background: #f0f0f0; }
+.tweet#most_hateful_user_tweets { margin-bottom: 0; }
 
 #number_tweets .num { font-size: 90px; display: block; margin: 20px auto 0; }
 #number_tweets .suffix { display: block; font-size: 20px; letter-spacing: -1px; color: #666; }
@@ -182,10 +186,11 @@ footer a { color: #fff; }
 .most_hated_user a { letter-spacing: -1px; color: #8A0707; text-decoration: none; font-size: 34px; text-transform: none; }
 .most_hated_user a:hover, .most_hated_user a:focus { text-decoration: underline; }
 
-#user-container .tweets { margin: 0 auto; padding: 0 30px; height: auto; }
-#user-container .hate-user { float: left; width: 50%; text-align: center; }
+#user-container::after { content: ' '; display: block; clear: both; }
+#user-container .tweet { margin: 0 auto 30px; }
+#user-container .hate-user { float: left; width: 50%; text-align: center; padding: 0 10px; }
 #user-container .hate-user .image { margin-top: 40px; width: 100px; height: 100px; border-radius: 50%; display: inline-block; background-position: center; background-size: cover; background-repeat: no-repeat; }
-#user-container .hate-user .most_hateful_user { border-right: 3px solid #ccc; }
+#user-container .hate-user.hated-user { margin-bottom: 130px; }
 
 @media (max-width: 767px) { .most_hated_user { margin: 10px auto 5px; }
   .most_hated_user h3 a { font-size: 22px; }

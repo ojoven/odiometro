@@ -100,20 +100,18 @@ twitterStream.on('tweet', function (tweet) {
 		if (Tweet.isItARetweet(tweet)) {
 			database.saveRetweet(tweet);
 			if (global.botConfig.saveTweets) database.saveRetweetStore(tweet);
-			tweetText = tweet.retweeted_status.text;
 		} else {
 
 			// Or it is a tweet
 			tweet.information = information;
 			database.saveTweet(tweet);
 			if (global.botConfig.saveTweets) database.saveTweetStore(tweet);
-			tweetText = tweet.text;
 
 			// Is it a tweet to be shown?
 
 			var tweetParsed = {};
 			tweetParsed.id_str = tweet.id_str;
-			tweetParsed.tweet = tweet.text;
+			tweetParsed.tweet = tweetText;
 			var words = information.words.map(function (value, index) {
 				return value.word;
 			});
@@ -129,7 +127,7 @@ twitterStream.on('tweet', function (tweet) {
 		database.saveUsers(users);
 
 		if (Tweet.isTweetForMostHatedUser(tweet, mostHatedUser)) {
-			mostHatedUsersLastTweet = tweet.text;
+			mostHatedUsersLastTweet = tweetText;
 		}
 
 	} catch (err) {
@@ -173,10 +171,9 @@ function emitMostHatedUserAndTweet(socket) {
 			mostHatedUser = user.user;
 			socket.emit('most_hated_user', user);
 
-			database.getMostHatedUserExampleTweet(mostHatedUser, function (tweet) {
-				if (tweet) {
-					mostHatedUsersLastTweet = tweet.tweet;
-					socket.emit('most_hated_user_tweet', tweet);
+			database.getMostHatedUserExampleMultipleTweets(mostHatedUser, function (tweets) {
+				if (tweets) {
+					socket.emit('most_hated_user_tweets', tweets);
 				}
 			});
 
@@ -212,7 +209,8 @@ function emitMostHatefulUserAndTweet(socket) {
 			mostHatefulUserTweet = {
 				tweet: tweet.text,
 				id_str: tweet.id_str,
-				screen_name: tweet.user
+				screen_name: tweet.user,
+				words: track.getWords()
 			};
 			socket.emit('most_hateful_user', mostHatefulUser);
 			socket.emit('most_hateful_user_tweet', mostHatefulUserTweet);
@@ -315,11 +313,11 @@ setInterval(function () {
 var frequencyOfCleaningTweets = 60000; // 1 minute in miliseconds
 var timeBeforeTweetsAreCleaned = 10; // 10 minutes
 setInterval(function () {
-	//database.cleanOldData(timeBeforeTweetsAreCleaned);
+	database.cleanOldData(timeBeforeTweetsAreCleaned);
 }, frequencyOfCleaningTweets);
 
 // Run functions when server starts
-//database.cleanOldData(timeBeforeTweetsAreCleaned);
+database.cleanOldData(timeBeforeTweetsAreCleaned);
 
 // GET AVERAGES
 var averages = [];

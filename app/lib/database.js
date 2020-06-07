@@ -84,9 +84,6 @@ database.cleanOldData = function (timeInMinutes) {
 	// Get date for X minutes ago
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 
-	this.connection.query('INSERT INTO tweets_store SELECT * FROM tweets WHERE published < \'' + dateMysql + '\'');
-	this.connection.query('INSERT INTO retweets_store SELECT * FROM retweets WHERE published < \'' + dateMysql + '\'');
-
 	// Clean old data from the different tables
 	this.connection.query('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
 	this.connection.query('DELETE FROM ' + dbConfig.database + '.retweets WHERE published < \'' + dateMysql + '\'');
@@ -191,6 +188,27 @@ database.getMostHatedUser = function (callback) {
 		} else {
 			var user = results[0];
 			callback(user);
+		}
+	});
+};
+
+database.getMostHatedUserExampleMultipleTweets = function (user, callback) {
+
+	var that = this;
+
+	// FIRST WE RETRIEVE THE EXAMPLE FROM SIMPLE TWEETS
+	var query = 'SELECT * FROM `tweets_store` WHERE text LIKE \'%' + user + '%\' ORDER BY `published` DESC LIMIT 10';
+	this.connection.query(query, function (error, results, fields) {
+
+		if (results) {
+
+			var tweets = results;
+			callback(tweets);
+
+		} else {
+
+			callback(false);
+
 		}
 	});
 };

@@ -158,4 +158,35 @@ describe('is a hate tweet?', function () {
 		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
 	});
 
+	it('should return false if reply @willytolerdoo (has "lerdo" in the name) even with a half weighted word', function () {
+
+		var tweet = {
+			text: '@willytolerdoo es un poco indeseable que quieran hacer eso'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), false);
+	});
+
+	it('should return true if reply @willytolerdoo with a full hate tweet', function () {
+
+		var tweet = {
+			text: '@willytolerdoo eres un indeseable'
+		};
+
+		assert.equal(Tweet.isItAHateTweet(tweet, track), true);
+	});
+
+	it.skip('should parse the tweet correectly', function (done) {
+
+		var twitter = require("../app/lib/twitter.js");
+
+		twitter.getTweet("1269407699940323328", function (tweet) {
+
+			assert.equal(Tweet.isItAHateTweet(tweet, track), true);
+
+			done();
+		});
+
+	});
+
 });

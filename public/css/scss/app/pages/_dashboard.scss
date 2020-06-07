@@ -2,21 +2,36 @@
 // DASHBOARD
 // ==============================================
 
-// Tweets
-.tweets {
+// Tweet
+.tweet {
 	@extend .light;
+	transition: background 0.3s ease;
 	display: block;
 	margin: 20px auto;
-	padding: 30px;
 	line-height: 1.2;
 	height: 80px;
 	max-width: 600px;
 	color: $blackTundora;
 	text-decoration: none;
+	padding: 20px;
+	height: auto;
+	border-radius: 10px;
+	position: relative;
+	background: #f9f9f9;
+	font-size: 14px;
+
+	b,
+	strong {
+		font-size: 16px;
+	}
 
 	&:hover,
 	&:focus {
-		text-decoration: underline;
+		background: #f0f0f0;
+	}
+
+	&#most_hateful_user_tweets {
+		margin-bottom: 0;
 	}
 }
 

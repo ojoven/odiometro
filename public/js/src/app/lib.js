@@ -6,15 +6,17 @@ const lib = new Vue({
 	methods: {
 
 		// Update View Parameters
-		updateViewParameters: function(that, view) {
+		updateViewParameters: function (that, view) {
 
-			that.showDashboard = that.showUser = that.showInfo = that.showHistoric =false;
+			that.showDashboard = that.showUser = that.showInfo = that.showHistoric = false;
 			var variable = 'show' + view;
 			that[variable] = true;
 		},
 
 		// Parse a Tweet (and auxiliars)
-		parseTweet: function(tweet, track) {
+		parseTweet: function (tweet, track) {
+
+			console.log('track!', track);
 
 			for (var i in track) {
 
@@ -24,13 +26,13 @@ const lib = new Vue({
 			return tweet;
 		},
 
-		highlight: function(data, search) {
+		highlight: function (data, search) {
 			if (!data) return false;
-			return data.replace( new RegExp( "(" + this.preg_quote( search ) + ")" , 'gi' ), "<b>$1</b>" );
+			return data.replace(new RegExp("(" + this.preg_quote(search) + ")", 'gi'), "<b>$1</b>");
 		},
 
-		preg_quote: function(str) {
-			return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
+		preg_quote: function (str) {
+			return (str + '').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
 		}
 
 	}
