@@ -173,6 +173,7 @@ footer a { color: #fff; }
 .tweet b, .tweet strong { font-size: 16px; }
 .tweet:hover, .tweet:focus { background: #f0f0f0; }
 .tweet#most_hateful_user_tweets { margin-bottom: 0; }
+.tweet .user { color: #8A0707; font-weight: bold; }
 
 #number_tweets .num { font-size: 90px; display: block; margin: 20px auto 0; }
 #number_tweets .suffix { display: block; font-size: 20px; letter-spacing: -1px; color: #666; }
@@ -187,7 +188,7 @@ footer a { color: #fff; }
 .most_hated_user a:hover, .most_hated_user a:focus { text-decoration: underline; }
 
 #user-container::after { content: ' '; display: block; clear: both; }
-#user-container .tweet { margin: 0 auto 30px; }
+#user-container .tweet { margin: 0 auto 20px; }
 #user-container .hate-user { float: left; width: 50%; text-align: center; padding: 0 10px; }
 #user-container .hate-user .image { margin-top: 40px; width: 100px; height: 100px; border-radius: 50%; display: inline-block; background-position: center; background-size: cover; background-repeat: no-repeat; }
 #user-container .hate-user.hated-user { margin-bottom: 130px; }

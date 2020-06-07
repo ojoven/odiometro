@@ -69,7 +69,7 @@ Vue.component('historic', {
 
 					<section>
 						<div class="user-message"><div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div><span v-html='$t("historic.resume.hated")'></span></div>
-						<div class="example-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
+						<div class="example-container"><a class="tweet" target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id ">{{resume.hatedUser.tweet.text}}</a></div>
 						<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 							<ul><li v-for="user in resume.hatedUser.others">
 								<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
@@ -83,7 +83,7 @@ Vue.component('historic', {
 
 					<section>
 						<div class="user-message"><div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">@{{ resume.hatefulUser.user }}</a></div><span v-html='$t("historic.resume.hateful")'></span></div>
-						<div class="example-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
+						<div class="example-container"><a class="tweet" target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id ">{{resume.hatefulUser.tweet.text}}</a></div>
 						<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 							<ul><li v-for="user in resume.hatefulUser.others">
 								<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">@{{ user.user }}</a>

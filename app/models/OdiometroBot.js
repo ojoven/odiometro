@@ -60,6 +60,7 @@ var OdiometroBot = {
 				var altText = 'Media tuits/odio minuto: ' + average + '. Máximo tuits/odio minuto: ' + max + '. ¿Quién ha propagado más odio?: @' + hatefulUser.user + '. ¿Quién ha recibido más odio?: ' + hatedUser.user;
 
 				that.twitter.postTweetWithMedia(that.pathToMediaFile, templateResumeFirst, altText, function (firstTweet) {
+
 					that.twitter.postTweetAsReplyTo(templateResumeSecond, firstTweet.id_str, function (secondTweet) {
 						that.twitter.postTweetAsReplyTo(templateResumeThird, secondTweet.id_str, function (thirdTweet) {
 

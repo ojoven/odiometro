@@ -1,5 +1,7 @@
 TODO
 ================================
 
-* Fix issue trigger if @name includes trigger (example: @davidcerdag)
-* Make example tweet on most hated user / historic show styled
+* Make example tweet on historic (most hated/hateful) be styled
+* Fix issue OdiometroBot not working on production (probably due to amorometro.es)
+* Fix issue with historic not working correctly on production
+* Data was not the same on local and production, why?

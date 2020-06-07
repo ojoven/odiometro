@@ -16,10 +16,9 @@ const lib = new Vue({
 		// Parse a Tweet (and auxiliars)
 		parseTweet: function (tweet, track) {
 
-			console.log('track!', track);
+			tweet = this.parseTweetUsers(tweet);
 
 			for (var i in track) {
-
 				tweet = this.highlight(tweet, track[i]);
 			}
 
@@ -33,7 +32,19 @@ const lib = new Vue({
 
 		preg_quote: function (str) {
 			return (str + '').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
-		}
+		},
+
+		parseTweetUsers: function (tweet) {
+
+			var users = tweet.match(/@\w+/g);
+			if (!users) return tweet;
+
+			users.forEach(function (user) {
+				tweet = tweet.replace(user, '<span class="user">' + user + '</span>');
+			});
+
+			return tweet;
+		},
 
 	}
 });
