@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 */
 
-// Languages
+// Bot
 var args = process.argv.slice(2);
 var defaultBot = 'odiometro';
 var bot = (args && typeof args[0] !== "undefined") ? args[0] : defaultBot;
@@ -39,6 +39,8 @@ var ignoreLocations = global.botConfig.ignore_locations;
 var ignoreAccounts = global.botConfig.ignore_accounts;
 var ignoreForeignExpressions = global.botConfig.ignore_foreign_expressions;
 var ignoreUserDescriptions = global.botConfig.ignore_user_descriptions;
+var lastEmittedTweetTime = false;
+var timeBetweenTweetsEmitted = 3;
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -99,7 +101,7 @@ twitterStream.on('tweet', function (tweet) {
 		// Dispatcher: Is it a retweet?
 		if (Tweet.isItARetweet(tweet)) {
 			database.saveRetweet(tweet);
-			if (global.botConfig.saveTweets) database.saveRetweetStore(tweet);
+			//if (global.botConfig.saveTweets) database.saveRetweetStore(tweet);
 		} else {
 
 			// Or it is a tweet
@@ -118,7 +120,14 @@ twitterStream.on('tweet', function (tweet) {
 			tweetParsed.words = words;
 			tweetParsed.screen_name = tweet.user.screen_name;
 
-			io.sockets.emit('tweet', tweetParsed);
+			var currentTime = Math.round(new Date().getTime() / 1000);
+			if (currentTime > lastEmittedTweetTime + timeBetweenTweetsEmitted) {
+				console.log('emit!');
+				io.sockets.emit('tweet', tweetParsed);
+				lastEmittedTweetTime = currentTime;
+			} else {
+				console.log('dont emit!');
+			}
 
 		}
 
@@ -269,7 +278,7 @@ function emitHistoric(parameters, socket) {
 |--------------------------------------------------------------------------
 */
 // Number Tweets
-var frequencyOfUpdateNumberTweets = 500;
+var frequencyOfUpdateNumberTweets = 2000;
 setInterval(function () {
 	emitNumberTweets(io.sockets);
 }, frequencyOfUpdateNumberTweets);
