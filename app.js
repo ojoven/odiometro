@@ -171,11 +171,24 @@ function emitMostHatedUserAndTweet(socket) {
 			mostHatedUser = user.user;
 			socket.emit('most_hated_user', user);
 
-			database.getMostHatedUserExampleMultipleTweets(mostHatedUser, function (tweets) {
-				if (tweets) {
-					socket.emit('most_hated_user_tweets', tweets);
-				}
-			});
+			if (global.botConfig.saveTweets) {
+				database.getMostHatedUserExampleMultipleTweets(mostHatedUser, function (tweets) {
+					if (tweets) {
+						socket.emit('most_hated_user_tweets', tweets);
+					}
+				});
+			} else {
+				database.getMostHatedUserExampleTweet(mostHatedUser, function (tweet) {
+					if (tweet) {
+						tweet.text = tweet.tweet;
+						tweet.words = track.getWordsString();
+						var tweets = [tweet]
+						console.log(tweets);
+						socket.emit('most_hated_user_tweets', tweets);
+					}
+				});
+			}
+
 
 			database.getUserImage(mostHatedUser, function (userImage) {
 
