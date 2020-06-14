@@ -39,8 +39,6 @@ var ignoreLocations = global.botConfig.ignore_locations;
 var ignoreAccounts = global.botConfig.ignore_accounts;
 var ignoreForeignExpressions = global.botConfig.ignore_foreign_expressions;
 var ignoreUserDescriptions = global.botConfig.ignore_user_descriptions;
-var lastEmittedTweetTime = false;
-var timeBetweenTweetsEmitted = 3;
 
 // Models
 var Tweet = require("./app/models/Tweet.js");
@@ -85,6 +83,11 @@ io.on('connection', function (socket) {
 		emitHistoric(parameters, socket);
 	});
 
+	socket.on('retrieve_words', function (parameters) {
+		var words = track.getWords();
+		socket.emit('store_words', words);
+	});
+
 });
 
 // Twitter Stream
@@ -98,8 +101,10 @@ twitterStream.on('tweet', function (tweet) {
 		if (!Tweet.isItAHateTweetFromInformation(information)) return;
 		if (!Tweet.isValidLocation(tweet, ignoreLocations, ignoreAccounts, ignoreForeignExpressions, ignoreUserDescriptions)) return;
 
+		var isRetweet = Tweet.isItARetweet(tweet);
+
 		// Dispatcher: Is it a retweet?
-		if (Tweet.isItARetweet(tweet)) {
+		if (isRetweet) {
 			database.saveRetweet(tweet);
 			//if (global.botConfig.saveTweets) database.saveRetweetStore(tweet);
 		} else {
@@ -120,16 +125,11 @@ twitterStream.on('tweet', function (tweet) {
 			tweetParsed.words = words;
 			tweetParsed.screen_name = tweet.user.screen_name;
 
-			var currentTime = Math.round(new Date().getTime() / 1000);
-			if (currentTime > lastEmittedTweetTime + timeBetweenTweetsEmitted) {
-				console.log('emit!');
-				io.sockets.emit('tweet', tweetParsed);
-				lastEmittedTweetTime = currentTime;
-			} else {
-				console.log('dont emit!');
-			}
-
+			io.sockets.emit('tweet', tweetParsed);
 		}
+
+		var consoleLogMessage = isRetweet ? 'Retweet' : 'Tweet: ' + words;
+		console.log(consoleLogMessage);
 
 		// Save the users
 		var users = Tweet.getUsernamesInTweet(tweetText);

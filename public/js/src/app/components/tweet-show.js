@@ -34,7 +34,7 @@ Vue.component('tweet-show', {
 	methods: {
 
 		updateTweet: function (tweet) {
-			console.log(tweet.words);
+			//console.log(tweet.words);
 			this.tweet = lib.parseTweet(tweet.tweet, tweet.words);
 			this.id_str = tweet.id_str;
 			this.screen_name = tweet.screen_name;

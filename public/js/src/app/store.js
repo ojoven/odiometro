@@ -9,5 +9,10 @@ store.showUser = false;
 store.showInfo = false;
 store.showHistoric = false;
 
-// Track
-store.track = [];
+// Words
+store.words = [];
+socket.emit('retrieve_words');
+socket.on('store_words', function (words) {
+	console.log('hello words!', words);
+	store.words = words;
+}.bind(this));

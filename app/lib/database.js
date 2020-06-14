@@ -3,6 +3,14 @@ var dbConfig = require(global.appRoot + '/config/database_' + global.botName + '
 var mysql = require('mysql');
 var Tweet = require("../models/Tweet.js");
 
+// DB helper
+var numTweetsToSave = 5;
+var numRetweetsToSave = 10;
+var numTweetsToStore = 50;
+var tweetsToSave = [];
+var retweetsToSave = [];
+var tweetsToStore = [];
+
 var database = {
 	connection: mysql.createConnection({
 		host: dbConfig.host,
@@ -20,28 +28,62 @@ database.initialize = function () {
 /** TWEETS **/
 database.saveTweet = function (tweet) {
 
-	var tweetText = this.escapeSingleQuotes(tweet.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.tweets VALUES(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
-		if (error) {
-			console.log(error);
-			throw error;
-		}
-	});
+	var that = this;
+
+	tweetsToSave.push(tweet);
+
+	// Is it moment to save tweet?
+	if (tweetsToSave.length >= numTweetsToSave) {
+		var values = '';
+		tweetsToSave.forEach(function (tweet, index) {
+			var tweetText = that.escapeSingleQuotes(tweet.text);
+			values += '(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
+			if (index !== tweetsToSave.length - 1) values += ',';
+		});
+
+		tweetsToSave = [];
+
+		var query = 'INSERT INTO ' + dbConfig.database + '.tweets VALUES' + values;
+		console.log('Save last ' + numTweetsToSave + ' tweets');
+
+		this.connection.query(query, function (error, results, fields) {
+			if (error) {
+				console.log(error);
+				throw error;
+			}
+		});
+	}
 
 };
 
 // RETWEETS
 database.saveRetweet = function (tweet) {
 
-	var tweetJson = this.escapeSingleQuotes(JSON.stringify(JSON.stringify(tweet)));
-	tweetJson = tweetJson.substring(1, tweetJson.length - 1);
-	var retweetText = this.escapeSingleQuotes(tweet.retweeted_status.text);
-	this.connection.query('INSERT INTO ' + dbConfig.database + '.retweets VALUES(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')', function (error, results, fields) {
-		if (error) {
-			console.log(error);
-			throw error;
-		}
-	});
+	var that = this;
+
+	retweetsToSave.push(tweet);
+
+	// Is it moment to save retweet?
+	if (retweetsToSave.length >= numRetweetsToSave) {
+		var values = '';
+		retweetsToSave.forEach(function (tweet, index) {
+			var retweetText = that.escapeSingleQuotes(tweet.retweeted_status.text);
+			values += '(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
+			if (index !== retweetsToSave.length - 1) values += ',';
+		});
+
+		retweetsToSave = [];
+
+		var query = 'INSERT INTO ' + dbConfig.database + '.retweets VALUES' + values;
+		console.log('Save last ' + numRetweetsToSave + ' retweets');
+
+		this.connection.query(query, function (error, results, fields) {
+			if (error) {
+				console.log(error);
+				throw error;
+			}
+		});
+	}
 
 };
 
@@ -93,37 +135,57 @@ database.cleanOldData = function (timeInMinutes) {
 
 database.saveTweetStore = function (tweet) {
 
-	var tweetStore = Tweet.parseTweetForStore(tweet);
+	var that = this;
 
-	var in_reply_to_status_id_str = tweetStore.in_reply_to_status_id_str ? '\'' + tweetStore.in_reply_to_status_id_str + '\'' : null;
-	var in_reply_to_user_id_str = tweetStore.in_reply_to_user_id_str ? '\'' + tweetStore.in_reply_to_user_id_str + '\'' : null;
-	var in_reply_to_user_screen_name = tweetStore.in_reply_to_user_screen_name ? '\'' + tweetStore.in_reply_to_user_screen_name + '\'' : null;
+	tweetsToStore.push(tweet);
 
-	var quoted_status_id_str = tweetStore.quoted_status_id_str ? '\'' + tweetStore.quoted_status_id_str + '\'' : null;
-	var quoted_status_user_id_str = tweetStore.quoted_status_user_id_str ? '\'' + tweetStore.quoted_status_user_id_str + '\'' : null;
-	var quoted_status_user_screen_name = tweetStore.quoted_status_user_screen_name ? '\'' + tweetStore.quoted_status_user_screen_name + '\'' : null;
+	// Is it moment to save tweet?
+	if (tweetsToStore.length >= numTweetsToStore) {
+		var values = '';
+		tweetsToStore.forEach(function (tweet, index) {
 
-	var query = 'INSERT INTO ' + dbConfig.database + '.tweets_store VALUES(null, ' +
-		'\'' + tweetStore.id_str + '\', ' +
-		'\'' + this.escapeSingleQuotes(tweetStore.text) + '\', ' +
-		'\'' + tweetStore.words + '\', ' +
-		in_reply_to_status_id_str + ', ' +
-		in_reply_to_user_id_str + ', ' +
-		in_reply_to_user_screen_name + ', ' +
-		quoted_status_id_str + ', ' +
-		quoted_status_user_id_str + ', ' +
-		quoted_status_user_screen_name + ', ' +
-		'\'' + tweetStore.user_id_str + '\', ' +
-		'\'' + tweetStore.user_screen_name + '\', ' +
-		tweetStore.user_followers_count + ', ' +
-		tweetStore.user_friends_count + ', ' +
-		tweetStore.user_statuses_count + ', ' +
-		'\'' + tweetStore.user_profile_image_url_https + '\', ' +
-		'\'' + tweetStore.created_at + '\', ' +
-		'\'' + database.currentDateTimeInMySQLFormat() + '\'' +
-		')';
+			var tweetStore = Tweet.parseTweetForStore(tweet);
 
-	this.connection.query(query);
+			var in_reply_to_status_id_str = tweetStore.in_reply_to_status_id_str ? '\'' + tweetStore.in_reply_to_status_id_str + '\'' : null;
+			var in_reply_to_user_id_str = tweetStore.in_reply_to_user_id_str ? '\'' + tweetStore.in_reply_to_user_id_str + '\'' : null;
+			var in_reply_to_user_screen_name = tweetStore.in_reply_to_user_screen_name ? '\'' + tweetStore.in_reply_to_user_screen_name + '\'' : null;
+
+			var quoted_status_id_str = tweetStore.quoted_status_id_str ? '\'' + tweetStore.quoted_status_id_str + '\'' : null;
+			var quoted_status_user_id_str = tweetStore.quoted_status_user_id_str ? '\'' + tweetStore.quoted_status_user_id_str + '\'' : null;
+			var quoted_status_user_screen_name = tweetStore.quoted_status_user_screen_name ? '\'' + tweetStore.quoted_status_user_screen_name + '\'' : null;
+
+			values += '(null, ' +
+				'\'' + tweetStore.id_str + '\', ' +
+				'\'' + that.escapeSingleQuotes(tweetStore.text) + '\', ' +
+				'\'' + tweetStore.words + '\', ' +
+				in_reply_to_status_id_str + ', ' +
+				in_reply_to_user_id_str + ', ' +
+				in_reply_to_user_screen_name + ', ' +
+				quoted_status_id_str + ', ' +
+				quoted_status_user_id_str + ', ' +
+				quoted_status_user_screen_name + ', ' +
+				'\'' + tweetStore.user_id_str + '\', ' +
+				'\'' + tweetStore.user_screen_name + '\', ' +
+				tweetStore.user_followers_count + ', ' +
+				tweetStore.user_friends_count + ', ' +
+				tweetStore.user_statuses_count + ', ' +
+				'\'' + tweetStore.user_profile_image_url_https + '\', ' +
+				'\'' + tweetStore.created_at + '\', ' +
+				'\'' + database.currentDateTimeInMySQLFormat() + '\'' +
+				')';
+
+			if (index !== tweetsToStore.length - 1) values += ',';
+
+		});
+
+		tweetsToStore = [];
+
+		var query = 'INSERT INTO ' + dbConfig.database + '.tweets_store VALUES' + values;
+		this.connection.query(query);
+
+		console.log('Store last ' + numTweetsToStore + ' tweets');
+	}
+
 }
 
 database.saveRetweetStore = function (retweet) {

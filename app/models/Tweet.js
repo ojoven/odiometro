@@ -26,7 +26,6 @@ Tweet.extractInformationFromTweet = function (tweet, track) {
 	var type = 'status';
 
 	var tweetTextLowercase = Tweet.getText(tweet).toLowerCase();
-	console.log(tweetTextLowercase.length);
 
 	// Check word weights
 	var wordsWithWeights = track.getWordsWithWeights();
