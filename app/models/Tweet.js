@@ -210,8 +210,8 @@ Tweet.parseTweetForStore = function (tweet) {
 		in_reply_to_user_screen_name: tweet.in_reply_to_user_id_str ? tweet.in_reply_to_screen_name : null,
 
 		quoted_status_id_str: tweet.is_quote_status ? tweet.quoted_status_id_str : null,
-		quoted_status_user_id_str: tweet.is_quote_status ? tweet.quoted_status.user.id_str : null,
-		quoted_status_user_screen_name: tweet.is_quote_status ? tweet.quoted_status.user.screen_name : null,
+		quoted_status_user_id_str: tweet.quoted_status ? tweet.quoted_status.user.id_str : null,
+		quoted_status_user_screen_name: tweet.quoted_status ? tweet.quoted_status.user.screen_name : null,
 
 		user_id_str: tweet.user.id_str,
 		user_screen_name: tweet.user.screen_name,

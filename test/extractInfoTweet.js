@@ -34,6 +34,18 @@ describe('hate info tweet', function () {
 		assert.equal(info.words[0].weight, 1);
 	});
 
+	it('should return only plural from fachas', function () {
+
+		var tweet = {
+			text: 'vaya contigo, mira a los fachas'
+		};
+
+		var info = Tweet.extractInformationFromTweet(tweet, track);
+
+		assert.equal(info.words[0].word, 'fachas');
+		assert.equal(info.words[0].weight, 0.5);
+	});
+
 	it('should return several info for callate ya puto nazi de mierda', function () {
 
 		var tweet = {

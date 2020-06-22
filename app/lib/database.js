@@ -240,7 +240,7 @@ database.saveUserImage = function (user, userImage) {
 
 database.getMostHatedUser = function (callback) {
 
-	var timeInMinutes = 2;
+	var timeInMinutes = 1;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 	var query = 'SELECT `user`, COUNT(`user`) AS `user_occurrence` FROM `users` WHERE published > \'' + dateMysql + '\' GROUP BY `user` ORDER BY `user_occurrence` DESC LIMIT 1';
 	this.connection.query(query, function (error, results, fields) {
@@ -309,7 +309,7 @@ database.getMostHatedUserExampleTweet = function (user, callback) {
 
 database.getMostHatefulUserAndTweet = function (callback) {
 
-	var timeInMinutes = 2;
+	var timeInMinutes = 1;
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(2);
 	var that = this;
 

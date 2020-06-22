@@ -86,45 +86,59 @@
 		{
 			"word": "hija de puta",
 			"weight": 1
-		},
-		{
+		}, {
 			"word": "hijadeputa",
 			"weight": 1
-		},
-		{
-			"word": "hijoputa",
+		}, {
+			"word": "hijas de puta",
 			"weight": 1
-		},
-		{
-			"word": "hijaputa",
-			"weight": 1
-		},
-		{
+		}, {
 			"word": "hijasdeputa",
 			"weight": 1
-		},
-		{
-			"word": "hijodeputa",
+		}, {
+			"word": "hija puta",
 			"weight": 1
-		},
-		{
-			"word": "hijosdeputa",
+		}, {
+			"word": "hijaputa",
 			"weight": 1
-		},
-		{
-			"word": "hijo de la gran puta",
-			"weight": 1
-		},
-		{
+		}, {
 			"word": "hija de la gran puta",
 			"weight": 1
-		},
-		{
+		}, {
+			"word": "hija de la grandísima puta",
+			"weight": 1
+		}, {
+			"word": "hijas de la gran puta",
+			"weight": 1
+		}, {
+			"word": "hijas de la grandísima puta",
+			"weight": 1
+		}, {
+			"word": "hijo de puta",
+			"weight": 1
+		}, {
+			"word": "hijodeputa",
+			"weight": 1
+		}, {
+			"word": "hijos de puta",
+			"weight": 1
+		}, {
+			"word": "hijosdeputa",
+			"weight": 1
+		}, {
+			"word": "hijoputa",
+			"weight": 1
+		}, {
+			"word": "hijo de la gran puta",
+			"weight": 1
+		}, {
 			"word": "hijo de la grandísima puta",
 			"weight": 1
-		},
-		{
-			"word": "hija de la grandísima puta",
+		}, {
+			"word": "hijos de la gran puta",
+			"weight": 1
+		}, {
+			"word": "hijos de la grandísima puta",
 			"weight": 1
 		},
 		{
@@ -269,6 +283,10 @@
 		},
 		{
 			"word": "piojosa",
+			"weight": 1
+		},
+		{
+			"word": "mononeuronal",
 			"weight": 1
 		},
 		{
@@ -648,7 +666,18 @@
 			"weight": 0.5
 		},
 		{
+			"word": "fachas",
+			"weight": 0.5
+		}, {
+			"word": "fascistas",
+			"weight": 0.5
+		},
+		{
 			"word": "capullo",
+			"weight": 0.5
+		},
+		{
+			"word": "capullos",
 			"weight": 0.5
 		},
 		{
@@ -656,7 +685,15 @@
 			"weight": 0.5
 		},
 		{
+			"word": "idiotas",
+			"weight": 0.5
+		},
+		{
 			"word": "maricón",
+			"weight": 0.5
+		},
+		{
+			"word": "maricones",
 			"weight": 0.5
 		},
 		{
