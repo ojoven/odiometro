@@ -17,7 +17,7 @@ var OdiometroBot = {
 
 		var that = this;
 
-		var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(24 * hours);
+		var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * hours);
 		var dateEnd = database.currentDateTimeInMySQLFormat();
 
 		database.getHistoricData(dateStart, dateEnd, function (historicData) {

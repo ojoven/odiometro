@@ -364,7 +364,7 @@ setInterval(function () {
 */
 app.get('/resume', function (req, res) {
 
-	var hours = req.query.hours !== undefined ? req.query.hours : 24;;
+	var hours = req.query.hours !== undefined ? req.query.hours : 24;
 
 	var dateStart = database.getDateTimeInMySQLFormatXMinutesAgo(60 * hours);
 	var dateEnd = database.currentDateTimeInMySQLFormat();
