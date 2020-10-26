@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `odiometro`
+-- Base de datos: `amorometro`
 --
+
+-- CREATE DATABASE IF NOT EXISTS `amorometro` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 
 -- --------------------------------------------------------
 
@@ -26,7 +28,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `historic`
 --
 
-CREATE TABLE `historic` (
+CREATE TABLE IF NOT EXISTS `historic` (
   `id` int(11) NOT NULL,
   `number_tweets` int(5) NOT NULL,
   `hated_user` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -45,7 +47,7 @@ CREATE TABLE `historic` (
 -- Estructura de tabla para la tabla `retweets`
 --
 
-CREATE TABLE `retweets` (
+CREATE TABLE IF NOT EXISTS `retweets` (
   `id` int(11) NOT NULL,
   `retweeted_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `retweeted_user` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -60,7 +62,7 @@ CREATE TABLE `retweets` (
 -- Estructura de tabla para la tabla `retweets_store`
 --
 
-CREATE TABLE `retweets_store` (
+CREATE TABLE IF NOT EXISTS `retweets_store` (
   `id` int(11) NOT NULL,
   `id_str` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id_str` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -75,7 +77,7 @@ CREATE TABLE `retweets_store` (
 -- Estructura de tabla para la tabla `tweets`
 --
 
-CREATE TABLE `tweets` (
+CREATE TABLE IF NOT EXISTS `tweets` (
   `id` int(11) NOT NULL,
   `tweet` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_str` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -90,7 +92,7 @@ CREATE TABLE `tweets` (
 -- Estructura de tabla para la tabla `tweets_store`
 --
 
-CREATE TABLE `tweets_store` (
+CREATE TABLE IF NOT EXISTS `tweets_store` (
   `id` int(11) NOT NULL,
   `id_str` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `text` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -117,7 +119,7 @@ CREATE TABLE `tweets_store` (
 -- Estructura de tabla para la tabla `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `user` varchar(32) COLLATE utf8_bin NOT NULL,
   `published` datetime NOT NULL
@@ -129,7 +131,7 @@ CREATE TABLE `users` (
 -- Estructura de tabla para la tabla `user_images`
 --
 
-CREATE TABLE `user_images` (
+CREATE TABLE IF NOT EXISTS `user_images` (
   `id` int(11) NOT NULL,
   `screen_name` varchar(32) NOT NULL,
   `image_url` varchar(256) NOT NULL,
