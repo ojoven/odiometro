@@ -4,6 +4,7 @@ var mysql = require('mysql');
 var Tweet = require("../models/Tweet.js");
 
 // DB helper
+var databaseName = process.env.APP_DATABASE_NAME || dbConfig.database || 'odiometro';
 var numTweetsToSave = 5;
 var numRetweetsToSave = 10;
 var numTweetsToStore = 50;
@@ -20,7 +21,7 @@ var database = {
 		host: process.env.APP_DATABASE_HOST || dbConfig.host,
 		user: process.env.APP_DATABASE_USER || dbConfig.user,
 		password: process.env.APP_DATABASE_PASSWORD || dbConfig.password,
-		database: process.env.APP_DATABASE_NAME || dbConfig.database || 'odiometro',
+		database: databaseName,
 		charset: process.env.APP_DATABASE_CONNECTION_CHARSET || dbConfig.charset || 'utf8mb4'
 	})
 };
@@ -46,7 +47,7 @@ database.saveTweet = function (tweet) {
 
 		tweetsToSave = [];
 
-		var query = 'INSERT INTO ' + dbConfig.database + '.tweets VALUES' + values;
+		var query = 'INSERT INTO ' + databaseName + '.tweets VALUES' + values;
 		console.log('Save last ' + numTweetsToSave + ' tweets');
 
 		this.pool.query(query, function (error, results, fields) {
@@ -77,7 +78,7 @@ database.saveRetweet = function (tweet) {
 
 		retweetsToSave = [];
 
-		var query = 'INSERT INTO ' + dbConfig.database + '.retweets VALUES' + values;
+		var query = 'INSERT INTO ' + databaseName + '.retweets VALUES' + values;
 		console.log('Save last ' + numRetweetsToSave + ' retweets');
 
 		this.pool.query(query, function (error, results, fields) {
@@ -116,7 +117,7 @@ database.getNumberOfTweetsInLastMinute = function (callback) {
 
 database.getLastTweetFromDatabase = function (callback) {
 
-	var query = 'SELECT * FROM ' + dbConfig.database + '.tweets ORDER BY published DESC LIMIT 0,1';
+	var query = 'SELECT * FROM ' + databaseName + '.tweets ORDER BY published DESC LIMIT 0,1';
 	this.pool.query(query, function (error, results, fields) {
 		var lastTweet = results[0];
 		callback(lastTweet);
@@ -130,9 +131,9 @@ database.cleanOldData = function (timeInMinutes) {
 	var dateMysql = this.getDateTimeInMySQLFormatXMinutesAgo(timeInMinutes);
 
 	// Clean old data from the different tables
-	this.pool.query('DELETE FROM ' + dbConfig.database + '.tweets WHERE published < \'' + dateMysql + '\'');
-	this.pool.query('DELETE FROM ' + dbConfig.database + '.retweets WHERE published < \'' + dateMysql + '\'');
-	this.pool.query('DELETE FROM ' + dbConfig.database + '.users WHERE published < \'' + dateMysql + '\'');
+	this.pool.query('DELETE FROM ' + databaseName + '.tweets WHERE published < \'' + dateMysql + '\'');
+	this.pool.query('DELETE FROM ' + databaseName + '.retweets WHERE published < \'' + dateMysql + '\'');
+	this.pool.query('DELETE FROM ' + databaseName + '.users WHERE published < \'' + dateMysql + '\'');
 
 };
 
@@ -183,7 +184,7 @@ database.saveTweetStore = function (tweet) {
 
 		tweetsToStore = [];
 
-		var query = 'INSERT INTO ' + dbConfig.database + '.tweets_store VALUES' + values;
+		var query = 'INSERT INTO ' + databaseName + '.tweets_store VALUES' + values;
 		this.pool.query(query);
 
 		console.log('Store last ' + numTweetsToStore + ' tweets');
@@ -195,7 +196,7 @@ database.saveRetweetStore = function (retweet) {
 
 	var retweetStore = Tweet.parseRetweetForStore(retweet);
 
-	var query = 'INSERT INTO ' + dbConfig.database + '.retweets_store VALUES(null, ' +
+	var query = 'INSERT INTO ' + databaseName + '.retweets_store VALUES(null, ' +
 		'\'' + retweetStore.id_str + '\', ' +
 		'\'' + retweetStore.user_id_str + '\', ' +
 		'\'' + retweetStore.user_screen_name + '\', ' +
@@ -213,7 +214,7 @@ database.saveUsers = function (users) {
 
 	var that = this;
 	users.forEach(function (user) {
-		that.pool.query('INSERT INTO ' + dbConfig.database + '.users VALUES(null, \'' + user + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')');
+		that.pool.query('INSERT INTO ' + databaseName + '.users VALUES(null, \'' + user + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')');
 	});
 
 };
@@ -237,7 +238,7 @@ database.saveUserImage = function (user, userImage) {
 
 	if (!user || !userImage) return;
 
-	this.pool.query('INSERT INTO ' + dbConfig.database + '.user_images VALUES(null, \'' + user + '\', \'' + userImage + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')');
+	this.pool.query('INSERT INTO ' + databaseName + '.user_images VALUES(null, \'' + user + '\', \'' + userImage + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')');
 
 };
 
@@ -377,7 +378,7 @@ database.saveHistoricData = function (
 	hatefulUserTweetText = this.escapeSingleQuotes(hatefulUserTweetText);
 
 	this.pool.query(
-		'INSERT INTO ' + dbConfig.database + '.historic VALUES(null, \'' + numberTweets + '\', \'' +
+		'INSERT INTO ' + databaseName + '.historic VALUES(null, \'' + numberTweets + '\', \'' +
 		hatedUser + '\', \'' + hatedUserExampleTweetText + '\', \'' + hatedUserExampleTweetId + '\', \'' + hatedUserExampleTweetUser + '\', \'' +
 		hatefulUser + '\', \'' + hatefulUserTweetText + '\', \'' + hatefulUserTweetId +
 		'\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')',

@@ -23,6 +23,7 @@ var express = require('express'),
 	app = express();
 
 var port = process.env.PORT || global.botConfig.port;
+var external_port = process.env.EXTERNAL_PORT || port;
 
 var io = require('socket.io').listen(app.listen(port));
 require('./config')(app, io);
@@ -45,7 +46,7 @@ var Tweet = require("./app/models/Tweet.js");
 var Historic = require("./app/models/Historic.js");
 
 // Logging
-console.log('Odiometro is running on http://localhost:' + port);
+console.log('Odiometro is running on http://localhost:' + external_port);
 
 // Vars
 var numberTweets, mostHatedUser, mostHatedUsersLastTweet, mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId;

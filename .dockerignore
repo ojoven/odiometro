@@ -1,7 +1,12 @@
 .dockerignore
-./log
-./tmp
+Dockerfile*
+docker-compose*
+/build
+/.cache
+/log
+/tmp
+/var
 .git
-*Dockerfile*
-*docker-compose*
-node_modules
+.idea
+.swp
+tags

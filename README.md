@@ -15,6 +15,7 @@ La web hace uso de las siguientes tecnologías:
 * VueJS
 * SASS
 * Grunt
+* *(opcional)* Docker
 
 ## Instalación
 ---
@@ -22,22 +23,43 @@ La web hace uso de las siguientes tecnologías:
 1. Clonar el repositorio
 ```git clone git@github.com:ojoven/odiometro.git```
 
-2. Desde la raíz del proyecto (instalará express, socket y otras librerías)
+### **Docker setup:**
+Para instalar en un contenedor de Docker…
 
-2. Desde la raíz del proyecto (instalará express, socket y otras librerías)
+2. Configurar las credenciales de la [API de Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) con las environment variables `APP_TWITTER_`, en ``docker-compose.yml``.
+
+3. En *docker-compose.yml*, asegúrate de que `INIT_DB_NAMES` lista los nombres de la base de datos a inicializar, separados por una coma (por ejemplo, `INIT_DB_NAMES=odiometro,amorometro`).
+
+4. Ejecute `docker-compose up` desde el directorio raíz del proyecto.
+**NOTE:** Necesitas tener [Docker](https://www.docker.com/get-started) ya instalado. Si tienes problemas, [abre un issue](https://github.com/ojoven/odiometro/issues) o intenta la configuración manual.
+
+> Por defecto, el `docker-compose.yml` está configurado para inicializar:
+> 1 contenedor de base de datos (compartido entre instancias)
+> 1..N contenedores, para cada versión de la aplicación (odómetro, amorómetro u otros).
+> Comente los servicios no deseados, o configúrelos para su versión personalizada.
+> Cada instancia de la aplicación puede ser alcanzada en una porta diferente (3001, 3002; see `PORT` env variable).
+
+5. Accede a la aplicación de *odiometro* en http://localhost:8081, y a la aplicación de *amorometro* en http://localhost:8082
+
+**Nota:** Los file de configuración correspondientes a cada bot deben existir; por ejemplo, para *odiometro* crea `database_odiometro.json` y `twitter_odiometro.json` y `odiometro.json`. Los dos primeros pueden dejarse vacíos (`{}`), cuando se utilizan variables del sistema.
+
+### **Local setup:**
+De lo contrario, siga los pasos a continuación para instalar en la máquina local.
+
+2. Configurar las credenciales de la [API de Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) en `/config/twitter_odiometro.json` (o `twitter_[dbname].json`)
+
+3. Desde la raíz del proyecto (instalará express, socket y otras librerías)
 ```npm install```
 
-3. También desde la carpeta `/public` (instalará grunt y plugins, vue)
+4. También desde la carpeta `/public` (instalará grunt y plugins, vue)
 ```cd public && npm install```
 
-4. Crear una base de datos y configurar la aplicación para acceder a ella
+5. Crear una base de datos y configurar la aplicación para acceder a ella
 
-4.2 Configure les credenciales de tu DB desde `/config/database_odiometro.json`; o `database_[dbname].pais.json`, si estás creando el odiómetro en tu país)
+5.2 Configure les credenciales de tu DB desde `/config/database_odiometro.json`; o `database_[dbname].pais.json`, si estás creando el odiómetro en tu país)
 
-4.3 Importar el esquema a su base de datos
+5.3 Importar el esquema a su base de datos
 ```mysql -u [username] -p [dbname] < db/app-schema.sql```
-
-5. Configurar las credenciales de la [API de Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) en `/config/twitter_odiometro.json`
 
 6. Corre el grunt desde */public*
 ```grunt```
