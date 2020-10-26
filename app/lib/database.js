@@ -37,7 +37,7 @@ database.saveTweet = function (tweet) {
 		var values = '';
 		tweetsToSave.forEach(function (tweet, index) {
 			var tweetText = that.escapeSingleQuotes(tweet.text);
-			values += '(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
+			values += '(null, \'' + tweetText + '\', \'' + tweet.id_str + '\', \'' + tweet.user.screen_name + '\', \'{}\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
 			if (index !== tweetsToSave.length - 1) values += ',';
 		});
 
@@ -68,7 +68,7 @@ database.saveRetweet = function (tweet) {
 		var values = '';
 		retweetsToSave.forEach(function (tweet, index) {
 			var retweetText = that.escapeSingleQuotes(tweet.retweeted_status.text);
-			values += '(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
+			values += '(null, \'' + tweet.retweeted_status.id_str + '\', \'' + tweet.retweeted_status.user.screen_name + '\', \'' + retweetText + '\', \'{}\', \' ' + database.currentDateTimeInMySQLFormat() + ' \')';
 			if (index !== retweetsToSave.length - 1) values += ',';
 		});
 
