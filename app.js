@@ -1,3 +1,4 @@
+require('dotenv').config();
 /*
 |--------------------------------------------------------------------------
 | INITIALIZATION
@@ -6,13 +7,12 @@
 
 // Bot
 var args = process.argv.slice(2);
-var defaultBot = 'odiometro';
+var defaultBot = process.env.APP_BOT_NAME || 'odiometro';
 var bot = (args && typeof args[0] !== "undefined") ? args[0] : defaultBot;
 
 // Path and ENV
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
-require('dotenv').config();
 global.urlBase = process.env.URL_BASE;
 global.phantomJsBin = process.env.PHANTOMJS;
 global.botName = bot;
