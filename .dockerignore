@@ -1,0 +1,12 @@
+.dockerignore
+Dockerfile*
+docker-compose*
+/build
+/.cache
+/log
+/tmp
+/var
+.git
+.idea
+.swp
+tags

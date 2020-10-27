@@ -1,0 +1,24 @@
+## Dockerfile for building development image
+FROM mariadb:10.4-focal
+LABEL maintainer "Igor Pellegrini <igor.pellegrini@live.com>"
+
+USER root
+
+# install netcat to run the `wait-for-mysql` readyness probe function
+RUN apt-get -q update \
+    && apt-get -q --yes install netcat  \
+    && apt-get clean
+
+RUN chown -R mysql:mysql /var/lib/mysql
+
+COPY --chown=mysql:mysql ./db/app-schema.sql /schemas/app-schema.sql
+COPY --chown=mysql:mysql ./docker/bash_functions.sh /scripts/bash_functions.sh
+
+# initialize the project database, when running container (create database, import schema, run migrations)
+# MySql/MariaDB images support putting files into `docker-entrypoint-initdb.d/`
+# to load *.sql or execute initialization *.sh scripts.
+COPY --chown=mysql:mysql ./docker/init-from-DB_NAMES.sh /docker-entrypoint-initdb.d/init-from-DB_NAMES.sh
+
+USER mysql
+
+# CMD ["--user=root","--explicit_defaults_for_timestamp"]

@@ -4,7 +4,8 @@
 	"description": "Measure hate tweets in real time on Twitter",
 	"main": "app.js",
 	"scripts": {
-		"test": "mocha"
+		"test": "mocha",
+		"start": "node app.js"
 	},
 	"keywords": [
 		"node",

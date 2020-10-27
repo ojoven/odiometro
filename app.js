@@ -1,3 +1,4 @@
+require('dotenv').config();
 /*
 |--------------------------------------------------------------------------
 | INITIALIZATION
@@ -6,13 +7,12 @@
 
 // Bot
 var args = process.argv.slice(2);
-var defaultBot = 'odiometro';
+var defaultBot = process.env.APP_BOT_NAME || 'odiometro';
 var bot = (args && typeof args[0] !== "undefined") ? args[0] : defaultBot;
 
 // Path and ENV
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
-require('dotenv').config();
 global.urlBase = process.env.URL_BASE;
 global.phantomJsBin = process.env.PHANTOMJS;
 global.botName = bot;
@@ -23,6 +23,7 @@ var express = require('express'),
 	app = express();
 
 var port = process.env.PORT || global.botConfig.port;
+var external_port = process.env.EXTERNAL_PORT || port;
 
 var io = require('socket.io').listen(app.listen(port));
 require('./config')(app, io);
@@ -45,7 +46,7 @@ var Tweet = require("./app/models/Tweet.js");
 var Historic = require("./app/models/Historic.js");
 
 // Logging
-console.log('Odiometro is running on http://localhost:' + port);
+console.log('Odiometro is running on http://localhost:' + external_port);
 
 // Vars
 var numberTweets, mostHatedUser, mostHatedUsersLastTweet, mostHatefulUser, mostHatefulUserTweet, mostHatefulUserTweetId;

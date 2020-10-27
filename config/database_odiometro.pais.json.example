@@ -1,6 +1,6 @@
 {
-	"host": "---",
-	"user": "---",
-	"password": "---",
-	"database": "---"
+	"host": "database",
+	"user": "root",
+	"password": "mysql_pass",
+	"database": "odiometro"
 }

@@ -1,0 +1,76 @@
+---
+version: '2'
+
+services:
+  database:
+    tty: true
+    environment:
+      ### Specify the names of the databases to create
+      #  (corresponding to the app bot-names)
+      - INIT_DB_NAMES=odiometro,amorometro
+      ### Set default credentials
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=mysql_pass
+      # - ALLOW_EMPTY_PASSWORD=yes
+    build:
+      context: .
+      dockerfile: ./Dockerfile-database
+    # volumes:
+      ### Backup databases to host machine
+      #  (remember: init script runs just when /var/lib/mysql is empty;
+      #   try to delete the folder, if incurring in problems)
+      # - ./var/mysql:/var/lib/mysql
+      ### MySql image supports docker-entrypoint-initdb.d/ to load .sql or .sh,
+      # - ./init-from-DB_NAMES.sh:/docker-entrypoint-initdb.d/init-from-DB_NAMES.sh
+      ### Cache apt-get (for debug purposes)
+      # - ./var/apt/cache:/var/cache/apt/archives
+
+  odiometro:
+    tty: true  # Enables debugging capabilities when attached to this container.
+    environment:
+      - PORT=8001
+      - EXTERNAL_PORT=8081
+      - NODE_ENV=development
+      - APP_BOT_NAME=odiometro
+      - APP_URL=http://localhost:8081
+      # - APP_DATABASE_URL=mysql://root:mysql_pass@database/odiometro
+      - APP_DATABASE_HOST=database
+      - APP_DATABASE_NAME=odiometro
+      - APP_DATABASE_USER=root
+      - APP_DATABASE_PASSWORD=mysql_pass
+    working_dir: /home/node/app
+    build: .
+    depends_on:
+      - database
+    ports:
+      - 8081:8001   # external:docker
+    volumes:
+      - ./:/home/node/app
+      - /home/node/app/node_modules   # DO NOT remove: maintains a volume for node_modules/ dir,
+                                      # even when mounting over it (from host to /home/node/app dir)
+                                      # (otherwise is overridden and fails with MODULE_NOT_FOUND)
+
+  amorometro:
+    tty: true  # Enables debugging capabilities when attached to this container.
+    environment:
+      - PORT=8002
+      - EXTERNAL_PORT=8082
+      - NODE_ENV=development
+      - APP_BOT_NAME=amorometro
+      - APP_URL=http://localhost:8082
+      # - APP_DATABASE_URL=mysql://root:mysql_pass@database/amorometro
+      - APP_DATABASE_HOST=database
+      - APP_DATABASE_NAME=amorometro
+      - APP_DATABASE_USER=root
+      - APP_DATABASE_PASSWORD=mysql_pass
+    working_dir: /home/node/app
+    build: .
+    depends_on:
+      - database
+    ports:
+      - 8082:8002   # external:docker
+    volumes:
+      - ./:/home/node/app
+      - /home/node/app/node_modules   # DO NOT remove: maintains a volume for node_modules/ dir,
+                                      # even when mounting over it (from host to /home/node/app dir)
+                                      # (otherwise is overridden and fails with MODULE_NOT_FOUND)
