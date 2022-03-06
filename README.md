@@ -1,81 +1,80 @@
-ODIÓMETRO
+HATE-O-METER (aka odiometro)
 ================================
+An app to measure in real time the hate in Spanish - from Spain - Twitter.
 
-Ya disponible en https://odiometro.es
+If you want to check the README in Spanish, [please check the README-ES.md file](README-ES.md).
 
-Este es un proyecto que ayuda a medir el nivel de odio que se genera en Twitter en tiempo real.
+Available in https://odiometro.es
 
-El objetivo de este proyecto es hacernos conscientes del nivel de debate que se produce en España,
-y el amplio uso de insultos, descalificaciones, etc. que se producen en Twitter. También recoge tweets de otros países hispanoparlantes.
+The goal of this project is to make us conscious of the debate level in Spain,
+and the amount of insults that are posted to Twitter.
 
-La web hace uso de las siguientes tecnologías:
+We're using the following technologies:
+* Vue
 * NodeJS / Express
 * Socket.io
 * MySQL
-* VueJS
 * SASS
-* Grunt
 
 
-
-Instalación
+Installation
 -------------
 
-1. Clonar el repositorio
+1. Clone the repository
 
 ```git clone git@github.com:ojoven/odiometro.git```
 
-2. Desde la raíz del proyecto (instalará express, socket y otras librerías)
+2. From the root of the project (this will install express, socket and other libraries)
 
 ```npm install```
 
-3. También desde la carpeta `/public` (instalará grunt y plugins, vue)
+3. From the `/public` folder (this will install Vue, Grunt and plugins)
 
 ```cd public && npm install```
 
-4. Crea una base de datos e importa el dump en `db/odiometro.sql`
+4. Create a database and import the dump from `db/odiometro.sql`
 
 ```mysql -u [username] -p [dbname] < db/odiometro.sql```
 
-4.2 Configura los datos de tu DB en /config/database_odiometro.json o si estás creando el odiómetro en tu país database_odiometro.pais.json
+4.2 Configure your DB in /config/database_odiometro.json or if you're creating an hatemeter in your own country: database_odiometro.country.json
 
 ```mysql -u [username] -p [dbname] < db/odiometro.sql```
 
-5. Corre el grunt desde /public
+5. Run grunt from /public
 
 ```grunt```
 
-6. Lanza la app
+6. Run the app
 
 ```node app.js```
 
-7. Si has creado tu propia versión de país (o de otro estilo tipo amorómetro)
+6.2. Or if you've created your own version:
 
-```node app.js [nombredebot]```
+```node app.js [botname]```
 
 
-IMPORTANTE
+IMPORTANT
 -------------------------------
-Tendrás que crear una app en Twitter y rellenar los datos de consumer key y secret, y access_token y secret en twitter_odiometro.json o twitter_odiometro.pais.json.
+You must create an app in Twitter and fill the consumer key and secret, access_token and secret in twitter_odiometro.json or twitter_odiometro.country.json.
 
-No sé bien cómo funciona la API de Twitter ahora, ya que estuvieron implementando bastantes restricciones que igual no afectan a apps antiguas pero sí a las nuevas. Si tienes algún problema o sabes cómo va, no dudes en escribir en las Issues.
+Twitter's API has changed since I started with this project and they started adding more restrictions that may not affect older apps but newer ones.
+If you have any problem or you don't know how it works, please write an Issue.
 
-
-Notas adicionales de desarrollo
+Development additional notes
 -------------------------------
 
-* Los componentes Vue del frontend se encuentran en `js/src/app/components`
-* Otros archivos interesantes son:
-    * bus.js -> Lo utilizamos como bus de eventos para emitir / recibir eventos
-    * lib.js -> Una instancia Vue que nos sirve como librería de funciones (para funcionalidades compartidas entre componentes)
-    * socket.js -> Simplemente inicializa socket.io en el frontend
-    * store.js -> Una clase "store" donde almacenamos variables que serán compartidas por varios componentes
-    * vue-instance.js -> Inicializa la instancia Vue principal
-* en `vendor/smoothie.js` tenemos la librería que renderiza la gráfica en tiempo real
-* si tienes sugerencias sobre cómo optimizar el código, hacerlo más legible, refactorizar, etc. las sugerencias y los pull requests son bienvenidos.
+* Vue's components can be found in `public/js/src/app/components`.
+* Other interesting files are:
+    * bus.js -> Event bus to emit / receive events.
+    * lib.js -> Vue instance that serves as a function library for functionalities shared between components.
+    * socket.js -> Initializes socket.io in the frontend.
+    * store.js -> Store class for states shared between components.
+    * vue-instance.js -> Initializes the main Vue instance.
+* in `vendor/smoothie.js` we have the library that renders the real time graph.
+* if you have suggestions on how to optimize the code, make it more readable, refactors, etc. suggestions and pull requests are always welcome.
 
 
 
-Contacta
+Contact
 ------------
-Si tienes alguna duda, sugerencia, crítica o palabra de odio, puedes contactarme en https://twitter.com/ojoven
+If you have any doubt, suggestion, criticism or hate word you can contact me in https://twitter.com/ojoven or post an Issue.
