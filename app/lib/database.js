@@ -1,6 +1,6 @@
 /** DATABASE **/
 var dbConfig = require(global.appRoot + '/config/database_' + global.botName + '.json');
-var mysql = require('mysql');
+var mysql = require('mysql2');
 var Tweet = require("../models/Tweet.js");
 
 // DB helper
