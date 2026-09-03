@@ -3,28 +3,29 @@
 <html lang="es">
 
 <head>
+	<meta charset="utf-8">
+	<base href="../">
 
-	<title>Odiómetro | El espejo de nuestro odio</title>
+	<title>Odiómetro | Archivo interactivo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="/favicon.png" />
+	<meta name="description" content="Archivo interactivo del Odiómetro con tuits, usuarios y cifras ficticios. No muestra datos en tiempo real.">
+	<link rel="shortcut icon" href="favicon.png" />
 
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 	<script src="https://use.fontawesome.com/12c273beb8.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Bahiana|Special+Elite" rel="stylesheet">
 
 	<!-- META FACEBOOK -->
-	<meta property="og:title" content="Odiómetro | El espejo de nuestro odio" />
+	<meta property="og:title" content="Odiómetro | Archivo interactivo" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://odiometro.es/" />
 	<meta property="og:image" content="https://odiometro.es/img/odiometro_logo_big.jpg" />
-	<meta property="og:description"
-		content="¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación, del humor para transmitir y discutir nuestras ideas?" />
+	<meta property="og:description" content="Archivo interactivo del Odiómetro con tuits, usuarios y cifras ficticios. No muestra datos en tiempo real." />
 
 	<!-- META TWITTER -->
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="Odiómetro | El espejo de nuestro odio">
-	<meta name="twitter:description"
-		content="¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación, del humor para transmitir y discutir nuestras ideas?">
+	<meta name="twitter:title" content="Odiómetro | Archivo interactivo">
+	<meta name="twitter:description" content="Archivo interactivo del Odiómetro con tuits, usuarios y cifras ficticios. No muestra datos en tiempo real.">
 	<meta name="twitter:image" content="https://odiometro.es/img/odiometro_logo_big.jpg">
 	<meta name="twitter:creator" content="@ojoven">
 
@@ -62,6 +63,8 @@
 
 		</header>
 
+		<aside class="archive-notice" role="note">{{ $t("archive_notice") }}</aside>
+
 		<div class="container">
 
 			<!-- VIEWS -->
@@ -79,11 +82,10 @@
 
 	</div>
 
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/src/vendor/Chart.min.js"></script>
 	<script src="js/bots/odiometro.js"></script>
-	<script src="js/app.min.js?v=7"></script>
+	<script src="js/mocks/odiometro.js"></script>
+	<script src="js/app.min.js?v=9"></script>
 
 </body>
 

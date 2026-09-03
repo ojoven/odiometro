@@ -9,11 +9,11 @@ h2, h3, h4 { font-weight: normal; }
 /** ABSTRACTS **/
 @font-face { font-family: "Montserrat Light"; src: url("fonts/Montserrat-Light.woff2") format("woff2"), url("fonts/Montserrat-Light.woff") format("woff"); font-weight: normal; font-style: normal; }
 @font-face { font-family: "Montserrat Regular"; src: url("fonts/Montserrat-Regular.woff2") format("woff2"), url("fonts/Montserrat-Regular.woff") format("woff"); font-weight: normal; font-style: normal; }
-.light, p, .tweet, #number_tweets .suffix, .most_hated_user > span, #info p, #info li, #historic, #historic select, .resume-container .user-message, .resume-container .example-container, .resume-container .others, input { font-family: 'Montserrat Light', sans-serif; }
+.light, p, .archive-notice, .tweet, #number_tweets .suffix, .most_hated_user > span, #info p, #info li, #historic, #historic select, .resume-container .user-message, .resume-container .example-container, .resume-container .others, input { font-family: 'Montserrat Light', sans-serif; }
 
 .regular, body, footer, h4 { font-family: 'Monstserrat Regular', sans-serif; font-weight: 400; }
 
-.bold, .most_hated_user a, .resume-container .user-message .highlight-user, .btn, h1, h2, h3 { font-family: 'Special Elite', sans-serif; font-weight: 400; }
+.bold, .most_hated_user a, .most_hated_user .username-value, .resume-container .user-message .highlight-user, .btn, h1, h2, h3 { font-family: 'Special Elite', sans-serif; font-weight: 400; }
 
 .title, #header h1, #number_tweets .num { font-family: 'Bahiana', sans-serif; font-weight: 400; }
 
@@ -146,6 +146,9 @@ footer a { color: #fff; }
 #header h1 i.right { left: 10px; background-image: url(../img/knife-reverse.png); transform-origin: bottom right; }
 #header h1 i.right.active { -webkit-animation-delay: 0; -webkit-animation-duration: 0.5s; -webkit-animation-name: stabRight; -webkit-animation-fill-mode: both; -webkit-animation-iteration-count: 1; -moz-animation-delay: 0; -moz-animation-duration: 0.5s; -moz-animation-name: stabRight; -moz-animation-fill-mode: both; -moz-animation-iteration-count: 1; -o-animation-delay: 0; -o-animation-duration: 0.5s; -o-animation-name: stabRight; -o-animation-fill-mode: both; -o-animation-iteration-count: 1; animation-delay: 0; animation-duration: 0.5s; animation-name: stabRight; animation-fill-mode: both; animation-iteration-count: 1; }
 
+.archive-notice { max-width: 760px; margin: 18px auto 0; padding: 10px 16px; border: 1px solid rgba(138, 7, 7, 0.3); border-radius: 6px; background: #f9f9f9; color: #444; font-size: 13px; line-height: 1.4; text-align: center; }
+
+@media (max-width: 767px) { .archive-notice { margin: 12px 12px 0; font-size: 12px; } }
 .footer-container { position: fixed; bottom: 0; left: 0; width: 100%; }
 
 #menu { width: 100%; text-align: center; z-index: 2; padding: 10px; background: #fff; }
@@ -184,7 +187,7 @@ footer a { color: #fff; }
 .most_hated_user { margin: 10px auto; }
 .most_hated_user > span { color: #aaa; font-size: 16px; line-height: 1.2; }
 .most_hated_user > span b { font-weight: normal; color: #444; }
-.most_hated_user a { letter-spacing: -1px; color: #8A0707; text-decoration: none; font-size: 34px; text-transform: none; }
+.most_hated_user a, .most_hated_user .username-value { letter-spacing: -1px; color: #8A0707; text-decoration: none; font-size: 34px; text-transform: none; }
 .most_hated_user a:hover, .most_hated_user a:focus { text-decoration: underline; }
 
 #user-container::after { content: ' '; display: block; clear: both; }
@@ -194,7 +197,7 @@ footer a { color: #fff; }
 #user-container .hate-user.hated-user { margin-bottom: 130px; }
 
 @media (max-width: 767px) { .most_hated_user { margin: 10px auto 5px; }
-  .most_hated_user h3 a { font-size: 22px; }
+  .most_hated_user h3 a, .most_hated_user h3 .username-value { font-size: 22px; }
   .most_hated_user > span { font-size: 16px; }
   .most_hated_user > span b { display: block; }
   #user-container .hate-user { float: none; width: 100%; }
@@ -228,7 +231,7 @@ footer a { color: #fff; }
 .resume-container .others { margin: 20px auto; font-size: 16px; color: #aaa; width: 50%; }
 .resume-container .others ul { display: inline-block; margin-left: 5px; }
 .resume-container .others li { display: inline-block; margin: 5px; }
-.resume-container .others a { color: #8A0707; }
+.resume-container .others a, .resume-container .others li > span { color: #8A0707; }
 
 .table-container { margin: 30px auto 170px; }
 .table-container th { background: #f0f0f0; padding: 15px; }

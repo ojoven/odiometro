@@ -9,7 +9,7 @@ Vue.component('most-hated-user-image', {
 
 	data() {
 		return {
-			imageUrl: 'https://abs.twimg.com/sticky/default_profile_images/default_profile.png',
+			imageUrl: store.mockMode ? 'img/mock/avatar-hated.svg' : 'https://abs.twimg.com/sticky/default_profile_images/default_profile.png',
 		}
 	},
 

@@ -33,9 +33,9 @@ Vue.component('historic', {
 
 					<table>
 						<thead>
-							<th>Fecha/Hora</th>
-							<th class="num">Media tuits</th>
-							<th class="num">Media tuits / mensual</th>
+							<th>Fecha y hora</th>
+							<th class="num">Tuits por minuto</th>
+							<th class="num">Media simulada</th>
 							<th>Usuario que más odio ha propagado</th>
 							<th>Usuario que más odio ha recibido</th>
 						</thead>
@@ -45,18 +45,22 @@ Vue.component('historic', {
 								<td class="num">{{ dataRow.numTweets }}</td>
 								<td class="num">{{ dataRow.numTweetsAverage }}</td>
 								<td>
-									<a :href="'https://twitter.com/' + dataRow.userHateful" target="_blank" rel="noopener noreferrer">
+									<component :is="mockMode ? 'span' : 'a'"
+										:href="mockMode ? null : 'https://twitter.com/' + dataRow.userHateful"
+										:target="mockMode ? null : '_blank'" :rel="mockMode ? null : 'noopener noreferrer'">
 										{{ dataRow.userHateful }}
-									</a>
-									<a class="tweet-link" :href="dataRow.userHatefulTweet" target="_blank" rel="noopener noreferrer">
+									</component>
+									<a v-if="!mockMode" class="tweet-link" :href="dataRow.userHatefulTweet" target="_blank" rel="noopener noreferrer">
 										tuit<i class="fa fa-external-link"></i>
 									</a>
 								</td>
 								<td>
-									<a :href="'https://twitter.com/' + dataRow.userHated" target="_blank" rel="noopener noreferrer">
+									<component :is="mockMode ? 'span' : 'a'"
+										:href="mockMode ? null : 'https://twitter.com/' + dataRow.userHated"
+										:target="mockMode ? null : '_blank'" :rel="mockMode ? null : 'noopener noreferrer'">
 										{{ dataRow.userHated }}
-									</a>
-									<a class="tweet-link" :href="dataRow.userHatedTweet" target="_blank" rel="noopener noreferrer">
+									</component>
+									<a v-if="!mockMode" class="tweet-link" :href="dataRow.userHatedTweet" target="_blank" rel="noopener noreferrer">
 										tuit<i class="fa fa-external-link"></i>
 									</a>
 								</td>
@@ -68,11 +72,22 @@ Vue.component('historic', {
 				<div class="resume-container hated-container" v-show="showHatedResume">
 
 					<section>
-						<div class="user-message"><div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatedUser.user" class="highlight-user">{{ resume.hatedUser.user }}</a></div><span v-html='$t("historic.resume.hated")'></span></div>
-						<div class="example-container"><a class="tweet" target="_blank" :href="'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id " v-html="resume.hatedUser.tweet.text"></a></div>
+						<div class="user-message"><div class="user-container"><component :is="mockMode ? 'span' : 'a'"
+							:target="mockMode ? null : '_blank'"
+							:rel="mockMode ? null : 'noopener noreferrer'"
+							:href="mockMode ? null : 'https://twitter.com/' + resume.hatedUser.user"
+							class="highlight-user">{{ resume.hatedUser.user }}</component></div><span v-html='$t("historic.resume.hated")'></span></div>
+						<div class="example-container"><component :is="mockMode ? 'div' : 'a'" class="tweet"
+							:target="mockMode ? null : '_blank'"
+							:rel="mockMode ? null : 'noopener noreferrer'"
+							:href="mockMode ? null : 'https://twitter.com/' + resume.hatedUser.tweet.user + '/status/' + resume.hatedUser.tweet.id"
+							v-html="resume.hatedUser.tweet.text"></component></div>
 						<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 							<ul><li v-for="user in resume.hatedUser.others">
-								<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</a>
+								<component :is="mockMode ? 'span' : 'a'"
+									:target="mockMode ? null : '_blank'"
+									:rel="mockMode ? null : 'noopener noreferrer'"
+									:href="mockMode ? null : 'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">{{ user.user }}</component>
 							</li></ul>
 						</div>
 					</section>
@@ -82,11 +97,22 @@ Vue.component('historic', {
 				<div class="resume-container hateful-container" v-show="showHatefulResume">
 
 					<section>
-						<div class="user-message"><div class="user-container"><a target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.user" class="highlight-user">@{{ resume.hatefulUser.user }}</a></div><span v-html='$t("historic.resume.hateful")'></span></div>
-						<div class="example-container"><a class="tweet" target="_blank" :href="'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id " v-html="resume.hatefulUser.tweet.text"></a></div>
+						<div class="user-message"><div class="user-container"><component :is="mockMode ? 'span' : 'a'"
+							:target="mockMode ? null : '_blank'"
+							:rel="mockMode ? null : 'noopener noreferrer'"
+							:href="mockMode ? null : 'https://twitter.com/' + resume.hatefulUser.user"
+							class="highlight-user">@{{ resume.hatefulUser.user }}</component></div><span v-html='$t("historic.resume.hateful")'></span></div>
+						<div class="example-container"><component :is="mockMode ? 'div' : 'a'" class="tweet"
+							:target="mockMode ? null : '_blank'"
+							:rel="mockMode ? null : 'noopener noreferrer'"
+							:href="mockMode ? null : 'https://twitter.com/' + resume.hatefulUser.tweet.user + '/status/' + resume.hatefulUser.tweet.id"
+							v-html="resume.hatefulUser.tweet.text"></component></div>
 						<div class="others"><span class="hide-mobile">{{ $t("historic.resume.others") }}:</span>
 							<ul><li v-for="user in resume.hatefulUser.others">
-								<a target="_blank" :href="'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">@{{ user.user }}</a>
+								<component :is="mockMode ? 'span' : 'a'"
+									:target="mockMode ? null : '_blank'"
+									:rel="mockMode ? null : 'noopener noreferrer'"
+									:href="mockMode ? null : 'https://twitter.com/' + user.tweet.user + '/status/' + user.tweet.id">@{{ user.user }}</component>
 							</li></ul>
 						</div>
 					</section>
@@ -107,8 +133,9 @@ Vue.component('historic', {
 			showHistoricGraph: true,
 			showTable: false,
 			showHatedResume: false,
-			showHatefulResume: false,
-			dataInTableFormat: [],
+				showHatefulResume: false,
+				mockMode: store.mockMode,
+				dataInTableFormat: [],
 			resume: {
 				hatedUser: {
 					user: '',
@@ -142,7 +169,6 @@ Vue.component('historic', {
 
 		// When we receive it, let's update the user
 		socket.on('historic', function (data) {
-			console.log(data);
 			this.updateHistoric(data);
 		}.bind(this));
 
@@ -323,7 +349,7 @@ Vue.component('historic', {
 			for (var i = 0; i < data.averageData.length; i++) {
 
 				var dataRow = {};
-				dataRow.time = new Date(data.averageData[i].t).toISOString().slice(0, 16).replace('T', ' ');
+				dataRow.time = that.mockMode && data.labels[i] ? data.labels[i] : new Date(data.averageData[i].t).toISOString().slice(0, 16).replace('T', ' ');
 				dataRow.numTweets = data.graphData[i].y;
 				dataRow.numTweetsAverage = data.averageData[i].y;
 				dataRow.userHated = data.graphData[i].hu1;

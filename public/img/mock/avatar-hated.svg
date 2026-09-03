@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title">
+  <title id="title">Avatar ficticio de debate_demo</title>
+  <rect width="120" height="120" fill="#e1dece"/>
+  <circle cx="60" cy="45" r="23" fill="#8a0707"/>
+  <path d="M20 111c4-28 18-42 40-42s36 14 40 42" fill="#8a0707"/>
+</svg>

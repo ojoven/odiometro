@@ -2,17 +2,21 @@ Vue.component('most-hateful-user-tweets', {
 
 	template: `
 		<div>
-			<a id="most_hateful_user_tweets" class="tweet" target="_blank" :href="'https://twitter.com/' + screen_name + '/status/' + tweet_id">
+			<component :is="mockMode ? 'div' : 'a'" id="most_hateful_user_tweets" class="tweet"
+				:target="mockMode ? null : '_blank'"
+				:rel="mockMode ? null : 'noopener noreferrer'"
+				:href="mockMode ? null : 'https://twitter.com/' + screen_name + '/status/' + tweet_id">
 				<span v-html="tweet"></span>
-			</a>
+			</component>
 		</div>
   `,
 
 	data() {
-		return {
-			tweet: '',
-			screen_name: '',
-			tweet_id: ''
+			return {
+				tweet: '',
+				screen_name: '',
+				tweet_id: '',
+				mockMode: store.mockMode
 		}
 	},
 

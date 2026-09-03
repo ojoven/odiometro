@@ -2,9 +2,12 @@ Vue.component('most-hated-user-tweets', {
 
 	template: `
 		<div>
-			<a v-for="tweet in tweets" id="most_hated_user_tweets" class="tweet" target="_blank" :href="'https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str">
+			<component v-for="tweet in tweets" :key="tweet.id_str" :is="mockMode ? 'div' : 'a'"
+				class="tweet" :target="mockMode ? null : '_blank'"
+				:rel="mockMode ? null : 'noopener noreferrer'"
+				:href="mockMode ? null : 'https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str">
 				<span v-html="tweet.text"></span>
-			</a>
+			</component>
 		</div>
   `,
 
@@ -12,7 +15,8 @@ Vue.component('most-hated-user-tweets', {
 		return {
 			tweets: [],
 			screen_name: '',
-			tweet_id: ''
+			tweet_id: '',
+			mockMode: store.mockMode
 		}
 	},
 
@@ -20,7 +24,6 @@ Vue.component('most-hated-user-tweets', {
 
 		// When we receive it, let's update the user
 		socket.on('most_hated_user_tweets', function (tweets) {
-			console.log('most hated', tweets);
 			if (tweets) {
 				var tweetsParsed = [];
 				tweets.forEach(function (tweet) {

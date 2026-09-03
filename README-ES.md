@@ -1,81 +1,56 @@
-ODIÓMETRO
-================================
+# Odiómetro
 
-Ya disponible en https://odiometro.es
+El Odiómetro medía los insultos y mensajes hostiles publicados en español en Twitter. La web original reunía un flujo de tuits, una gráfica de mensajes por minuto y resúmenes de las cuentas que recibían y publicaban más ataques.
 
-Este es un proyecto que ayuda a medir el nivel de odio que se genera en Twitter en tiempo real.
+Este repositorio funciona ahora como un archivo interactivo. Todos los tuits, usuarios, imágenes y cifras que aparecen en el frontend principal son ficticios. La página no se conecta a X ni muestra datos en tiempo real.
 
-El objetivo de este proyecto es hacernos conscientes del nivel de debate que se produce en España,
-y el amplio uso de insultos, descalificaciones, etc. que se producen en Twitter. También recoge tweets de otros países hispanoparlantes.
+## Abrir el archivo
 
-La web hace uso de las siguientes tecnologías:
-* NodeJS / Express
-* Socket.io
-* MySQL
-* VueJS
-* SASS
-* Grunt
+No hace falta instalar nada ni configurar una base de datos, claves de API o un servidor de Node. Abre [`public/index.html`](public/index.html) en un navegador.
 
+También puedes servir los archivos por HTTP:
 
+```sh
+python3 -m http.server --directory public 8000
+```
 
-Instalación
--------------
+Después abre <http://localhost:8000/>.
 
-1. Clonar el repositorio
+Para publicarlo, sube el contenido de `public/` a la raíz del sitio. `index.html` es la página de entrada y todos los recursos usan rutas que también funcionan cuando la web vive en un subdirectorio. Apache puede leer el archivo `.htaccess` incluido para enviar UTF-8 y usar `index.html` como índice; otros alojamientos estáticos pueden ignorarlo porque el propio HTML ya declara UTF-8.
 
-```git clone git@github.com:ojoven/odiometro.git```
+La demostración recorre una colección fija de tuits y cifras en español. El panel principal, las gráficas, los resúmenes de usuarios, los rangos históricos y las manchas de sangre se comportan como en la web original. Si el navegador tiene activada la reducción de movimiento, la repetición permanece estática.
 
-2. Desde la raíz del proyecto (instalará express, socket y otras librerías)
+## Código del frontend
 
-```npm install```
+Los datos ficticios y el adaptador compatible con los eventos de Socket.IO están en [`public/js/mocks/odiometro.js`](public/js/mocks/odiometro.js). Los componentes de Vue siguen en `public/js/src/app/components`.
 
-3. También desde la carpeta `/public` (instalará grunt y plugins, vue)
+El repositorio incluye el archivo generado `public/js/app.min.js`, así que no hay que compilar nada para visitar la página. Después de modificar un componente, vuelve a generarlo con la tarea antigua de Grunt:
 
-```cd public && npm install```
+```sh
+cd public
+npm install
+grunt concat
+```
 
-4. Crea una base de datos e importa el dump en `db/odiometro.sql`
+## Backend histórico
 
-```mysql -u [username] -p [dbname] < db/odiometro.sql```
+El código original de Node, Express, Socket.IO, MySQL y Twitter sigue en el repositorio como referencia histórica. El archivo interactivo no lo inicia ni lo consulta. Ese backend ya no tiene soporte y todavía espera la base de datos y las credenciales antiguas de Twitter si alguien intenta ejecutarlo.
 
-4.2 Configura los datos de tu DB en /config/database_odiometro.json o si estás creando el odiómetro en tu país database_odiometro.pais.json
+Las pruebas existentes del backend se pueden ejecutar desde la raíz del repositorio:
 
-```mysql -u [username] -p [dbname] < db/odiometro.sql```
+```sh
+npm install
+npm test
+```
 
-5. Corre el grunt desde /public
+## Enlaces del proyecto
 
-```grunt```
+- [@odiometrobot en X](https://x.com/odiometrobot)
+- [Repositorio original en GitHub](https://github.com/ojoven/odiometro)
+- [Genbeta: Odiómetro, una herramienta que te muestra el odio que hay en Twitter en tiempo real](https://www.genbeta.com/redes-sociales-y-comunidades/odiometro-herramienta-que-te-muestra-odio-que-hay-twitter-tiempo-real)
+- [Microsiervos: El Odiómetro muestra en tiempo real cómo se odia la gente en Twitter](https://www.microsiervos.com/archivo/internet/odiometro-odio-tiempo-real.html)
+- [Mikel Torres en Twitter](https://twitter.com/ojoven)
 
-6. Lanza la app
+## Licencia
 
-```node app.js```
-
-7. Si has creado tu propia versión de país (o de otro estilo tipo amorómetro)
-
-```node app.js [nombredebot]```
-
-
-IMPORTANTE
--------------------------------
-Tendrás que crear una app en Twitter y rellenar los datos de consumer key y secret, y access_token y secret en twitter_odiometro.json o twitter_odiometro.pais.json.
-
-No sé bien cómo funciona la API de Twitter ahora, ya que estuvieron implementando bastantes restricciones que igual no afectan a apps antiguas pero sí a las nuevas. Si tienes algún problema o sabes cómo va, no dudes en escribir en las Issues.
-
-
-Notas adicionales de desarrollo
--------------------------------
-
-* Los componentes Vue del frontend se encuentran en `public/js/src/app/components`
-* Otros archivos interesantes son:
-    * bus.js -> Lo utilizamos como bus de eventos para emitir / recibir eventos
-    * lib.js -> Una instancia Vue que nos sirve como librería de funciones (para funcionalidades compartidas entre componentes)
-    * socket.js -> Simplemente inicializa socket.io en el frontend
-    * store.js -> Una clase "store" donde almacenamos variables que serán compartidas por varios componentes
-    * vue-instance.js -> Inicializa la instancia Vue principal
-* en `vendor/smoothie.js` tenemos la librería que renderiza la gráfica en tiempo real
-* si tienes sugerencias sobre cómo optimizar el código, hacerlo más legible, refactorizar, etc. las sugerencias y los pull requests son bienvenidos.
-
-
-
-Contacta
-------------
-Si tienes alguna duda, sugerencia, crítica o palabra de odio, puedes contactarme en https://twitter.com/ojoven
+MIT

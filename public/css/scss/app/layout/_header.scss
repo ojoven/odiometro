@@ -45,6 +45,20 @@
 	}
 }
 
+.archive-notice {
+	@extend .light;
+	max-width: 760px;
+	margin: 18px auto 0;
+	padding: 10px 16px;
+	border: 1px solid rgba(138, 7, 7, .3);
+	border-radius: 6px;
+	background: #f9f9f9;
+	color: $blackTundora;
+	font-size: 13px;
+	line-height: 1.4;
+	text-align: center;
+}
+
 // ==============================================
 // IPAD LANDSCAPE
 // ==============================================
@@ -63,5 +77,9 @@
 // MOBILE
 // ==============================================
 @include mobile {
+	.archive-notice {
+		margin: 12px 12px 0;
+		font-size: 12px;
+	}
 
 }

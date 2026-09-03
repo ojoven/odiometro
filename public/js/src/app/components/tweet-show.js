@@ -2,9 +2,12 @@ Vue.component('tweet-show', {
 
 	template: `
 		<div id="tweets">
-			<a target="_blank" class="tweet" :href="'https://twitter.com/' + screen_name + '/status/' + id_str">
+			<component :is="mockMode ? 'div' : 'a'" class="tweet"
+				:target="mockMode ? null : '_blank'"
+				:rel="mockMode ? null : 'noopener noreferrer'"
+				:href="mockMode ? null : 'https://twitter.com/' + screen_name + '/status/' + id_str">
 				<span v-html="tweet"></span>
-			</a>
+			</component>
 		</div>
   `,
 
@@ -14,7 +17,8 @@ Vue.component('tweet-show', {
 			id_str: '',
 			screen_name: '',
 			words: [],
-			lastStabWasLeft: false
+			lastStabWasLeft: false,
+			mockMode: store.mockMode
 		}
 	},
 
@@ -42,6 +46,7 @@ Vue.component('tweet-show', {
 		},
 
 		updateHeaderStabs: function () {
+			if (store.reducedMotion) return;
 
 			var selector = this.lastStabWasLeft ? document.getElementById('stab-right') : document.getElementById('stab-left');
 			selector.classList.add('active');

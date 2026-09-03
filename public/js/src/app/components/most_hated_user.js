@@ -2,14 +2,18 @@ Vue.component('most-hated-user', {
 
 	template: `
 		<div id="most_hated_user" class="most_hated_user">
-			<h3 class="username"><a target="_blank" :href="'https://twitter.com/' + username">{{ username }}</a></h3>
+			<h3 class="username"><component :is="mockMode ? 'span' : 'a'" class="username-value"
+				:target="mockMode ? null : '_blank'"
+				:rel="mockMode ? null : 'noopener noreferrer'"
+				:href="mockMode ? null : 'https://twitter.com/' + username">{{ username }}</component></h3>
 			<span v-html='$t("hated_user")'></span>
 		</div>
   `,
 
 	data() {
 		return {
-			username: ''
+			username: '',
+			mockMode: store.mockMode
 		}
 	},
 

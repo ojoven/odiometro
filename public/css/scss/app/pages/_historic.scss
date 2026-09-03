@@ -95,7 +95,8 @@
 			margin: 5px;
 		}
 
-		a {
+		a,
+		li > span {
 			color: $redFirebrick;
 		}
 	}

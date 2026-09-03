@@ -1,27 +1,30 @@
 const messages = {
 
 	// GENERAL
-	footer: 'El Odiómetro es una iniciativa para hacernos conscientes de la alta cantidad de odio que vertemos en nuestros mensajes y respuestas de Twitter. Hecho con ❤ por <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a>',
+	archive_notice: 'Esta es una versión de archivo. Los tuits, usuarios y cifras son ficticios. El Odiómetro ya no se conecta a X ni muestra datos en tiempo real.',
+	footer: 'El Odiómetro fue una iniciativa para hacernos conscientes de la cantidad de odio que vertíamos en nuestros mensajes y respuestas de Twitter. Hecho con ❤ por <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ojoven">@ojoven</a>',
 
 	// ABOUT
 	about: {
 		title: '¿Qué es el Odiómetro?',
-		body: '<p>El odiómetro es una aplicación que rastrea en Twitter insultos, descalificaciones, etc. las contabiliza y las muestra.</p>' +
-			'<p>Su objetivo es servir de espejo para <b>hacernos conscientes de la cantidad de odio que vertemos en las redes</b> y plantear una alternativa. ¿Somos conscientes del poder de la persuasión, de la inteligencia, de la empatía, de la educación y del humor para transmitir y discutir nuestras ideas?</p>' +
-			'<p>Es éste un proyecto Open Source que no pretende ser una herramienta exhaustiva de identificación del odio. Puedes <strong>crear una versión del odiómetro para tu país</strong> o contribuir de diferentes maneras tal y como te indicamos <a target="_blank" href="https://github.com/ojoven/odiometro/blob/master/CONTRIBUTING.md">en nuestro repositorio en GitHub</a>.</p><p>También puedes hacerme alguna sugerencia vía Twitter en <a target="_blank" href="https://twitter.com/ojoven">@ojoven</a></p>'
+		body: '<p>El Odiómetro fue una aplicación que buscaba insultos y descalificaciones en Twitter, los contabilizaba y los mostraba mientras se publicaban.</p>' +
+			'<p>Quería ser un espejo para <b>hacernos conscientes de la cantidad de odio que vertíamos en las redes</b>. No era una herramienta científica ni pretendía identificar todo el odio que circulaba por Twitter.</p>' +
+			'<p>Esta versión conserva el aspecto y el movimiento de la web original, pero funciona con tuits, usuarios y cifras ficticios. No consulta X ni ningún otro servicio de datos.</p>' +
+			'<p>El código sigue disponible <a target="_blank" rel="noopener noreferrer" href="https://github.com/ojoven/odiometro">en GitHub</a>. También puedes visitar <a target="_blank" rel="noopener noreferrer" href="https://x.com/odiometrobot">@odiometrobot en X</a> y leer lo que publicaron <a target="_blank" rel="noopener noreferrer" href="https://www.genbeta.com/redes-sociales-y-comunidades/odiometro-herramienta-que-te-muestra-odio-que-hay-twitter-tiempo-real">Genbeta</a> y <a target="_blank" rel="noopener noreferrer" href="https://www.microsiervos.com/archivo/internet/odiometro-odio-tiempo-real.html">Microsiervos</a> sobre el proyecto.</p>' +
+			'<p>También puedes escribirme en Twitter en <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ojoven">@ojoven</a>.</p>'
 	},
 
 	// USERS
-	hated_user: 'es el usuario <b>recibiendo más odio</b><var class="hide-mobile"><br>en estos momentos</var>.',
-	hateful_user: 'es el usuario <b>generando más odio</b><var class="hide-mobile"><br>en estos momentos</var>.',
+	hated_user: 'es el usuario <b>recibiendo más odio</b><var class="hide-mobile"><br>en esta simulación</var>.',
+	hateful_user: 'es el usuario <b>generando más odio</b><var class="hide-mobile"><br>en esta simulación</var>.',
 
 	// TWEETS
-	tweets_minute: 'tuits de odio / minuto',
+	tweets_minute: 'tuits de odio / minuto (simulación)',
 	see_tweet: 'ver tuit',
 
 	// HISTORIC
 	historic: {
-		title: 'Histórico de odio',
+		title: 'Histórico simulado de odio',
 
 		// Menu
 		show: 'Mostrar',

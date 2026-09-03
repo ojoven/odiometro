@@ -18,7 +18,8 @@
 		}
 	}
 
-	a {
+	a,
+	.username-value {
 		@extend .bold;
 		letter-spacing: -1px;
 		color: $redFirebrick;
@@ -26,10 +27,11 @@
 		font-size: 34px;
 		text-transform: none;
 
-		&:hover,
-		&:focus {
-			text-decoration: underline;
-		}
+	}
+
+	a:hover,
+	a:focus {
+		text-decoration: underline;
 	}
 }
 
@@ -74,7 +76,8 @@
 	.most_hated_user {
 		margin: 10px auto 5px;
 
-		h3 a {
+		h3 a,
+		h3 .username-value {
 			font-size: 22px;
 		}
 

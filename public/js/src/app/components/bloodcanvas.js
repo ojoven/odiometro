@@ -25,6 +25,7 @@ Vue.component('blood-canvas', {
 		this.initializeMouseEvents();
 
 		socket.on('tweet', function (tweet) {
+			if (store.reducedMotion) return;
 			var that = this;
 			setTimeout(function () {
 				if (that.items.length < 100) {

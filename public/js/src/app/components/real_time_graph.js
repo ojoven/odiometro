@@ -3,7 +3,7 @@ Vue.component('real-time-graph', {
 	template: `
 		<div id="real_time_graph">
 			<canvas id="real_time_canvas" width="400" height="100"
-			aria-label="Gráfico de número de tuits de odio por minuto que se actualiza en tiempo real"></canvas>
+			:aria-label="mockMode ? 'Gráfico simulado del número de tuits de odio por minuto' : 'Gráfico de número de tuits de odio por minuto que se actualiza en tiempo real'"></canvas>
 		</div>
   `,
 
@@ -14,7 +14,8 @@ Vue.component('real-time-graph', {
 			num_tweets_graph: 0,
 			options: {},
 			graph: null,
-			line: null
+			line: null,
+			mockMode: store.mockMode
 		}
 	},
 
